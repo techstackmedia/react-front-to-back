@@ -70,8 +70,8 @@ This project utilizes the following technologies:
 
 To set up the project on your local machine, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/your-username/your-repo.git`
-2. Navigate to the project directory: `cd your-repo`
+1. Clone the repository: `git clone https://github.com/techstackmedia/react-front-to-back`
+2. Navigate to the project directory: `react-front-to-back`
 3. Install dependencies: `npm install` or `yarn install`
 4. Start the development server: `npm start` or `yarn start`
 
@@ -92,9 +92,9 @@ The `src` folder is where you'll create your components and write the main logic
 If you'd like to contribute to this project, follow these steps:
 
 1. Fork the repository.
-2. Create a new branch: `git checkout -b feature/new-feature`
+2. Create a new branch: `git checkout -b 04-dynamic-values-and-lists-in-jsx`
 3. Make your changes and commit them: `git commit -m "Add some feature"`
-4. Push to the branch: `git push origin feature/new-feature`
+4. Push to the branch: `git push origin 04-dynamic-values-and-lists-in-jsx`
 5. Create a pull request.
 
 Please make sure to follow the project's coding guidelines and conventions when contributing.
