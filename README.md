@@ -1,4 +1,4 @@
-# React Create React App Folder Structure
+# React Concepts and Projects
 
 ## Table of Contents
 
@@ -11,7 +11,7 @@
 
 ## Description
 
-Welcome to the React Create React App Folder Structure! This project covers a wide range of core and advanced concepts in React. Throughout this journey, we will explore React Hooks, fetching APIs using libraries like axios, fetch, swr, and more. We will also dive into using other frameworks with React, such as Tailwind, Chakra UI, and MUI. Our focus will include performing CRUD operations from the front end and understanding how React communicates with the backend. Additionally, we'll explore techniques to optimize the performance of our React applications, and we will work on various projects that will reinforce our learning.
+Welcome to the React Concepts and Projects repository! This project covers a wide range of core and advanced concepts in React. Throughout this journey, we will explore React Hooks, fetching APIs using libraries like axios, fetch, swr, and more. We will also dive into using other frameworks with React, such as Tailwind, Chakra UI, and MUI. Our focus will include performing CRUD operations from the front end and understanding how React communicates with the backend. Additionally, we'll explore techniques to optimize the performance of our React applications, and we will work on various projects that will reinforce our learning.
 
 Navigate through different repository branches based on their names, as each branch represents a chapter that builds on top of the previous one. I highly recommend going through the chapters from top to bottom to get the most out of this learning experience.
 
