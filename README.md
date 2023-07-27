@@ -84,9 +84,9 @@ In this section, we will explore how to use JSX to efficiently display images, t
 If you'd like to contribute to this project, follow these steps:
 
 1. Fork the repository.
-2. Create a new branch: `git checkout -b 03-intro-to-jsx`
+2. Create a new branch: `git checkout -b feature/new-feature`
 3. Make your changes and commit them: `git commit -m "Add some feature"`
-4. Push to the branch: `git push origin 03-intro-to-jsx`
+4. Push to the branch: `git push origin feature/new-feature`
 5. Create a pull request.
 
 Please make sure to follow the project's coding guidelines and conventions when contributing.
