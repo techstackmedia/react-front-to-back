@@ -1,9 +1,10 @@
 # Introduction to JSX
 
+React App
+
 ## Table of Contents
 
 - [Description](#description)
-- [Technologies](#technologies)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
@@ -11,48 +12,81 @@
 
 ## Description
 
-Welcome to the Introduction to JSX repository! This project covers a wide range of core and advanced concepts in React. Throughout this journey, we will explore React Hooks, fetching APIs using libraries like axios, fetch, swr, and more. We will also dive into using other frameworks with React, such as Tailwind, Chakra UI, and MUI. Our focus will include performing CRUD operations from the front end and understanding how React communicates with the backend. Additionally, we'll explore techniques to optimize the performance of our React applications, and we will work on various projects that will reinforce our learning.
+This project is a simple React app that demonstrates the use of JSX and how it is transpiled to regular JavaScript code.
 
-Navigate through different repository branches based on their names, as each branch represents a chapter that builds on top of the previous one. I highly recommend going through the chapters from top to bottom to get the most out of this learning experience.
+The code snippet provided shows the implementation of the `App` component. It imports `logo` from './logo.svg' and the CSS file './App.css'. Additionally, it imports `React` from 'react' to enable the use of JSX syntax.
 
-## Technologies
+The commented code block inside the `App` function represents the original JSX code. JSX is a syntactic extension of JavaScript that allows you to write HTML-like code within your JavaScript files. However, browsers do not understand JSX directly, so it needs to be transpiled or compiled to regular JavaScript code.
 
-This project utilizes the following technologies:
+In the un-commented code block, the JSX elements are transformed into `React.createElement` calls. This is the format that React uses to create elements in JavaScript. The JSX attributes are passed as objects to the `React.createElement` function.
 
-- React: The main framework or library for building the frontend.
-- React DOM: Works with the Document Object Model (DOM) alongside the React library.
-- React Scripts: Provides additional tools like the development server.
-- Web Vitals: Allows you to monitor performance analytics.
+For example, the original JSX:
+
+```jsx
+<div className="App">
+  <header className="App-header">
+    <img src={logo} className="App-logo" alt="logo" />
+    <p>
+      Edit <code>src/App.js</code> and save to reload.
+    </p>
+    <a
+      className="App-link"
+      href="https://reactjs.org"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Learn React
+    </a>
+  </header>
+</div>
+```
+
+Is transpiled to:
+
+```jsx
+React.createElement("div", { className: "App" },
+  React.createElement("header", { className: "App-header" },
+    React.createElement("img", { src: logo, className: "App-logo", alt: "logo" }),
+    React.createElement("p", null,
+      "Edit ",
+      React.createElement("code", null, "src/App.js"),
+      " and save to reload."
+    ),
+    React.createElement("a", {
+      className: "App-link",
+      href: "https://reactjs.org",
+      target: "_blank",
+      rel: "noopener noreferrer"
+    },
+      "Learn React"
+    )
+  )
+);
+```
+
+As of React version 17.x and later, the import of `React` is not compulsory, as React does that automatically for you. However, in older versions, including the import explicitly is required.
 
 ## Installation
 
-To set up the project on your local machine, follow these steps:
+To run the project on your local machine, follow these steps:
 
 1. Clone the repository: `git clone https://github.com/techstackmedia/react-front-to-back`
-2. Navigate to the project directory: `cd your-repo`
+2. Navigate to the project directory: `cd react-front-to-back`
 3. Install dependencies: `npm install` or `yarn install`
-4. Start the development server: `npm starn` or `yarn start`
+4. Start the development server: `npm start` or `yarn start`
 
 ## Usage
 
-In this section, explain how to use your project. Provide examples or code snippets if applicable. If your project requires any specific environment variables, configurations, or setup, include that information here.
-
-### Public Folder
-
-The `public` folder contains the single-page application (SPA) entry point, `index.html`. The `div` with the id `root` serves as a placeholder for our entire frontend or UI. You can also include any external CDN links or remove comments from `index.html` optionally. Additionally, the `public` folder may include other static assets such as favicon and images.
-
-### Src Folder
-
-The `src` folder is where you'll create your components and write the main logic for your application. This is where most of your development work will take place.
+In this section, we will explore how to use JSX to efficiently display images, text, and utilize attributes in JSX elements. Additionally, we will delve into the process of transpiling JSX code into plain JavaScript that can be easily understood by the browser.
 
 ## Contributing
 
 If you'd like to contribute to this project, follow these steps:
 
 1. Fork the repository.
-2. Create a new branch: `git checkout -b feature/new-feature`
+2. Create a new branch: `git checkout -b 03-intro-to-jsx`
 3. Make your changes and commit them: `git commit -m "Add some feature"`
-4. Push to the branch: `git push origin feature/new-feature`
+4. Push to the branch: `git push origin 03-intro-to-jsx`
 5. Create a pull request.
 
 Please make sure to follow the project's coding guidelines and conventions when contributing.
