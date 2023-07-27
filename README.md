@@ -1,4 +1,4 @@
-# React Concepts and Projects
+# Dynamic Values and Lists in JSX
 
 ## Table of Contents
 
@@ -71,17 +71,17 @@ This project utilizes the following technologies:
 To set up the project on your local machine, follow these steps:
 
 1. Clone the repository: `git clone https://github.com/techstackmedia/react-front-to-back`
-2. Navigate to the project directory: `cd react-front-to-back`
+2. Navigate to the project directory: `react-front-to-back`
 3. Install dependencies: `npm install` or `yarn install`
-4. Start the development server: `npm starn` or `yarn start`
+4. Start the development server: `npm start` or `yarn start`
 
 ## Usage
 
-In this section, explain how to use your project. Provide examples or code snippets if applicable. If your project requires any specific environment variables, configurations, or setup, include that information here.
+In this section, you can provide detailed instructions on how to use the project. Explain how to run the application, navigate through its features, and provide code snippets if applicable. If your project requires any specific environment variables, configurations, or setup, include that information here.
 
 ### Public Folder
 
-The `public` folder contains the single-page application (SPA) entry point, `index.html`. The `div` with the id `root` serves as a placeholder for our entire frontend or UI. You can also include any external CDN links or remove comments from `index.html` optionally. Additionally, the `public` folder may include other static assets such as favicon and images.
+The `public` folder contains the single-page application (SPA) entry point, `index.html`. The `div` with the id `root` serves as a placeholder for our entire frontend or UI. You can also include any external CDN links or remove comments from `index.html` optionally. Additionally, the `public` folder may include other static assets such as a favicon and images.
 
 ### Src Folder
 
@@ -92,9 +92,9 @@ The `src` folder is where you'll create your components and write the main logic
 If you'd like to contribute to this project, follow these steps:
 
 1. Fork the repository.
-2. Create a new branch: `git checkout -b feature/new-feature`
+2. Create a new branch: `git checkout -b 04-dynamic-values-and-lists-in-jsx`
 3. Make your changes and commit them: `git commit -m "Add some feature"`
-4. Push to the branch: `git push origin feature/new-feature`
+4. Push to the branch: `git push origin 04-dynamic-values-and-lists-in-jsx`
 5. Create a pull request.
 
 Please make sure to follow the project's coding guidelines and conventions when contributing.
