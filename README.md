@@ -92,9 +92,9 @@ The `src` folder is where you'll create your components and write the main logic
 If you'd like to contribute to this project, follow these steps:
 
 1. Fork the repository.
-2. Create a new branch: `git checkout -b 04-dynamic-values-and-lists-in-jsx`
+2. Create a new branch: `git checkout -b feature/new-feature`
 3. Make your changes and commit them: `git commit -m "Add some feature"`
-4. Push to the branch: `git push origin 04-dynamic-values-and-lists-in-jsx`
+4. Push to the branch: `git push origin feature/new-feature`
 5. Create a pull request.
 
 Please make sure to follow the project's coding guidelines and conventions when contributing.
