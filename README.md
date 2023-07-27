@@ -28,8 +28,8 @@ This project utilizes the following technologies:
 
 To set up the project on your local machine, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/your-username/your-repo.git`
-2. Navigate to the project directory: `cd your-repo`
+1. Clone the repository: `git clone https://github.com/techstackmedia/react-front-to-back`
+2. Navigate to the project directory: `cd react-front-to-back`
 3. Install dependencies: `npm install` or `yarn install`
 4. Start the development server: `npm starn` or `yarn start`
 
