@@ -1,4 +1,4 @@
-# Creating Your First Component
+# Project: Feedback App - Creating Your First Component
 
 ## Table of Contents
 
