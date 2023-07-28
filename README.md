@@ -10,8 +10,6 @@
 
 ## Description
 
-This code demonstrates the use of React's `useState` hook to manage state in functional components. It consists of three components: `FeedbackItem`, `App`, and `Header`.
-
 **`FeedbackItem` Component:**
 
 1. The `FeedbackItem` component uses the `useState` hook to create three state variables: `rating`, `text`, and `increment`.
