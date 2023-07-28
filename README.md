@@ -10,6 +10,24 @@
 
 ## Description
 
+### States in React
+
+In React, we can categorize states into two main types: global or app-level state and component-level state.
+
+- Global or App-Level State
+
+[Global or app-level state](https://react.dev/learn/managing-state#sharing-state-between-components) refers to data that needs to be shared and accessed by multiple components within the application. This state is typically managed by a state management library like [Redux](https://redux.js.org) or [React's Context API](https://react.dev/reference/react/useContext). It allows different components to access and update the same data, promoting a single source of truth for the application.
+
+This type of state is particularly useful when you have complex data that needs to be used in multiple places across the app, or when you want to avoid [prop drilling](https://react.dev/learn/passing-data-deeply-with-context#the-problem-with-passing-props) (passing props down through multiple layers of components). By centralizing the state at the top level of the app and providing it to the components that need it, you can simplify state management and make it more efficient.
+
+- Component-Level State
+<!-- https://react.dev/learn/sharing-state-between-components#a-single-source-of-truth-for-each-state -->
+Component-level state, on the other hand, refers to data that is specific to a particular component and is not shared with other components. It is managed locally within the component using React's `useState` hook or by defining a stateful class component with `setState`.
+
+Component-level state is perfect for managing data that only affects one component and does not need to be shared with other parts of the application. For example, a form input field's value, the visibility of a modal, or the state of a collapsible component are common use cases for component-level state.
+
+By keeping the state local to the component that needs it, you can maintain better encapsulation and ensure that changes to one component's state do not unintentionally affect other parts of the app.
+
 **`FeedbackItem` Component:**
 
 1. The `FeedbackItem` component uses the `useState` hook to create three state variables: `rating`, `text`, and `increment`.
