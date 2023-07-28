@@ -1,4 +1,4 @@
-# Dynamic Values and Lists in JSX
+# Conditionals in JSX
 
 ## Table of Contents
 
