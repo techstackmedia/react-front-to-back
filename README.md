@@ -1,4 +1,4 @@
-# Managing Global State
+# Custom Component - Card
 
 ## Table of Contents
 
@@ -10,38 +10,56 @@
 
 ## Description
 
-There is a simple React application that displays a list of feedback items using components like `FeedbackList`, `FeedbackItem`, `Header`, and a main component named `App`. The data for the feedback items is stored in the `FeedbackData` constant, and it is managed using the `useState` hook in the `App` component.
+The custom component named `Card`, which is a wrapper component used to create a card-like layout in the application. The component accepts two props, `children` and `className`, and renders its children inside a `<div>` element with the specified `className`.
 
-1. **FeedbackItem Component:**
-   - The `FeedbackItem` component is a functional component that receives a destructured prop named `item`. Inside this prop, there are two properties: `rating` and `text`.
-   - The component renders a card-like structure with the `rating` and `text` displayed on the screen. The `rating` is displayed inside a `div` with the class `num-display`, and the `text` is displayed inside another `div` with the class `text-display`.
-   - This component will be used to represent individual feedback items in the `FeedbackList` component.
+**Explanation of `Card` Component:**
 
-2. **FeedbackList Component:**
-   - The `FeedbackList` component is a functional component that receives a prop named `feedback`. This prop is an array of feedback items, which will be passed from the `App` component.
-   - The component first checks if the `feedback` array is either falsy or has a length of zero. If true, it returns a paragraph saying "No Feedback Yet".
-   - If there is feedback data, the component maps through each item in the `feedback` array and renders a `FeedbackItem` component for each item. It passes the individual feedback item as the `item` prop to the `FeedbackItem` component.
-   - Each `FeedbackItem` component is assigned a unique `key` prop, which is set to the `id` property of the corresponding feedback item. This helps React efficiently update the virtual DOM when the feedback list changes.
+1. The `Card` component is a functional component that takes in two props, `children` and `className`.
+2. The `children` prop represents the content that will be placed inside the `<div>` element created by the `Card` component.
+3. The `className` prop is used to apply custom CSS classes to the `<div>` element, allowing the component's appearance to be customized by passing different class names as a prop.
 
-3. **FeedbackData Constant:**
-   - The `FeedbackData` constant is an array containing three objects, each representing a feedback item.
-   - Each feedback item has an `id`, `rating`, and `text` property, representing the unique identifier, the rating value, and the feedback text, respectively.
+**Custom Component:**
+The `Card` component is a custom component. It is custom because it is not a built-in HTML element or a part of any React library. It has been defined by the developer to encapsulate specific functionality and styling for creating cards in the application.
 
-4. **App Component:**
-   - The `App` component is the main component of the application. It uses the `useState` hook to manage the `feedback` state, initializing it with the data from the `FeedbackData` constant.
-   - The component renders the `Header` component at the top of the page and the `FeedbackList` component within a `div` with the class `container`.
-   - The `FeedbackList` component receives the `feedback` state as a prop, so it can display the list of feedback items based on the current state.
+**Default Props for `Card` Component:**
+The `className` prop is set as part of the default props for the `Card` component. Default props are used to provide fallback values for props in case they are not explicitly provided when using the component. If the `className` prop is not provided when using the `Card` component, it will default to an empty string (`''`).
 
-Overall, we have a React application that displays a list of feedback items using the `FeedbackList` component, with each feedback item represented by the `FeedbackItem` component. The data for the feedback items is stored in the `FeedbackData` constant and is managed using the `useState` hook in the `App` component. The `Header` component provides a header section for the application.
+**Example of Default Props:**
+Here's an example of defining default props for the `Card` component:
 
-## Installation
+```jsx
+const Card = ({ children, className }) => {
+  return <div className={className}>{children}</div>;
+};
 
-To run the project on your local machine, follow these steps:
+Card.defaultProps = {
+  className: 'card', // The default value for className is 'card'
+};
 
-1. Clone the repository: `git clone https://github.com/techstackmedia/react-front-to-back`
-2. Navigate to the project directory: `cd react-front-to-back`
-3. Install dependencies: `npm install` or `yarn install`
-4. Start the development server: `npm start` or `yarn start`
+export default Card;
+```
+
+In the example above, if you use the `Card` component without passing a `className` prop, it will use the default value `'card'` as the CSS class for the `<div>` element.
+
+**Usage in `FeedbackItem` Component:**
+In the `FeedbackItem` component, the `Card` component is used to create a card-like layout for displaying feedback items. The `className` prop is passed to the `Card` component with the value `'card'`, which is a custom CSS class used to style the card.
+
+```jsx
+import Card from './shared/Card';
+
+const FeedbackItem = ({ item: { rating, text } }) => {
+  return (
+    <Card className='card'>
+      <div className='num-display'>{rating}</div>
+      <div className='text-display'>{text}</div>
+    </Card>
+  );
+};
+
+export default FeedbackItem;
+```
+
+By using the `Card` component, the `FeedbackItem` component can easily create consistent and reusable card elements for each feedback item in the application. The `className` prop allows the card's styling to be customized based on the specific needs of the application.
 
 ## Usage
 

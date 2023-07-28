@@ -1,9 +1,12 @@
+import Card from './shared/Card';
+
 const FeedbackItem = ({ item: { rating, text } }) => {
   return (
-    <div className='card'>
+    // className='card' by default in the Card component
+    <Card /* className='card' */>
       <div className='num-display'>{rating}</div>
       <div className='text-display'>{text}</div>
-    </div>
+    </Card>
   );
 };
 
