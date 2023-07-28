@@ -98,9 +98,7 @@ export default App
 
 **Note:**
 
-The comments provided in the code correctly explain the usage of the `useState` hook and how states work in React. The explanations are clear and accurate.
-
-The comment explains that states in React are simply data and can be used to store information that changes over time. This is indeed correct. States allow React components to manage and update data dynamically, leading to dynamic user interfaces. The comment emphasizes the concept of immutability in React states, where states should not be directly modified but updated using the appropriate functions provided by React, like `setRating` and `setText` in the `FeedbackItem` component.
+States in React are simply data and can be used to store information that changes over time. States allow React components to manage and update data dynamically, leading to dynamic user interfaces. The comment emphasizes the concept of immutability in React states, where states should not be directly modified but updated using the appropriate functions provided by React, like `setRating` and `setText` in the `FeedbackItem` component.
 
 Overall, the code demonstrates a simple example of managing and updating states using the `useState` hook in React. The `FeedbackItem` component showcases how to use the `useState` hook to handle different types of data, including numbers and strings, as well as how to use the functional form of `setState` for state updates that depend on the previous state.
 
