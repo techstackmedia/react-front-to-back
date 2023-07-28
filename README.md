@@ -1,4 +1,4 @@
-# Custom Component - Card
+# Custom Component Conditional Styles - Card
 
 ## Table of Contents
 
@@ -10,76 +10,49 @@
 
 ## Description
 
-The custom component named `Card`, which is a wrapper component used to create a card-like layout in the application. The component accepts two props, `children` and `className`, and renders its children inside a `<div>` element with the specified `className`.
+In the custom `Card` component, there are two ways to conditionally apply classes and styles based on the value of the `reverse` prop:
 
-**Explanation of `Card` Component:**
-
-1. The `Card` component is a functional component that takes in two props, `children` and `className`.
-2. The `children` prop represents the content that will be placed inside the `<div>` element created by the `Card` component.
-3. The `className` prop is used to apply custom CSS classes to the `<div>` element, allowing the component's appearance to be customized by passing different class names as a prop.
-
-**Custom Component:**
-The `Card` component is a custom component. It is custom because it is not a built-in HTML element or a part of any React library. It has been defined by the developer to encapsulate specific functionality and styling for creating cards in the application.
-
-**Default Props for `Card` Component:**
-The `className` prop is set as part of the default props for the `Card` component. Default props are used to provide fallback values for props in case they are not explicitly provided when using the component. If the `className` prop is not provided when using the `Card` component, it will default to an empty string (`''`).
-
-**Example of Default Props:**
-Here's an example of defining default props for the `Card` component:
+1. **Conditional Classes (Commented):**
 
 ```jsx
-const Card = ({ children, className }) => {
-  return <div className={className}>{children}</div>;
+const Card = ({ children, reverse }) => {
+  // const classes = `card ${reverse && 'reverse'}`;
+  // return <div className={classes}>{children}</div>;
+  // The above code uses a template literal to conditionally create a class name 'card reverse' if the `reverse` prop is truthy, and just 'card' if it is falsy. This approach dynamically adds the 'reverse' class to the 'card' class when the `reverse` prop is true. However, it is commented out, and the second approach using inline styles is used instead.
 };
-
-Card.defaultProps = {
-  className: 'card', // The default value for className is 'card'
-};
-
-export default Card;
 ```
 
-In the example above, if you use the `Card` component without passing a `className` prop, it will use the default value `'card'` as the CSS class for the `<div>` element.
-
-**Usage in `FeedbackItem` Component:**
-In the `FeedbackItem` component, the `Card` component is used to create a card-like layout for displaying feedback items. The `className` prop is passed to the `Card` component with the value `'card'`, which is a custom CSS class used to style the card.
+2. **Conditional Styles (Using Inline Styles):**
 
 ```jsx
-import Card from './shared/Card';
-
-const FeedbackItem = ({ item: { rating, text } }) => {
+const Card = ({ children, reverse }) => {
   return (
-    <Card className='card'>
-      <div className='num-display'>{rating}</div>
-      <div className='text-display'>{text}</div>
-    </Card>
+    <div
+      className='card'
+      style={{
+        backgroundColor: reverse ? 'rgba(0, 0, 0, 0.4)' : undefined,
+        color: reverse ? '#fff' : undefined,
+      }}
+    >
+      {children}
+    </div>
   );
 };
-
-export default FeedbackItem;
 ```
 
-By using the `Card` component, the `FeedbackItem` component can easily create consistent and reusable card elements for each feedback item in the application. The `className` prop allows the card's styling to be customized based on the specific needs of the application.
+In this approach, instead of using a class, the component uses inline styles to conditionally apply the background color and text color based on the `reverse` prop. When the `reverse` prop is true, the background color is set to `'rgba(0, 0, 0, 0.4)'` (a semi-transparent black color), and the text color is set to `'#fff'` (white color). When the `reverse` prop is falsy, no specific background or text color is applied, allowing the default styling to take effect.
 
-## Usage
+**PropTypes Explanation:**
 
-In this section, we will explore how to use JSX to efficiently display images, text, and utilize attributes in JSX elements. Additionally, we will delve into the process of transpiling JSX code into plain JavaScript that can be easily understood by the browser.
+- For the `Card` component, the `children` prop is defined as `PropTypes.node.isRequired`, indicating that the component expects child elements to be passed to it.
 
-- If you open the react dev tool, you will see the component tree with App the parent component and FeedbackItem and Header as the children components to the App component. You will also see the props passed in Header and the state used in the FeedbackItem in the React Devtools
+- The `reverse` prop is also defined as `PropTypes.bool`, indicating that it expects a boolean value. The `Card` component has a default prop value of `false` for the `reverse` prop, so if no `reverse` prop is provided when using the component, it will default to `false`.
 
-let's update state
+**FeedbackItem PropTypes Explanation:**
 
-## Contributing
+- For the `FeedbackItem` component, the `item` prop is defined using `PropTypes.shape`. It expects an object with `rating` and `text` properties, both of which are defined with their respective PropTypes (`PropTypes.number.isRequired` for `rating` and `PropTypes.string.isRequired` for `text`). The `isRequired` modifier indicates that both `rating` and `text` must be provided and must be of the specified types.
 
-If you'd like to contribute to this project, follow these steps:
-
-1. Fork the repository.
-2. Create a new branch: `git checkout -b feature/new-feature`
-3. Make your changes and commit them: `git commit -m "Add some feature"`
-4. Push to the branch: `git push origin feature/new-feature`
-5. Create a pull request.
-
-Please make sure to follow the project's coding guidelines and conventions when contributing.
+By using PropTypes, you ensure that the expected data types and shapes of props are provided to the components, making your code more reliable and less prone to bugs related to incorrect data types or missing props.
 
 ## License
 

@@ -1,9 +1,9 @@
+import PropTypes from 'prop-types'
 import Card from './shared/Card';
 
 const FeedbackItem = ({ item: { rating, text } }) => {
   return (
-    // className='card' by default in the Card component
-    <Card /* className='card' */>
+    <Card>
       <div className='num-display'>{rating}</div>
       <div className='text-display'>{text}</div>
     </Card>
@@ -11,3 +11,14 @@ const FeedbackItem = ({ item: { rating, text } }) => {
 };
 
 export default FeedbackItem;
+
+Card.defaultProps = {
+    reverse: false,
+}
+
+FeedbackItem.propTypes = {
+    item: PropTypes.shape({
+      rating: PropTypes.number.isRequired,
+      text: PropTypes.string.isRequired,
+    }).isRequired,
+  };
