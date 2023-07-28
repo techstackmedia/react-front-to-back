@@ -61,13 +61,18 @@ export default FeedbackItem;
 
 By using the `Card` component, the `FeedbackItem` component can easily create consistent and reusable card elements for each feedback item in the application. The `className` prop allows the card's styling to be customized based on the specific needs of the application.
 
+## Installation
+
+To run the project on your local machine, follow these steps:
+
+1. Clone the repository: `git clone https://github.com/techstackmedia/react-front-to-back`
+2. Navigate to the project directory: `cd react-front-to-back`
+3. Install dependencies: `npm install` or `yarn install`
+4. Start the development server: `npm start` or `yarn start`
+
 ## Usage
 
 In this section, we will explore how to use JSX to efficiently display images, text, and utilize attributes in JSX elements. Additionally, we will delve into the process of transpiling JSX code into plain JavaScript that can be easily understood by the browser.
-
-- If you open the react dev tool, you will see the component tree with App the parent component and FeedbackItem and Header as the children components to the App component. You will also see the props passed in Header and the state used in the FeedbackItem in the React Devtools
-
-let's update state
 
 ## Contributing
 
