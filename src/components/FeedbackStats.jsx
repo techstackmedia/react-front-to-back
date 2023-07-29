@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const FeedbackStats = ({ feedback }) => {
     const average =
       feedback.length === 0
@@ -13,3 +15,13 @@ const FeedbackStats = ({ feedback }) => {
   };
   
   export default FeedbackStats;
+
+  FeedbackStats.prototype = {
+    feedback: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number,
+        text: PropTypes.string,
+        rating: PropTypes.string,
+      })
+    ),
+  };
