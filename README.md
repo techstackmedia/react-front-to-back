@@ -93,12 +93,30 @@ const handleDeleteCancelled = () => {
 5. Render the `CustomAlertConfirmationModal` component with the necessary props:
 
 ```jsx
-{showDeleteModal && (
-  <CustomAlertConfirmationModal
-    onConfirm={handleDeleteConfirmed}
-    onCancel={handleDeleteCancelled}
-  />
-)}
+{
+  showDeleteModal && (
+    <CustomAlertConfirmationModal
+      onConfirm={handleDeleteConfirmed}
+      onCancel={handleDeleteCancelled}
+    />
+  );
+}
 ```
 
 By following these steps, you can integrate the `Custom Alert Confirmation Modal Component` into your application and have more control
+
+## Contributing
+
+If you'd like to contribute to this project, follow these steps:
+
+1. Fork the repository.
+2. Create a new branch: `git checkout -b feature/new-feature`
+3. Make your changes and commit them: `git commit -m "Add some feature"`
+4. Push to the branch: `git push origin feature/new-feature`
+5. Create a pull request.
+
+Please make sure to follow the project's coding guidelines and conventions when contributing.
+
+## License
+
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
