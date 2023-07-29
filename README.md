@@ -79,14 +79,6 @@ To set up the project on your local machine, follow these steps:
 
 In this section, you will learn how to use dynamic values in JSX elements to display content based on variables, and how to create lists of elements using the `map` function. Understanding these concepts is crucial for building interactive and data-driven React applications.
 
-### Public Folder
-
-The `public` folder contains the single-page application (SPA) entry point, `index.html`. The `div` with the id `root` serves as a placeholder for our entire frontend or UI. You can also include any external CDN links or remove comments from `index.html` optionally. Additionally, the `public` folder may include other static assets such as a favicon and images.
-
-### Src Folder
-
-The `src` folder is where you'll create your components and write the main logic for your application. This is where most of your development work will take place.
-
 ## Contributing
 
 If you'd like to contribute to this project, follow these steps:
