@@ -10,56 +10,17 @@
 
 ## Description
 
-First, stop the server in the terminal with `Ctrl + C`, install react-icons with the command `npm install react-icons` or `yarn add react-icons`. Once the installation is done start the server with `npm start` or `yarn start`.
+Props drilling in React refers to the process of passing data from a parent component down to its child components through props. This is done when a child component needs access to data or functions that are stored in a higher-level parent component. Props drilling can become cumbersome when you have deeply nested components, as you would need to pass the props through each intermediate component even if they are not directly using it.
 
-The provided code defines a React functional component called `FeedbackItem`. This component is responsible for displaying a feedback item, which includes a `rating`, `text`, and a close button represented by the `FaTimes` icon from the `react-icons/fa` library. The `FeedbackItem` component is wrapped inside a custom `Card` component (which is not shown in the provided code) for styling purposes.
+In the provided code, props drilling is used to pass the `handleDelete` function from the `App` component to the `FeedbackList` component, and then from the `FeedbackList` component to the `FeedbackItem` component. The `handleDelete` function is used to remove an item from the `feedback` state array in the `App` component when the user clicks the delete button in a `FeedbackItem`.
 
-**Logic and Functionality:**
+Now let's explain the comments in the `FeedbackItem` component:
 
-- The `FeedbackItem` component receives the `rating`, `text`, and `id` as props destructured from the `item` prop.
-- Inside the component, there's a commented out `handleClick` function and an alternative `handleClick` implementation. Both are used to log the `id` when the close button is clicked.
+1. `// feedback state is not found here but in App.js`: This comment mentions that the `feedback` state is not directly available in the `FeedbackItem` component, but it is coming from the `App` component and passed as props.
 
-**Alternative Solutions (Commented):**
+2. `// clickButtonHandler`: This comment describes the purpose of the `handleClickButton` function, which is used to handle the click event of the delete button. When the button is clicked, it calls the `handleDelete` function passed as a prop, passing the `id` of the current feedback item as an argument. `clickButtonHandler` is an alternative to function name to `handleClickButton`
 
-1. The commented out version of the close button event handler:
-
-```jsx
-{
-  /* <button onClick={() => console.log(id)} className='close'> */
-}
-```
-
-In this alternative, the event handler is defined directly in the `onClick` attribute of the button element using an arrow function. When the button is clicked, it logs the `id` of the feedback item.
-
-2. The commented out version of `handleClick` used as the event handler:
-
-```jsx
-{
-  /* <button onClick={handleClick} className='close'> */
-}
-```
-
-In this alternative, the `handleClick` function is defined and used as the event handler for the button. When the button is clicked, it invokes the `handleClick` function, which logs the `id`.
-
-### Current Implementation
-
-The current implementation uses a third alternative solution:
-
-```jsx
-const onClick = () => {
-  handleClick(id);
-};
-
-<button onClick={onClick} className='close'>
-  <FaTimes color='purple' />
-</button>;
-```
-
-In this implementation, a new function `onClick` is defined that calls the `handleClick` function with the `id` as an argument. This way, the `handleClick` function receives the `id` of the feedback item as a parameter and logs it when the close button is clicked.
-
-### PropTypes Explanation
-
-The `FeedbackItem` component expects the `item` prop to be an object with `rating` and `text` properties, both of which must be provided and are of specific data types (`PropTypes.number.isRequired` for `rating` and `PropTypes.string.isRequired` for `text`). The `isRequired` modifier ensures that both `rating` and `text` are mandatory props, and their absence will trigger a prop type warning.
+The comments help to clarify the source of the `feedback` state and the role of the `handleClickButton` function in the `FeedbackItem` component. They serve as documentation to understand the code's logic and help developers quickly grasp what's happening in the component.
 
 ## Installation
 

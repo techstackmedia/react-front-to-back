@@ -1,8 +1,7 @@
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import FeedbackItem from './FeedbackItem';
 
-const FeedbackList = ({ feedback }) => {
-
+const FeedbackList = ({ feedback, handleDelete }) => {
   if (!feedback || feedback.length === 0) {
     return <p>No Feedback Yet</p>;
   }
@@ -10,7 +9,13 @@ const FeedbackList = ({ feedback }) => {
   return (
     <div className='feedback-list'>
       {feedback.map((feedbackItem) => {
-        return <FeedbackItem item={feedbackItem} key={feedbackItem.id} />;
+        return (
+          <FeedbackItem
+            item={feedbackItem}
+            key={feedbackItem.id}
+            handleDelete={handleDelete}
+          />
+        );
       })}
     </div>
   );
@@ -19,9 +24,11 @@ const FeedbackList = ({ feedback }) => {
 export default FeedbackList;
 
 FeedbackList.prototype = {
-  feedback: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
-    text: PropTypes.string,
-    rating: PropTypes.string,
-  }))
-}
+  feedback: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      text: PropTypes.string,
+      rating: PropTypes.string,
+    })
+  ),
+};
