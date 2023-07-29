@@ -30,7 +30,7 @@ return (
   <div className='container'>
     <h1>{title}</h1>
     <p>{body}</p>
-    {/* Any expressions in curly braces are always within the returned JSX statement - to go from JSX to JS */}
+    {/* Any expressions in curly braces are always evaluated within the returned JSX statement - to go from JSX to JS. */}
     <p>5 + 5 = {5 + 5}</p>
     <p>Random Number: {Math.random() * 10}</p>
     <h2>{title.toUpperCase()}</h2>
