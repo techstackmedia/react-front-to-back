@@ -1,4 +1,4 @@
-# React DevTool and Feedback List as a Cross-Level Component
+# React DevTool and Feedback List Component
 
 ## Table of Contents
 
