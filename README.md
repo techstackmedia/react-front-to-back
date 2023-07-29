@@ -1,4 +1,4 @@
-# Managing Global State
+# React DevTool and Feedback List
 
 ## Table of Contents
 
@@ -34,6 +34,20 @@ There is a simple React application that displays a list of feedback items using
 
 Overall, we have a React application that displays a list of feedback items using the `FeedbackList` component, with each feedback item represented by the `FeedbackItem` component. The data for the feedback items is stored in the `FeedbackData` constant and is managed using the `useState` hook in the `App` component. The `Header` component provides a header section for the application.
 
+### Installation of React Dev Tool:
+
+To inspect and debug your React application, you can use the React Developer Tools extension for your browser.
+
+- If you are using **Google Chrome**, simply search for "React Dev Tool" in your browser's search bar, click the link related to Chrome, and [add the extension to Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi).
+
+- If you are using **Microsoft Edge**, search for "React Dev Tool" in your browser's search bar, and [get the extension from the Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/react-developer-tools/gpphkfbcpidddadnkolkpfckpihlkkil).
+
+- If you are using **Mozilla Firefox**, go to the add-ons section and search for [React Developer Tools](https://addons.mozilla.org/en-US/firefox/addon/react-devtools/).
+
+Once you have added this extension to your browser, you can use it to inspect and analyze the component tree, props, and state of your React application, making the development and debugging process more efficient.
+
+> To utilize the React Developer Tools, you can use `Ctrl` + `Shift` + `I` to open the browser console tab, then navigate to the Component tab. Here, you will see the component tree with `App` as the parent component and `FeedbackItem` and `Header` as the children components of the `App` component. You will also see the props passed to `Header` and the state used in `FeedbackItem` in the React Devtools.
+
 ## Installation
 
 To run the project on your local machine, follow these steps:
@@ -47,20 +61,20 @@ To run the project on your local machine, follow these steps:
 
 **Using React Devtools:**
 
-- If you open the React Devtools, you will see the component tree with `App` as the parent component and `FeedbackItem` and `Header` as the children components of the `App` component. You will also see the props passed to `Header` and the state used in `FeedbackItem` in the React Devtools.
+Once the React Developer Tools extension is installed in your browser, you can open it to access the component tree and inspect individual components. When you run your React application, you will see the component tree with `App` as the parent component and `FeedbackItem` and `Header` as the children components of the `App` component. You will also see the props passed to `Header` and the state used in `FeedbackItem` in the React Devtools.
 
 **Updating State:**
 
-- You can update the state in the `App` component using the `useState` hook to manage the feedback data dynamically. For example, you can add, remove, or modify feedback items by updating the `feedback` state.
+To update the state in the `App` component, you can utilize the `useState` hook to manage the feedback data dynamically. For example, you can add, remove, or modify feedback items by updating the `feedback` state.
 
 ## Contributing
 
 If you'd like to contribute to this project, follow these steps:
 
 1. Fork the repository.
-2. Create a new branch: `git checkout -b feature/new-feature`
-3. Make your changes and commit them: `git commit -m "Add some feature"`
-4. Push to the branch: `git push origin feature/new-feature`
+2. Create a new branch: `git checkout -b feature/new-feature`.
+3. Make your changes and commit them: `git commit -m "Add some feature"`.
+4. Push to the branch: `git push origin feature/new-feature`.
 5. Create a pull request.
 
 Please make sure to follow the project's coding guidelines and conventions when contributing.
