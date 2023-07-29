@@ -35,7 +35,7 @@ To set up the project on your local machine, follow these steps:
 
 ## Usage
 
-In this section, explain how to use your project. Provide examples or code snippets if applicable. If your project requires any specific environment variables, configurations, or setup, include that information here.
+In this section, we will explain how to use the project. We will provide examples or code snippets, if applicable. If your project requires any specific environment variables, configurations, or setup, we will include that information here.
 
 ### Public Folder
 
