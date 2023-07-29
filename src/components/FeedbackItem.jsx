@@ -7,7 +7,7 @@ const FeedbackItem = ({ item: { rating, text, id } }) => {
   //   console.log(id)
   // }
 
-  // if you want to passthe id
+  // pass the id
   const handleClick = (id) => {
     console.log(id)
   }
@@ -22,7 +22,7 @@ const FeedbackItem = ({ item: { rating, text, id } }) => {
       {/* onClick is an event */}
       {/* <button onClick={() => console.log(id)} className='close'> */}
       {/* <button onClick={handleClick} className='close'> */}
-      {/* if you want to passthe id */}
+      {/* if you want to pass the id */}
       {/* <button onClick={() => handleClick(id)} className='close'> */}
       <button onClick={onClick} className='close'>
         <FaTimes color='purple' />
