@@ -45,11 +45,13 @@ To run the project on your local machine, follow these steps:
 
 ## Usage
 
-In this section, we will explore how to use JSX to efficiently display images, text, and utilize attributes in JSX elements. Additionally, we will delve into the process of transpiling JSX code into plain JavaScript that can be easily understood by the browser.
+**Using React Devtools:**
 
-- If you open the react dev tool, you will see the component tree with App the parent component and FeedbackItem and Header as the children components to the App component. You will also see the props passed in Header and the state used in the FeedbackItem in the React Devtools
+- If you open the React Devtools, you will see the component tree with `App` as the parent component and `FeedbackItem` and `Header` as the children components of the `App` component. You will also see the props passed to `Header` and the state used in `FeedbackItem` in the React Devtools.
 
-let's update state
+**Updating State:**
+
+- You can update the state in the `App` component using the `useState` hook to manage the feedback data dynamically. For example, you can add, remove, or modify feedback items by updating the `feedback` state.
 
 ## Contributing
 
