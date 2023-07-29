@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import FeedbackItem from './FeedbackItem';
 
 const FeedbackList = ({ feedback }) => {
@@ -16,3 +17,11 @@ const FeedbackList = ({ feedback }) => {
 };
 
 export default FeedbackList;
+
+FeedbackList.prototype = {
+  feedback: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    text: PropTypes.string,
+    rating: PropTypes.string,
+  }))
+}

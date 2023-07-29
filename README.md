@@ -1,4 +1,4 @@
-# Custom Conditionally Styled Component - Card
+# Event Handler
 
 ## Table of Contents
 
@@ -10,56 +10,55 @@
 
 ## Description
 
-The custom component named `Card`, which is a wrapper component used to create a card-like layout in the application. The component accepts two props, `children` and `className`, and renders its children inside a `<div>` element with the specified `className`.
+First, stop the server in the terminal with `Ctrl + C`, install react-icons with the command `npm install react-icons` or `yarn add react-icons`. Once the installation is done start the server with `npm start` or `yarn start`.
 
-**Explanation of `Card` Component:**
+The provided code defines a React functional component called `FeedbackItem`. This component is responsible for displaying a feedback item, which includes a `rating`, `text`, and a close button represented by the `FaTimes` icon from the `react-icons/fa` library. The `FeedbackItem` component is wrapped inside a custom `Card` component (which is not shown in the provided code) for styling purposes.
 
-1. The `Card` component is a functional component that takes in two props, `children` and `className`.
-2. The `children` prop represents the content that will be placed inside the `<div>` element created by the `Card` component.
-3. The `className` prop is used to apply custom CSS classes to the `<div>` element, allowing the component's appearance to be customized by passing different class names as a prop.
+**Logic and Functionality:**
 
-**Custom Component:**
-The `Card` component is a custom component. It is custom because it is not a built-in HTML element or a part of any React library. It has been defined by the developer to encapsulate specific functionality and styling for creating cards in the application.
+- The `FeedbackItem` component receives the `rating`, `text`, and `id` as props destructured from the `item` prop.
+- Inside the component, there's a commented out `handleClick` function and an alternative `handleClick` implementation. Both are used to log the `id` when the close button is clicked.
 
-**Default Props for `Card` Component:**
-The `className` prop is set as part of the default props for the `Card` component. Default props are used to provide fallback values for props in case they are not explicitly provided when using the component. If the `className` prop is not provided when using the `Card` component, it will default to an empty string (`''`).
+**Alternative Solutions (Commented):**
 
-**Example of Default Props:**
-Here's an example of defining default props for the `Card` component:
+1. The commented out version of the close button event handler:
 
 ```jsx
-const Card = ({ children, className }) => {
-  return <div className={className}>{children}</div>;
-};
-
-Card.defaultProps = {
-  className: 'card', // The default value for className is 'card'
-};
-
-export default Card;
+{
+  /* <button onClick={() => console.log(id)} className='close'> */
+}
 ```
 
-In the example above, if you use the `Card` component without passing a `className` prop, it will use the default value `'card'` as the CSS class for the `<div>` element.
+In this alternative, the event handler is defined directly in the `onClick` attribute of the button element using an arrow function. When the button is clicked, it logs the `id` of the feedback item.
 
-**Usage in `FeedbackItem` Component:**
-In the `FeedbackItem` component, the `Card` component is used to create a card-like layout for displaying feedback items. The `className` prop is passed to the `Card` component with the value `'card'`, which is a custom CSS class used to style the card.
+2. The commented out version of `handleClick` used as the event handler:
 
 ```jsx
-import Card from './shared/Card';
-
-const FeedbackItem = ({ item: { rating, text } }) => {
-  return (
-    <Card className='card'>
-      <div className='num-display'>{rating}</div>
-      <div className='text-display'>{text}</div>
-    </Card>
-  );
-};
-
-export default FeedbackItem;
+{
+  /* <button onClick={handleClick} className='close'> */
+}
 ```
 
-By using the `Card` component, the `FeedbackItem` component can easily create consistent and reusable card elements for each feedback item in the application. The `className` prop allows the card's styling to be customized based on the specific needs of the application.
+In this alternative, the `handleClick` function is defined and used as the event handler for the button. When the button is clicked, it invokes the `handleClick` function, which logs the `id`.
+
+### Current Implementation
+The current implementation uses a third alternative solution:
+
+```jsx
+const onClick = () => {
+  handleClick(id);
+};
+
+<button onClick={onClick} className='close'>
+  <FaTimes color='purple' />
+</button>;
+```
+
+In this implementation, a new function `onClick` is defined that calls the `handleClick` function with the `id` as an argument. This way, the `handleClick` function receives the `id` of the feedback item as a parameter and logs it when the close button is clicked.
+
+### PropTypes Explanation
+
+The `FeedbackItem` component expects the `item` prop to be an object with `rating` and `text` properties, both of which must be provided and are of specific data types (`PropTypes.number.isRequired` for `rating` and `PropTypes.string.isRequired` for `text`). The `isRequired` modifier ensures that both `rating` and `text` are mandatory props, and their absence will trigger a prop type warning.
 
 ## Installation
 
