@@ -87,37 +87,6 @@ export default Header;
 
 Overall, this code represents a basic React application with a main `App` component and a reusable `Header` component. The `Header` component accepts a prop called `text`, and if the prop is not provided, it will default to "Feedback UI". The `App` component uses the `Header` component to display the header section of the app and also contains the main content of the app.
 
-### Avoiding Auto Import of React with ES7+ React/Redux/React-Native snippets Extension
-
-This section provides a solution to avoid auto import of React when using the "rafce" ([ES7+ React/Redux/React-Native snippets](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets)) snippet in Visual Studio Code.
-
-1. Go to File > Preferences > Configure User Snippets in Visual Studio Code.
-2. Search for "javascriptreact.json" and select it to open the JavaScript React snippets configuration file.
-3. Paste the following code snippet into the configuration file and save the file to apply the changes:
-
-```json
-{
-  "Create a new react arrow function component with export statement": {
-    "prefix": "rafce",
-    "body": [
-      "const ${1:${TM_FILENAME_BASE}} = () => {",
-      "  return (",
-      "    <div>",
-      "      $0",
-      "    </div>",
-      "  );",
-      "};",
-      "",
-      "export default ${1:${TM_FILENAME_BASE}};",
-      "$2"
-    ],
-    "description": "Create a new react arrow function component with export statement"
-  }
-}
-```
-
-Remember to always have the "ES7+ React/Redux/React-Native snippets" extension installed and activated in Visual Studio Code for the snippet to work as expected.
-
 ## Installation
 
 To run the project on your local machine, follow these steps:
@@ -129,7 +98,7 @@ To run the project on your local machine, follow these steps:
 
 ## Usage
 
-In this section, we will explore how to use JSX to efficiently display images, text, and utilize attributes in JSX elements. Additionally, we will delve into the process of transpiling JSX code into plain JavaScript that can be easily understood by the browser.
+In this section, we will explore how to create your first React component and use it in your application. We'll start with the `App` component, which uses the `Header` component to display the header section of the app with the text "Feedback UI". The `App` component also contains the main content of the app.
 
 ## Contributing
 
