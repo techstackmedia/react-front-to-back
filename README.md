@@ -1,4 +1,4 @@
-# Custom Alert Confirmation Modal Component
+# Feedback Statistics Component
 
 ## Table of Contents
 
@@ -10,35 +10,25 @@
 
 ## Description
 
-In the original code, the `handleDeleteCard` function used `window.confirm` to show a browser-default confirmation dialog when the user wants to delete an item. However, this method has limited customization options and may not match the overall design of the application. To improve the user experience and have more control over the confirmation process, a custom confirmation alert modal component is introduced.
+The `FeedbackStats` component is responsible for displaying statistics related to the feedback data received from the parent component (`App`). It calculates the average rating and shows the total number of reviews present in the feedback data.
 
-Here's how the switch from using `window.confirm` to building a custom confirmation modal is achieved step by step:
+In the `App` component, `FeedbackStats` is used alongside `FeedbackList` and a custom alert confirmation modal (`alertConfirmationModal`) to manage and display feedback data and allow users to interact with it.
 
-1. Introducing State Variables:
+Here's a breakdown of how the `FeedbackStats` component works:
 
-   - The state variable `showDeleteModal` is introduced to control the visibility of the custom modal. It will be used to determine whether the modal should be displayed or not.
-   - The state variable `itemToDelete` is introduced to store the ID of the item that the user wants to delete. It will be used to identify the item that needs to be deleted once the user confirms the action.
+1. It receives the `feedback` prop from its parent component (`App`). This prop is an array of objects, where each object represents a feedback item with properties like `rating`, `text`, and `id`.
 
-2. Handling the Delete Action:
+2. Inside the `FeedbackStats` component, it calculates the average rating of all the feedback items. It uses the `reduce` function to sum up all the `rating` values and then divides the sum by the total number of feedback items (`feedback.length`) to get the average rating. If there are no feedback items, the average is set to 0 to avoid dividing by zero.
 
-   - The `handleDeleteCard` function is modified to show the custom delete modal and set the `itemToDelete` state with the ID of the item to be deleted. This function is called when the user initiates the delete action.
+3. The `average` is then displayed along with the total number of reviews (`feedback.length`) in a nicely formatted manner.
 
-3. Building the Custom Modal:
+4. The average rating is rounded to one decimal point using `toFixed(1)`. The `replace(/[.,]0$/, '')` removes trailing zeros after the decimal point if they exist.
 
-   - The custom delete modal is displayed conditionally based on the value of `showDeleteModal`. If `showDeleteModal` is `true`, the modal will be rendered; otherwise, it will not be displayed.
+5. The `FeedbackStats` component returns a JSX element that displays the feedback statistics within a `div` with the class name `feedback-stats`. It shows the total number of reviews and the average rating.
 
-4. Custom Modal Content:
+6. The `FeedbackStats` component is used in the `App` component by passing the `feedback` state as a prop. This way, the `FeedbackStats` component always displays the latest feedback data based on the state changes in the `App` component.
 
-   - The custom modal displays a confirmation message along with "Confirm" and "Cancel" buttons to allow the user to make a decision.
-   - The `handleDeleteConfirmed` function is called when the user clicks the "Confirm" button. This function performs the deletion of the item and closes the modal.
-   - The `handleDeleteCancelled` function is called when the user clicks the "Cancel" button. This function simply closes the modal without performing any action.
-
-5. Deleting the Item:
-   - When the user confirms the delete action by clicking the "Confirm" button, the `handleDeleteConfirmed` function is called. This function sets `showDeleteModal` to `false` to close the modal and uses the `itemToDelete` state to filter out the item from the `feedback` state array using `setFeedback`.
-
-By using a custom confirmation modal, the application gains more flexibility in terms of design and interaction. It allows for a better user experience as the confirmation dialog is now consistent with the overall application design, and the user can easily understand the consequences of their actions. Additionally, custom modals provide developers with more control over the appearance and behavior, making it easier to customize the confirmation process to match specific application requirements.
-
-> Note: Check the styling of the modal delete confirmation alert in **index.css** file below the comment, `/* Additional styles to enhance the appearance */`
+The `FeedbackStats` component is a simple, functional component that receives data through props and calculates the average rating and number of reviews. It provides a clean and concise way to display feedback statistics in the parent component's UI.
 
 ## Installation
 
