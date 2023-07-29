@@ -1,4 +1,4 @@
-# Props Drilling
+# Custom Alert Confirmation Modal Component
 
 ## Table of Contents
 
@@ -10,15 +10,35 @@
 
 ## Description
 
-Props drilling in React refers to the process of passing data from a parent component down to its child components through props. This is done when a child component needs access to data or functions that are stored in a higher-level parent component. Props drilling can become cumbersome when you have deeply nested components, as you would need to pass the props through each intermediate component even if they are not directly using it.
+In the original code, the `handleDeleteCard` function used `window.confirm` to show a browser-default confirmation dialog when the user wants to delete an item. However, this method has limited customization options and may not match the overall design of the application. To improve the user experience and have more control over the confirmation process, a custom confirmation alert modal component is introduced.
 
-In the provided code, props drilling is used to pass the `handleDelete` function from the `App` component to the `FeedbackList` component, and then from the `FeedbackList` component to the `FeedbackItem` component. The `handleDelete` function is used to remove an item from the `feedback` state array in the `App` component when the user clicks the delete button in a `FeedbackItem`.
+Here's how the switch from using `window.confirm` to building a custom confirmation modal is achieved step by step:
 
-Now let's explain the comments in the `FeedbackItem` component:
+1. Introducing State Variables:
 
-1. `// feedback state is not found here but in App.js`: This comment mentions that the `feedback` state is not directly available in the `FeedbackItem` component, but it is coming from the `App` component and passed as props.
+   - The state variable `showDeleteModal` is introduced to control the visibility of the custom modal. It will be used to determine whether the modal should be displayed or not.
+   - The state variable `itemToDelete` is introduced to store the ID of the item that the user wants to delete. It will be used to identify the item that needs to be deleted once the user confirms the action.
 
-2. `// clickButtonHandler`: This comment describes the purpose of the `handleClickButton` function, which is used to handle the click event of the delete button. When the button is clicked, it calls the `handleDelete` function passed as a prop, passing the `id` of the current feedback item as an argument. `clickButtonHandler` is an alternative to function name to `handleClickButton`
+2. Handling the Delete Action:
+
+   - The `handleDeleteCard` function is modified to show the custom delete modal and set the `itemToDelete` state with the ID of the item to be deleted. This function is called when the user initiates the delete action.
+
+3. Building the Custom Modal:
+
+   - The custom delete modal is displayed conditionally based on the value of `showDeleteModal`. If `showDeleteModal` is `true`, the modal will be rendered; otherwise, it will not be displayed.
+
+4. Custom Modal Content:
+
+   - The custom modal displays a confirmation message along with "Confirm" and "Cancel" buttons to allow the user to make a decision.
+   - The `handleDeleteConfirmed` function is called when the user clicks the "Confirm" button. This function performs the deletion of the item and closes the modal.
+   - The `handleDeleteCancelled` function is called when the user clicks the "Cancel" button. This function simply closes the modal without performing any action.
+
+5. Deleting the Item:
+   - When the user confirms the delete action by clicking the "Confirm" button, the `handleDeleteConfirmed` function is called. This function sets `showDeleteModal` to `false` to close the modal and uses the `itemToDelete` state to filter out the item from the `feedback` state array using `setFeedback`.
+
+By using a custom confirmation modal, the application gains more flexibility in terms of design and interaction. It allows for a better user experience as the confirmation dialog is now consistent with the overall application design, and the user can easily understand the consequences of their actions. Additionally, custom modals provide developers with more control over the appearance and behavior, making it easier to customize the confirmation process to match specific application requirements.
+
+> Note: Check the styling of the modal delete confirmation alert in **index.css** file below the comment, `/* Additional styles to enhance the appearance */`
 
 ## Installation
 

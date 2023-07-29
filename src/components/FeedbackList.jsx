@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import FeedbackItem from './FeedbackItem';
 
-const FeedbackList = ({ feedback, handleDelete }) => {
+const FeedbackList = ({ feedback, handleDeleteCard }) => {
   if (!feedback || feedback.length === 0) {
     return <p>No Feedback Yet</p>;
   }
@@ -13,7 +13,7 @@ const FeedbackList = ({ feedback, handleDelete }) => {
           <FeedbackItem
             item={feedbackItem}
             key={feedbackItem.id}
-            handleDelete={handleDelete}
+            handleDeleteCard={handleDeleteCard}
           />
         );
       })}

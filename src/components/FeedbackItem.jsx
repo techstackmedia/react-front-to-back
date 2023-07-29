@@ -2,15 +2,9 @@ import { FaTimes } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import Card from './shared/Card';
 
-const FeedbackItem = ({ item: { rating, text, id }, handleDelete }) => {
-  // feedback state is not found here but in App.js
-  // const handleDelete = (id) => {
-  //   console.log(id)
-  // }
-
-  // clickButtonHandler
+const FeedbackItem = ({ item: { rating, text, id }, handleDeleteCard }) => {
   const handleClickButton = () => {
-    handleDelete(id)
+    handleDeleteCard(id)
   }
 
   return (
