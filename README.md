@@ -1,4 +1,4 @@
-# React DevTool and Feedback List
+# React DevTool and Feedback List as a Cross-Level Component
 
 ## Table of Contents
 
@@ -11,6 +11,28 @@
 ## Description
 
 There is a simple React application that displays a list of feedback items using components like `FeedbackList`, `FeedbackItem`, `Header`, and a main component named `App`. The data for the feedback items is stored in the `FeedbackData` constant, and it is managed using the `useState` hook in the `App` component.
+
+### Cross-Level Component
+
+In the given code, the `FeedbackList` component is passed as a child component of the `App` component, and it receives the `feedback` data as a prop from its parent component. Therefore, we can classify the `FeedbackList` component as a "cross-level component."
+
+A "cross-level component" is a component that exists at a different level of the component tree from its parent component. In this case, the `FeedbackList` component is rendered inside the `App` component, making it a cross-level component because it exists at a different level in the component tree than its parent.
+
+To illustrate:
+
+```jsx
+<App> (Parent)
+  └── <Header> (Child)
+  └── <div className='container'>
+        └── <FeedbackList feedback={feedback} /> (Child)
+      </div>
+```
+
+As shown in the component tree above, the `FeedbackList` component is a direct child of the `App` component. It receives the `feedback` data as a prop, which makes it a cross-level component.
+
+On the other hand, the term "global component" typically refers to a component that is available and accessible from anywhere in the application without the need for explicit importing and passing of props. The `Header` component in this code is not a global component since it is imported and used explicitly in the `App` component.
+
+In summary, based on the provided code, the `FeedbackList` component can be classified as a cross-level component since it exists at a different level in the component tree compared to its parent component (`App`).
 
 1. **FeedbackItem Component:**
    - The `FeedbackItem` component is a functional component that receives a destructured prop named `item`. Inside this prop, there are two properties: `rating` and `text`.
