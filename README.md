@@ -3,7 +3,6 @@
 ## Table of Contents
 
 - [Description](#description)
-- [Technologies](#technologies)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
@@ -57,15 +56,6 @@ return (
 
 By understanding this code, you'll gain insights into using dynamic values and lists in JSX elements, which are crucial concepts when building interactive and data-driven React applications.
 
-## Technologies
-
-This project utilizes the following technologies:
-
-- React: The main framework or library for building the frontend.
-- React DOM: Works with the Document Object Model (DOM) alongside the React library.
-- React Scripts: Provides additional tools like the development server.
-- Web Vitals: Allows you to monitor performance analytics.
-
 ## Installation
 
 To set up the project on your local machine, follow these steps:
@@ -92,7 +82,5 @@ If you'd like to contribute to this project, follow these steps:
 Please make sure to follow the project's coding guidelines and conventions when contributing.
 
 ## License
-
-Include the license under which you are releasing your project. For example:
 
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
