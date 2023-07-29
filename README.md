@@ -30,6 +30,20 @@ Here's a breakdown of how the `FeedbackStats` component works:
 
 The `FeedbackStats` component is a simple, functional component that receives data through props and calculates the average rating and number of reviews. It provides a clean and concise way to display feedback statistics in the parent component's UI.
 
+### Installation of React Dev Tool
+
+To inspect and debug your React application, you can use the React Developer Tools extension for your browser.
+
+- If you are using **Google Chrome**, simply search for "React Dev Tool" in your browser's search bar, click the link related to Chrome, and [add the extension to Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi).
+
+- If you are using **Microsoft Edge**, search for "React Dev Tool" in your browser's search bar, and [get the extension from the Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/react-developer-tools/gpphkfbcpidddadnkolkpfckpihlkkil).
+
+- If you are using **Mozilla Firefox**, go to the add-ons section and search for [React Developer Tools](https://addons.mozilla.org/en-US/firefox/addon/react-devtools/).
+
+Once you have added this extension to your browser, you can use it to inspect and analyze the component tree, props, and state of your React application, making the development and debugging process more efficient.
+
+> To utilize the React Developer Tools, you can use `Ctrl` + `Shift` + `I` to open the browser console tab, then navigate to the Component tab. Here, you will see the component tree with `App` as the parent component and `FeedbackItem` and `Header` as the children components of the `App` component. You will also see the props passed to `Header` and the state used in `FeedbackItem` in the React Devtools.
+
 ## Installation
 
 To run the project on your local machine, follow these steps:
@@ -62,9 +76,9 @@ The `FeedbackStats` component will now display the feedback statistics based on 
 If you'd like to contribute to this project, follow these steps:
 
 1. Fork the repository.
-2. Create a new branch: `git checkout -b feature/new-feature`
-3. Make your changes and commit them: `git commit -m "Add some feature"`
-4. Push to the branch: `git push origin feature/new-feature`
+2. Create a new branch: `git checkout -b feature/new-feature`.
+3. Make your changes and commit them: `git commit -m "Add some feature"`.
+4. Push to the branch: `git push origin feature/new-feature`.
 5. Create a pull request.
 
 Please make sure to follow the project's coding guidelines and conventions when contributing.
