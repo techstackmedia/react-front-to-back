@@ -18,7 +18,7 @@ Now let's explain the comments in the `FeedbackItem` component:
 
 1. `// feedback state is not found here but in App.js`: This comment mentions that the `feedback` state is not directly available in the `FeedbackItem` component, but it is coming from the `App` component and passed as props.
 
-2. `// clickButtonHandler`: This comment describes the purpose of the `handleClickButton` function, which is used to handle the click event of the delete button. When the button is clicked, it calls the `handleDelete` function passed as a prop, passing the `id` of the current feedback item as an argument. `clickButtonHandler` is an alternative to function name to `handleClickButton`
+2. `// clickButtonHandler`: This comment describes the purpose of the `handleClickButton` function, which is used to handle the click event of the delete button. When the button is clicked, it calls the `handleDelete` function passed as a prop, passing the `id` of the current feedback item as an argument. `clickButtonHandler` is an alternative function name to `handleClickButton`.
 
 ## Installation
 
@@ -31,7 +31,15 @@ To run the project on your local machine, follow these steps:
 
 ## Usage
 
-In this section, we will explore how to use JSX to efficiently display images, text, and utilize attributes in JSX elements. Additionally, we will delve into the process of transpiling JSX code into plain JavaScript that can be easily understood by the browser.
+The `Props Drilling` technique is demonstrated in this project to efficiently pass the `handleDelete` function from the `App` component to the `FeedbackItem` component, which allows for interactive deletion of feedback items. To use the `Props Drilling` technique in your own projects, follow these steps:
+
+1. Identify the data or functions that need to be passed down to child components.
+
+2. Pass the required data or functions as props to the child components when rendering them in the parent component.
+
+3. In the child components, access the props passed from the parent component and use them as needed.
+
+By utilizing props drilling, you can create a data flow between components, enabling communication and interaction in your React applications.
 
 ## Contributing
 
