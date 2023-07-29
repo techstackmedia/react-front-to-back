@@ -32,6 +32,7 @@ Card.defaultProps = {
 
 FeedbackItem.propTypes = {
   item: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     rating: PropTypes.number.isRequired,
     text: PropTypes.string.isRequired,
   }).isRequired,
