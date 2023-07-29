@@ -38,7 +38,7 @@ Here's how the switch from using `window.confirm` to building a custom confirmat
 
 By using a custom confirmation modal, the application gains more flexibility in terms of design and interaction. It allows for a better user experience as the confirmation dialog is now consistent with the overall application design, and the user can easily understand the consequences of their actions. Additionally, custom modals provide developers with more control over the appearance and behavior, making it easier to customize the confirmation process to match specific application requirements.
 
-> Note: Check the styling of the modal delete confirmation alert in **index.css** file below the comment, `/* Additional styles to enhance the appearance */`
+> Note: Check the styling of the modal delete confirmation alert in **index.css** file below the comment `/* Additional styles to enhance the appearance */`.
 
 ## Installation
 
@@ -51,22 +51,54 @@ To run the project on your local machine, follow these steps:
 
 ## Usage
 
-In this section, we will explore how to use JSX to efficiently display images, text, and utilize attributes in JSX elements. Additionally, we will delve into the process of transpiling JSX code into plain JavaScript that can be easily understood by the browser.
+The `Custom Alert Confirmation Modal Component` enhances the user experience by providing a customizable alert confirmation modal for delete actions. To use the `Custom Alert Confirmation Modal Component` in your application, follow these steps:
 
-## Contributing
+1. Import the component into your application:
 
-If you'd like to contribute to this project, follow these steps:
+```jsx
+import CustomAlertConfirmationModal from './components/CustomAlertConfirmationModal';
+```
 
-1. Fork the repository.
-2. Create a new branch: `git checkout -b feature/new-feature`
-3. Make your changes and commit them: `git commit -m "Add some feature"`
-4. Push to the branch: `git push origin feature/new-feature`
-5. Create a pull request.
+2. Set up the `showDeleteModal` and `itemToDelete` state variables in your parent component:
 
-Please make sure to follow the project's coding guidelines and conventions when contributing.
+```jsx
+const [showDeleteModal, setShowDeleteModal] = useState(false);
+const [itemToDelete, setItemToDelete] = useState(null);
+```
 
-## License
+3. Create a function to handle the delete action and show the modal:
 
-Include the license under which you are releasing your project. For example:
+```jsx
+const handleDeleteCard = (id) => {
+  setShowDeleteModal(true);
+  setItemToDelete(id);
+};
+```
 
-This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+4. Create functions to handle the user's decision in the modal:
+
+```jsx
+const handleDeleteConfirmed = () => {
+  setShowDeleteModal(false);
+  // Perform the deletion of the item
+  // using the itemToDelete state
+  // and update the feedback state accordingly.
+};
+
+const handleDeleteCancelled = () => {
+  setShowDeleteModal(false);
+};
+```
+
+5. Render the `CustomAlertConfirmationModal` component with the necessary props:
+
+```jsx
+{showDeleteModal && (
+  <CustomAlertConfirmationModal
+    onConfirm={handleDeleteConfirmed}
+    onCancel={handleDeleteCancelled}
+  />
+)}
+```
+
+By following these steps, you can integrate the `Custom Alert Confirmation Modal Component` into your application and have more control
