@@ -77,7 +77,7 @@ To set up the project on your local machine, follow these steps:
 
 ## Usage
 
-In this section, you can provide detailed instructions on how to use the project. Explain how to run the application, navigate through its features, and provide code snippets if applicable. If your project requires any specific environment variables, configurations, or setup, include that information here.
+In this section, you will learn how to use dynamic values in JSX elements to display content based on variables, and how to create lists of elements using the `map` function. Understanding these concepts is crucial for building interactive and data-driven React applications.
 
 ### Public Folder
 
