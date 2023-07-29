@@ -17,7 +17,6 @@ function App() {
     <div className='container'>
       <h1>{title}</h1>
       <p>{body}</p>
-      {/* Any expressions in curly braces when in JSX or with the component return statement - to go from JSX to JS */}
       <p>5 + 5 = {5 + 5}</p>
       <p>Random Number: {Math.random() * 10}</p>
       {showComments && (

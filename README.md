@@ -29,7 +29,6 @@ return (
   <div className='container'>
     <h1>{title}</h1>
     <p>{body}</p>
-    {/* Any expressions in curly braces when in JSX or with the component return statement - to go from JSX to JS */}
     <p>5 + 5 = {5 + 5}</p>
     <p>Random Number: {Math.random() * 10}</p>
     {loading ? (
@@ -83,7 +82,5 @@ If you'd like to contribute to this project, follow these steps:
 Please make sure to follow the project's coding guidelines and conventions when contributing.
 
 ## License
-
-Include the license under which you are releasing your project. For example:
 
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
