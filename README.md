@@ -41,7 +41,21 @@ To run the project on your local machine, follow these steps:
 
 ## Usage
 
-In this section, we will explore how to use JSX to efficiently display images, text, and utilize attributes in JSX elements. Additionally, we will delve into the process of transpiling JSX code into plain JavaScript that can be easily understood by the browser.
+The `FeedbackStats` component automatically calculates and displays the average rating and the total number of reviews for the feedback data. To use the `FeedbackStats` component in your application, follow these steps:
+
+1. Import the `FeedbackStats` component into your desired file:
+
+```jsx
+import FeedbackStats from './components/FeedbackStats';
+```
+
+2. In your component's JSX, render the `FeedbackStats` component and pass the `feedback` state as a prop:
+
+```jsx
+<FeedbackStats feedback={feedback} />
+```
+
+The `FeedbackStats` component will now display the feedback statistics based on the data in the `feedback` state.
 
 ## Contributing
 
@@ -56,7 +70,5 @@ If you'd like to contribute to this project, follow these steps:
 Please make sure to follow the project's coding guidelines and conventions when contributing.
 
 ## License
-
-Include the license under which you are releasing your project. For example:
 
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
