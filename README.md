@@ -1,4 +1,4 @@
-# Adding styles to a component
+# Adding Styles to a Component
 
 ## Table of Contents
 
@@ -59,7 +59,7 @@ To run the project on your local machine, follow these steps:
 
 ## Usage
 
-In this section, we will explore how to use JSX to efficiently display images, text, and utilize attributes in JSX elements. Additionally, we will delve into the process of transpiling JSX code into plain JavaScript that can be easily understood by the browser.
+In this section, we will explore how to add styles to a component in React. Specifically, we'll focus on styling the `Header` component with dynamic background and text colors based on the props it receives.
 
 ## Contributing
 
