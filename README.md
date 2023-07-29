@@ -10,21 +10,22 @@
 
 ## Description
 
-The custom component named `Card`, which is a wrapper component used to create a card-like layout in the application. The component accepts two props, `children` and `className`, and renders its children inside a `<div>` element with the specified `className`.
+The custom component named `Card` is a wrapper component used to create a card-like layout in the application. This component accepts two props, `children` and `className`, and renders its children inside a `<div>` element with the specified `className`.
 
-**Explanation of `Card` Component:**
+### Explanation of `Card` Component
 
-1. The `Card` component is a functional component that takes in two props, `children` and `className`.
-2. The `children` prop represents the content that will be placed inside the `<div>` element created by the `Card` component.
-3. The `className` prop is used to apply custom CSS classes to the `<div>` element, allowing the component's appearance to be customized by passing different class names as a prop.
+The `Card` component is a functional component that takes in two props, `children` and `className`. The `children` prop represents the content that will be placed inside the `<div>` element created by the `Card` component. On the other hand, the `className` prop is used to apply custom CSS classes to the `<div>` element, allowing the component's appearance to be customized by passing different class names as a prop.
 
-**Custom Component:**
-The `Card` component is a custom component. It is custom because it is not a built-in HTML element or a part of any React library. It has been defined by the developer to encapsulate specific functionality and styling for creating cards in the application.
+### Custom Component
 
-**Default Props for `Card` Component:**
-The `className` prop is set as part of the default props for the `Card` component. Default props are used to provide fallback values for props in case they are not explicitly provided when using the component. If the `className` prop is not provided when using the `Card` component, it will default to an empty string (`''`).
+The `Card` component is considered custom because it is not a built-in HTML element or a part of any React library. It has been defined by the developer to encapsulate specific functionality and styling for creating cards in the application. This level of customization provides flexibility and reusability when designing the layout of the cards.
 
-**Example of Default Props:**
+### Default Props for `Card` Component
+
+The `Card` component includes default props to provide fallback values in case they are not explicitly provided when using the component. For instance, the `className` prop has a default value of `'card'`. If the `className` prop is not provided when using the `Card` component, it will default to the CSS class name `'card'`.
+
+### Example of Default Props
+
 Here's an example of defining default props for the `Card` component:
 
 ```jsx
@@ -41,8 +42,9 @@ export default Card;
 
 In the example above, if you use the `Card` component without passing a `className` prop, it will use the default value `'card'` as the CSS class for the `<div>` element.
 
-**Usage in `FeedbackItem` Component:**
-In the `FeedbackItem` component, the `Card` component is used to create a card-like layout for displaying feedback items. The `className` prop is passed to the `Card` component with the value `'card'`, which is a custom CSS class used to style the card.
+### Usage in `FeedbackItem` Component
+
+In the `FeedbackItem` component, the `Card` component is utilized to create a card-like layout for displaying feedback items. The `className` prop is passed to the `Card` component with the value `'card'`, which is a custom CSS class used to style the card.
 
 ```jsx
 import Card from './shared/Card';
@@ -63,11 +65,29 @@ By using the `Card` component, the `FeedbackItem` component can easily create co
 
 ## Usage
 
-In this section, we will explore how to use JSX to efficiently display images, text, and utilize attributes in JSX elements. Additionally, we will delve into the process of transpiling JSX code into plain JavaScript that can be easily understood by the browser.
+The `Card` component has been designed to help create card-like layouts in the application. By passing the content of the card as `children` and applying custom CSS classes with the `className` prop, developers can easily create visually appealing cards with minimal effort.
 
-- If you open the react dev tool, you will see the component tree with App the parent component and FeedbackItem and Header as the children components to the App component. You will also see the props passed in Header and the state used in the FeedbackItem in the React Devtools
+To use the `Card` component, follow these steps:
 
-let's update state
+1. Import the `Card` component into the file where you want to use it:
+
+```jsx
+import Card from './shared/Card';
+```
+
+2. Use the `Card` component to wrap the content you want to display in the card:
+
+```jsx
+<Card className='custom-card'>
+  {/* Your card content goes here */}
+</Card>
+```
+
+In the example above, we're using the `Card` component and passing a custom CSS class name `'custom-card'` using the `className` prop. The content you want to display inside the card should be placed between the opening and closing tags of the `Card` component.
+
+Feel free to customize the `className` prop to match your desired styling.
+
+- If you open the React Devtools, you will see the component tree with `App` as the parent component and `FeedbackItem` and `Header` as the children components of the `App` component. You will also see the props passed to `Header` and the state used in `FeedbackItem` in the React Devtools.
 
 ## Contributing
 
