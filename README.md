@@ -34,7 +34,7 @@ There is a simple React application that displays a list of feedback items using
 
 Overall, we have a React application that displays a list of feedback items using the `FeedbackList` component, with each feedback item represented by the `FeedbackItem` component. The data for the feedback items is stored in the `FeedbackData` constant and is managed using the `useState` hook in the `App` component. The `Header` component provides a header section for the application.
 
-### Installation of React Dev Tool:
+### Installation of React Dev Tool
 
 To inspect and debug your React application, you can use the React Developer Tools extension for your browser.
 
@@ -80,7 +80,5 @@ If you'd like to contribute to this project, follow these steps:
 Please make sure to follow the project's coding guidelines and conventions when contributing.
 
 ## License
-
-Include the license under which you are releasing your project. For example:
 
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
