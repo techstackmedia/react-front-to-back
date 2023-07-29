@@ -42,6 +42,7 @@ In this alternative, the event handler is defined directly in the `onClick` attr
 In this alternative, the `handleClick` function is defined and used as the event handler for the button. When the button is clicked, it invokes the `handleClick` function, which logs the `id`.
 
 ### Current Implementation
+
 The current implementation uses a third alternative solution:
 
 ```jsx
