@@ -151,6 +151,4 @@ Please make sure to follow the project's coding guidelines and conventions when 
 
 ## License
 
-Include the license under which you are releasing your project. For example:
-
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
