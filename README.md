@@ -95,7 +95,7 @@ To run the project on your local machine, follow these steps:
 
 **Updating State:**
 
-- You can update the state in the `App` component using the `useState` hook to manage the feedback data dynamically. For example, you can add, remove, or modify feedback items by updating the `feedback` state.
+- You can update the state in the `App` component using the `useState` hook to manage the feedback data dynamically. For example, you can add, remove, or modify feedback items by updating the `feedback` state. For now we not updating the state we get in the App component. Later on we will use the state to perform CRUD (Create, Read, Update, Delete) operations.
 
 ## Contributing
 
