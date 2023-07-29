@@ -9,6 +9,7 @@ const FeedbackItem = ({ item: { rating, text, id } }) => {
 
   // pass the id
   const handleClick = (id) => {
+    // catch the id
     console.log(id)
   }
 

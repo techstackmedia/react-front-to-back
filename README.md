@@ -10,8 +10,6 @@
 
 ## Description
 
-First, stop the server in the terminal with `Ctrl + C`, install react-icons with the command `npm install react-icons` or `yarn add react-icons`. Once the installation is done start the server with `npm start` or `yarn start`.
-
 The provided code defines a React functional component called `FeedbackItem`. This component is responsible for displaying a feedback item, which includes a `rating`, `text`, and a close button represented by the `FaTimes` icon from the `react-icons/fa` library. The `FeedbackItem` component is wrapped inside a custom `Card` component (which is not shown in the provided code) for styling purposes.
 
 **Logic and Functionality:**
@@ -72,7 +70,15 @@ To run the project on your local machine, follow these steps:
 
 ## Usage
 
-In this section, we will explore how to use JSX to efficiently display images, text, and utilize attributes in JSX elements. Additionally, we will delve into the process of transpiling JSX code into plain JavaScript that can be easily understood by the browser.
+The `FeedbackItem` component provides a reusable and interactive way to display feedback items, including the ability to handle close button clicks. To use the `FeedbackItem` component in your own projects, follow these steps:
+
+1. Install `react-icons` with the command `npm install react-icons` or `yarn add react-icons`.
+
+2. Import the required components and icons.
+
+3. Render the `FeedbackItem` component with the appropriate props, such as `rating`, `text`, and `id`.
+
+Now you have a customizable and functional feedback item component with a close button event handler that can be integrated into your React applications.
 
 ## Contributing
 
