@@ -72,7 +72,24 @@ To run the project on your local machine, follow these steps:
 
 ## Usage
 
-In this section, we will explore how to use JSX to efficiently display images, text, and utilize attributes in JSX elements. Additionally, we will delve into the process of transpiling JSX code into plain JavaScript that can be easily understood by the browser.
+In the `FeedbackItem` component, the `Card` component is utilized to create a card-like layout for displaying feedback items. The `className` prop is passed to the `Card` component with the value `'card'`, which is a custom CSS class used to style the card.
+
+```jsx
+import Card from './shared/Card';
+
+const FeedbackItem = ({ item: { rating, text } }) => {
+  return (
+    <Card className='card'>
+      <div className='num-display'>{rating}</div>
+      <div className='text-display'>{text}</div>
+    </Card>
+  );
+};
+
+export default FeedbackItem;
+```
+
+By using the `Card` component, the `FeedbackItem` component can easily create consistent and reusable card elements for each feedback item in the application. The `className` prop allows the card's styling to be customized based on the specific needs of the application.
 
 ## Contributing
 
