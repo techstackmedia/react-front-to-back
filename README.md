@@ -62,7 +62,7 @@ To inspect and debug your React application, you can use the React Developer Too
 
 Once you have added this extension to your browser, you can use it to inspect and analyze the component tree, props, and state of your React application, making the development and debugging process more efficient.
 
-> To utilize the React Developer Tools, you can use `Ctrl` + `Shift` + `I` to open the browser console tab, then navigate to the Component tab. Here, you will see the component tree with `App` as the parent component and `FeedbackItem` and `Header` as the children components of the `App` component. You will also see the props passed to `Header` and the state used in `FeedbackItem` in the React Devtools.
+> To utilize the React Developer Tools, you can use `Ctrl` + `Shift` + `I` to open the browser console tab, then navigate to the Component tab. Here, you will see the component tree with `App` as the parent component and `FeedbackItem` and `Header` as the children components of the `App` component. You will also see the props passed to `Header` and the state used in `FeedbackItem` in the React Devtools. For now no state in application but check out the state in the next branch or chapter
 
 ## Installation
 
