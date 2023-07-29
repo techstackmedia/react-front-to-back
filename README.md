@@ -68,7 +68,7 @@ To run the project on your local machine, follow these steps:
 
 ## Usage
 
-In this section, we will explore how to use JSX to efficiently display images, text, and utilize attributes in JSX elements. Additionally, we will delve into the process of transpiling JSX code into plain JavaScript that can be easily understood by the browser.
+In this section, we will explore how to use conditionals in JSX to dynamically render content based on certain conditions. We will see how to use the `if` statement and the `&&` operator for conditional rendering. Additionally, we'll explore an alternative approach using the ternary operator (`condition ? trueBlock : falseBlock`) to achieve the same result in a more concise way.
 
 ## Contributing
 
