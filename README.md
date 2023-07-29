@@ -1,4 +1,4 @@
-# Event Handler
+# Props Drilling
 
 ## Table of Contents
 
@@ -19,8 +19,6 @@ Now let's explain the comments in the `FeedbackItem` component:
 1. `// feedback state is not found here but in App.js`: This comment mentions that the `feedback` state is not directly available in the `FeedbackItem` component, but it is coming from the `App` component and passed as props.
 
 2. `// clickButtonHandler`: This comment describes the purpose of the `handleClickButton` function, which is used to handle the click event of the delete button. When the button is clicked, it calls the `handleDelete` function passed as a prop, passing the `id` of the current feedback item as an argument. `clickButtonHandler` is an alternative to function name to `handleClickButton`
-
-The comments help to clarify the source of the `feedback` state and the role of the `handleClickButton` function in the `FeedbackItem` component. They serve as documentation to understand the code's logic and help developers quickly grasp what's happening in the component.
 
 ## Installation
 
