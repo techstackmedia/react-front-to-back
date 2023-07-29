@@ -91,7 +91,7 @@ To run the project on your local machine, follow these steps:
 
 **Using React Devtools:**
 
-- If you open the React Devtools, you will see the component tree with `App` as the parent component and `FeedbackItem` and `Header` as the children components of the `App` component. You will also see the props passed to `Header` and the state used in `FeedbackItem` in the React Devtools.
+- If you open the React Devtools, you will see the component tree with `App` as the parent component and `FeedbackItem`, `FeedbackList` and `Header` as the children components of the `App` component. You will also see the props passed to `Header` and the state used in `FeedbackItem` in the React Devtools.
 
 **Updating State:**
 
