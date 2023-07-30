@@ -1,4 +1,4 @@
-# Custom Button Component
+# Custom Component - Button
 
 ## Table of Contents
 
