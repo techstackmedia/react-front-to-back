@@ -1,4 +1,4 @@
-# Understanding `e.target` and `e.currentTarget` in React Event Handling
+# Event target and current Target
 
 ## Table of Contents
 
