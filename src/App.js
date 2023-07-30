@@ -36,10 +36,10 @@ const App = () => {
         <h2>Confirmation</h2>
         <p>Are you sure you want to delete this item?</p>
         <div className='modal-actions'>
-          <button onClick={handleDeleteConfirmed} className='btn-confirm'>
+          <button type='button' onClick={handleDeleteConfirmed} className='btn-confirm'>
             Confirm
           </button>
-          <button onClick={handleDeleteCancelled} className='btn-cancel'>
+          <button type='button' onClick={handleDeleteCancelled} className='btn-cancel'>
             Cancel
           </button>
         </div>
