@@ -14,14 +14,14 @@ In the given code, the `FeedbackForm` component is used in the `App` component, 
 
 Here's how the two logics are connected:
 
-1.  In the `FeedbackForm` component:
+1. In the `FeedbackForm` component:
 
     - When the user submits the form (by clicking the "Send" button), the `handleFormSubmit` function is called.
     - Inside `handleFormSubmit`, a new feedback item is created with the current `text` and `rating`.
     - The `handleAddItem` function, which is passed down as a prop from the `App` component, is called with the newly created `newFeedbackItem`. This function is responsible for updating the state of the `feedback` array in the `App` component by adding the new feedback item to it.
     - After calling `handleAddItem`, the `text` state is reset to an empty string so that the input field is cleared.
 
-2.  In the `App` component:
+2. In the `App` component:
 
     - The `addFeedbackItem` function is defined in the `App` component, and it takes a `newFeedbackItem` as a parameter.
     - Inside `addFeedbackItem`, a new unique `id` is generated for the feedback item using `v4()` from the `uuid` library.
@@ -30,16 +30,16 @@ Here's how the two logics are connected:
     - The state is updated using `setFeedback`, and the UI will re-render with the newly added feedback item.
     - The comments in `FeedbackList` and `FeedbackItem` are related to the use of UUIDs (Universally Unique Identifiers) as the unique identifier for the feedback items. Let's explain them one by one:
 
-          - In `FeedbackList`:
+      - In `FeedbackList`:
 
-          ```jsx
-          /* Now that we are using uuid as our updated id, the prop type for id can either be a number (initial ids) or a string (updated ids) */
-          // Warning: Failed prop type: Invalid prop `feedback[0].id` of type `string` supplied to `FeedbackList`, expected `number`.
-          ```
+        ```jsx
+        /* Now that we are using uuid as our updated id, the prop type for id can either be a number (initial ids) or a string (updated ids) */
+        // Warning: Failed prop type: Invalid prop `feedback[0].id` of type `string` supplied to `FeedbackList`, expected `number`.
+        ```
 
-    Explanation: The `FeedbackList` component receives the `feedback` prop, which is an array of feedback items. With the use of UUIDs as the unique identifier for feedback items, the `id` property of the items can be either a number (for the initial feedback items that used numeric identifiers) or a string (for the updated feedback items that use UUIDs). The prop type definition for `id` in the `PropTypes` check needs to allow for both types, so it should be defined as `PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired`. This way, the component will correctly handle both numeric and UUID-based `id` values.
+    - Explanation: The `FeedbackList` component receives the `feedback` prop, which is an array of feedback items. With the use of UUIDs as the unique identifier for feedback items, the `id` property of the items can be either a number (for the initial feedback items that used numeric identifiers) or a string (for the updated feedback items that use UUIDs). The prop type definition for `id` in the `PropTypes` check needs to allow for both types, so it should be defined as `PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired`. This way, the component will correctly handle both numeric and UUID-based `id` values.
 
-        - In `FeedbackItem`:
+      - In `FeedbackItem`:
 
         ```jsx
         /* Now that we are using uuid as our updated id, the prop type for id can be either a number (for initial ids) or a string (for updated ids) */
