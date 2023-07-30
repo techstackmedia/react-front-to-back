@@ -23,8 +23,15 @@ const App = () => {
     setShowDeleteModal(false);
   };
 
+  const closeModal = (e) => {
+    console.log(e.target, e.currentTarget); // Check the console and click inside the modal. Click outside the modal to see why it gets closed.
+    if (e.target === e.currentTarget) {
+      setShowDeleteModal(false);
+    }
+  };
+
   const alertConfirmationModal = showDeleteModal && (
-    <div className='custom-modal'>
+    <div className='custom-modal' onClick={closeModal}>
       <div className='modal-content'>
         <h2>Confirmation</h2>
         <p>Are you sure you want to delete this item?</p>
