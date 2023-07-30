@@ -7,12 +7,12 @@ const FeedbackForm = () => {
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [message, setMessage] = useState(null);
   const handleTextChange = (e) => {
-    const newText = e.target.value.trim();
+    const newText = e.target.value;
 
-    if (newText === '') {
+    if (newText.trim() === '') {
       setBtnDisabled(true);
       setMessage(null);
-    } else if (newText.length < 10) {
+    } else if (newText.trim().length < 10) {
       setBtnDisabled(true);
       setMessage('Text must be at least 10 characters');
     } else {
