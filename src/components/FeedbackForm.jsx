@@ -11,7 +11,7 @@ const FeedbackForm = ({ handleAddItem }) => {
   const handleTextChange = (e) => {
     const newText = e.target.value;
 
-    if (newText === '') {
+    if (newText.trim() === '') {
       setBtnDisabled(true);
       setMessage(null);
     } else if (newText.trim().length < 10) {
