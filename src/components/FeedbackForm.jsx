@@ -29,7 +29,6 @@ const FeedbackForm = ({ handleAddItem }) => {
     e.preventDefault();
 
     if (text.trim().length > 9) {
-      // send data to server
       const newFeedbackItem = {
         text,
         rating,

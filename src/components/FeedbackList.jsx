@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import FeedbackItem from './FeedbackItem';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const FeedbackList = ({ feedback, handleDeleteCard }) => {
   if (!feedback || feedback.length === 0) {
@@ -8,23 +9,29 @@ const FeedbackList = ({ feedback, handleDeleteCard }) => {
 
   return (
     <div className='feedback-list'>
-      {feedback.map((feedbackItem) => {
-        return (
-          <FeedbackItem
-            item={feedbackItem}
-            key={feedbackItem.id}
-            handleDeleteCard={handleDeleteCard}
-          />
-        );
-      })}
+      <AnimatePresence>
+        {feedback.map((feedbackItem) => {
+          return (
+            <motion.div
+              key={feedbackItem.id}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <FeedbackItem
+                item={feedbackItem}
+                key={feedbackItem.id}
+                handleDeleteCard={handleDeleteCard}
+              />
+            </motion.div>
+          );
+        })}
+      </AnimatePresence>
     </div>
   );
 };
 
 export default FeedbackList;
-
-/* Now that we are using uuid as our updated id, the prop type for id can either be a number (initial ids) or a string (updated ids) */
-// Warning: Failed prop type: Invalid prop `feedback[0].id` of type `string` supplied to `FeedbackList`, expected `number`.
 
 FeedbackList.propTypes = {
   feedback: PropTypes.arrayOf(
