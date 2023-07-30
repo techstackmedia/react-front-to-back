@@ -1,4 +1,4 @@
-# Form Input State
+# Custom Button Component
 
 ## Table of Contents
 
@@ -10,18 +10,19 @@
 
 ## Description
 
-1. `FeedbackForm` Component:
+The `Button` component is used inside the `FeedbackForm` component. The `Button` component is a custom component that accepts several props (`children`, `version`, `type`, and `isDisabled`). These props are passed from the `Button` component to the `FeedbackForm` component, and they can be used to customize the appearance and behavior of the button.
 
-   - This is a functional component that renders a form to collect user feedback.
-   - It uses the `useState` hook to manage the state of the text input field. The state variable `text` holds the user's feedback text, and the `handleTextChange` function updates this state whenever the user types in the input field.
-   - The form contains an `<input>` element for the user to write their review and a "Send" button for submitting the feedback.
-   - The form is wrapped inside a `Card` component, which is likely a custom component responsible for displaying the form with a card-like layout.
-   - Regarding the comment `{/* @todo - rating select component */}`, it suggests that there is a plan to add a "rating select" component in the future. The component will allows users to select a rating (from 1 to 10 input buttons) for the feedback. It serves as a reminder or a note for future development.
+Let's break down how the props are used:
 
-2. `App` Component
-   - In the App.js file, we imported the `FeedbackForm` component above the `FeedbackStats` based on the design pattern.
+1. `children`: This prop is a special prop in React, representing the content of the `Button` component when it is used as a JSX element. In this case, the content of the `Button` component is passed as the text inside the button. For example, in the `FeedbackForm` component, the `Button` component is used as `<Button>Send</Button>`, so the text "Send" becomes the `children` prop of the `Button` component.
 
-> **Note**: Check the React developer tool and notice that besides the props we've seen in the past, we also have the state (hooks). The state keeps updating when inputting text to the input field; the state updates.
+2. `version`: This prop is used to customize the appearance of the button by applying a specific CSS class. In the `Button` component, the `version` prop is used to dynamically create the CSS class name for the button. For example, if `version` is not provided, the default value `'primary'` is used, and the resulting CSS class would be `'btn btn-primary'`. If the `version` prop is set to `'secondary'`, the CSS class would be `'btn btn-secondary'`. In the `FeedbackForm` component, the `Button` component is used without explicitly passing the `version` prop, so it uses the default value and gets the `'btn-primary'` CSS class.
+
+3. `type`: This prop is used to specify the type of the button, which determines its behavior. The `type` prop is passed directly from the `Button` component to the underlying HTML `button` element. In the `FeedbackForm` component, the `Button` component is used with the `type='submit'`, so the button behaves as a submit button inside the form.
+
+4. `isDisabled`: This prop is used to control whether the button is disabled or not. If the `isDisabled` prop is set to `true`, the button is disabled; otherwise, it remains enabled. In the `Button` component, the `isDisabled` prop is used to set the `disabled` attribute of the underlying HTML `button` element. In the `FeedbackForm` component, the `Button` component is used without explicitly passing the `isDisabled` prop, so it uses the default value `false`, and the button remains enabled.
+
+In summary, the `Button` component is a customizable button that can be used in various places throughout the application. In the `FeedbackForm` component, it is used as a "Send" button with the default version, default type ('button'), and not disabled by default. You can customize the button further by passing appropriate props when using the `Button` component elsewhere in your application.
 
 ## Installation
 
@@ -34,56 +35,23 @@ To run the project on your local machine, follow these steps:
 
 ## Usage
 
-1. Import the `FeedbackForm` component:
-   In your `App.js` (or any other file where you want to use the `FeedbackForm`), you need to import the `FeedbackForm` component. The `App.js` is directly below the project directory and `FeedbackForm.js` is in the component folder, you would import it like this:
+The `Button` component in the `FeedbackForm` is used as follows:
 
 ```jsx
-import FeedbackForm from './components/FeedbackForm';
+<Button>Send</Button>
 ```
 
-The file structure of your project looks like this:
+Let's break down how the props are used in this context:
 
-```jsx
-project_directory/
-  |- App.js
-  |- components/
-      |- FeedbackForm.js
-```
+1. `children`: The text "Send" becomes the `children` prop of the `Button` component.
 
-2. Use the `FeedbackForm` component:
-   Once you've imported the `FeedbackForm` component, you can use it in your `App` component's JSX to render the feedback form. For example, in your `App.js`, you can include the `FeedbackForm` like this:
+2. `version`: The default value of `'primary'` is used for the `version` prop, resulting in the CSS class `'btn btn-primary'` being applied to the button.
 
-```jsx
-import React from 'react';
-import FeedbackForm from './FeedbackForm';
-import FeedbackStats from './FeedbackStats';
+3. `type`: The `type` prop is set to `'button'`, making the button behave as a regular button inside the form.
 
-const App = () => {
-  return (
-    ...
-    <>
-      <Header />
-      <div className='container'>
-        <FeedbackForm /> {/* Above FeedbackStats */}
-        <FeedbackStats feedback={feedback} />
-        <FeedbackList feedback={feedback} handleDeleteCard={handleDeleteCard} />
-      </div>
- 
-      {alertConfirmationModal}
-    </>
-  );
-};
+4. `isDisabled`: The default value of `false` is used for the `isDisabled` prop, so the button remains enabled.
 
-export default App;
-```
-
-In this example, the `App` component renders a header, the `FeedbackForm`, component (which is imported at the top), and the `FeedbackStats` and `FeedbackList` component. Now, whenever you visit the app, you will see the feedback form being displayed on the page.
-
-3. Functionality of `FeedbackForm` component:
-   The `FeedbackForm` component uses the `useState` hook to manage the state of the input field. When the user types in the input field, the `handleTextChange` function is called, which updates the `text` state with the user's feedback text. The input value is controlled by the `text` state, ensuring that it reflects the current state value.
-
-4. Future Development:
-   The comment `{/* @todo - rating select component */}` suggests that there is a plan to add a "rating select" component in the future. This component will allow users to select a rating for the feedback.
+Overall, the `Button` component is used as a "Send" button with a primary style, behaving as a regular button inside the form and not disabled. However, you can customize its appearance and behavior by passing different props when using the `Button` component in other parts of the application.
 
 ## Contributing
 
