@@ -1,4 +1,4 @@
-# Custom Component - Button
+# Form Input Validation
 
 ## Table of Contents
 
@@ -10,19 +10,33 @@
 
 ## Description
 
-The `Button` component is used inside the `FeedbackForm` component. The `Button` component is a custom component that accepts several props (`children`, `version`, `type`, and `isDisabled`). These props are passed from the `Button` component to the `FeedbackForm` component, and they can be used to customize the appearance and behavior of the button.
+The `handleTextChange` function is an input validation function that is used to control the state of the form based on the text input value. It is responsible for updating the state of the `text`, `btnDisabled`, and `message` variables based on the user's input.
 
-Let's break down how the props are used:
+Here's an explanation of the `handleTextChange` function:
 
-1. `children`: This prop is a special prop in React, representing the content of the `Button` component when it is used as a JSX element. In this case, the content of the `Button` component is passed as the text inside the button. For example, in the `FeedbackForm` component, the `Button` component is used as `<Button>Send</Button>`, so the text "Send" becomes the `children` prop of the `Button` component.
+1. The function receives an event object `e` as an argument, which represents the change event on the input field.
 
-2. `version`: This prop is used to customize the appearance of the button by applying a specific CSS class. In the `Button` component, the `version` prop is used to dynamically create the CSS class name for the button. For example, if `version` is not provided, the default value `'primary'` is used, and the resulting CSS class would be `'btn btn-primary'`. If the `version` prop is set to `'secondary'`, the CSS class would be `'btn btn-secondary'`. In the `FeedbackForm` component, the `Button` component is used without explicitly passing the `version` prop, so it uses the default value and gets the `'btn-primary'` CSS class.
+2. The function starts by checking if the `text` state is an empty string. If it is, it means the input field is empty. In this case, it sets the `btnDisabled` state to `true` (disabling the "Send" button) and clears the `message` state by setting it to `null`. This means that when the input field is empty, the "Send" button will be disabled, and any previous error message will be cleared.
 
-3. `type`: This prop is used to specify the type of the button, which determines its behavior. The `type` prop is passed directly from the `Button` component to the underlying HTML `button` element. In the `FeedbackForm` component, the `Button` component is used with the `type='submit'`, so the button behaves as a submit button inside the form.
+3. If the input field is not empty, it moves to the next condition: `text !== '' && text.trim().length < 10`. This condition checks if the input text has fewer than 10 characters after trimming any leading or trailing white spaces. If the input text length is less than 10, it sets the `btnDisabled` state to `true` (disabling the "Send" button) and sets the `message` state to `'Text must at least 10 characters'`. This means that when the input text is too short, the "Send" button will be disabled, and an error message will be displayed to inform the user about the minimum character requirement.
 
-4. `isDisabled`: This prop is used to control whether the button is disabled or not. If the `isDisabled` prop is set to `true`, the button is disabled; otherwise, it remains enabled. In the `Button` component, the `isDisabled` prop is used to set the `disabled` attribute of the underlying HTML `button` element. In the `FeedbackForm` component, the `Button` component is used without explicitly passing the `isDisabled` prop, so it uses the default value `false`, and the button remains enabled.
+4. If none of the above conditions are met, it means the input text is valid. In this case, it sets the `btnDisabled` state to `false` (enabling the "Send" button) and clears the `message` state by setting it to `null`. This means that when the input text is valid and meets the minimum length requirement, the "Send" button will be enabled, and any previous error message will be cleared.
 
-In summary, the `Button` component is a customizable button that can be used in various places throughout the application. In the `FeedbackForm` component, it is used as a "Send" button with the default version, default type ('button'), and not disabled by default. You can customize the button further by passing appropriate props when using the `Button` component elsewhere in your application.
+5. Finally, the function updates the `text` state to the current value of the input field, using `setText(e.target.value)`.
+
+Regarding the rendering of the message div, the code uses a ternary operator to conditionally render the message div based on the value of `message`. The expression `{message ? <div className='message'>{message}</div> : null}` checks if `message` is truthy. If it is, it renders the `<div>` element with the error message, and if `message` is `null`, it renders `null`, effectively omitting the error message.
+
+An alternative way to conditionally render the message div is to use the logical AND (`&&`) operator. The `&&` operator returns the second operand if the first operand is truthy, and it returns the first operand if it is falsy. In this case, we can utilize this behavior to conditionally render the message div as follows:
+
+```jsx
+{message && <div className='message'>{message}</div>}
+```
+
+This code snippet accomplishes the same functionality as the original ternary expression but in a more concise way. If `message` is truthy, it renders the `<div>` element with the error message, and if `message` is `null`, it renders nothing (since `null` is falsy), effectively omitting the error message.
+
+## Issue
+
+There is just one issue with the form validation: when the button turns purple (text.trim().length >= 10) and you then remove all the text (text.trim().length === 0), the button remains purple instead of turning gray.
 
 ## Installation
 
@@ -35,23 +49,81 @@ To run the project on your local machine, follow these steps:
 
 ## Usage
 
-The `Button` component in the `FeedbackForm` is used as follows:
+Imagine `const newText = e.target.value.trim()` was used instead of `const newText = text.trim()`, the usage applies below:
+
+The `handleTextChange` function is designed to be used as an event handler for handling changes in an input field. It provides input validation and controls the state of a form based on the text input value. It updates the `text`, `btnDisabled`, and `message` variables to enable or disable the "Send" button and display an error message when necessary.
+
+To use `handleTextChange`, follow these steps:
+
+1. Import `useState` from 'react' in your component file:
 
 ```jsx
-<Button>Send</Button>
+import React, { useState } from 'react';
 ```
 
-Let's break down how the props are used in this context:
+2. Declare and initialize the state variables (`text`, `btnDisabled`, and `message`) using `useState`. For example:
 
-1. `children`: The text "Send" becomes the `children` prop of the `Button` component.
+```jsx
+const [text, setText] = useState('');
+const [btnDisabled, setBtnDisabled] = useState(true);
+const [message, setMessage] = useState(null);
+```
 
-2. `version`: The default value of `'primary'` is used for the `version` prop, resulting in the CSS class `'btn btn-primary'` being applied to the button.
+3. Implement the `handleTextChange` function within your component. You can use the provided explanation to construct the function correctly.
 
-3. `type`: The `type` prop is set to `'button'`, making the button behave as a regular button inside the form.
+```jsx
+const handleTextChange = (e) => {
+  const newText = e.target.value.trim();
 
-4. `isDisabled`: The default value of `false` is used for the `isDisabled` prop, so the button remains enabled.
+  if (newText === '') {
+    setBtnDisabled(true);
+    setMessage(null);
+  } else if (newText.length < 10) {
+    setBtnDisabled(true);
+    setMessage('Text must be at least 10 characters');
+  } else {
+    setBtnDisabled(false);
+    setMessage(null);
+  }
 
-Overall, the `Button` component is used as a "Send" button with a primary style, behaving as a regular button inside the form and not disabled. However, you can customize its appearance and behavior by passing different props when using the `Button` component in other parts of the application.
+  setText(newText);
+};
+```
+
+4. In your JSX code, attach the `handleTextChange` function to the input field as an `onChange` event handler:
+
+```jsx
+<input
+  placeholder='Write a review'
+  type='text'
+  onChange={handleTextChange}
+  value={text}
+/>
+```
+
+5. Conditionally render the error message div using the logical AND (`&&`) operator or a ternary operator:
+
+Using the logical AND (`&&`) operator:
+
+```jsx
+{message && <div className='message'>{message}</div>}
+```
+
+OR using a ternary operator:
+
+```jsx
+{message ? <div className='message'>{message}</div> : null}
+```
+
+6. Use the `btnDisabled` state to disable or enable the "Send" button based on the validation:
+
+```jsx
+<Button type='submit' isDisabled={btnDisabled}>
+  Send
+</Button>
+```
+
+By following these steps, you will be able to leverage the `handleTextChange` function to control the state of your form's input field, enable/disable the "Send" button, and display an error message when necessary, ensuring a smooth and interactive user experience.
 
 ## Contributing
 
