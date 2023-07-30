@@ -3,7 +3,6 @@
 ## Table of Contents
 
 - [Description](#description)
-- [Issue](#issue)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
