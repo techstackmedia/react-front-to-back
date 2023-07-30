@@ -1,4 +1,4 @@
-# Custom Component - Rating Select
+# Create or Add Feedback Item
 
 ## Table of Contents
 
@@ -10,27 +10,47 @@
 
 ## Description
 
-The `Rating` component is a reusable component used in the `FeedbackForm`. It allows the user to select a rating for the service provided. Let's go through the logic of the `Rating` component:
+In the given code, the `FeedbackForm` component is used in the `App` component, and the `App` component passes down the `handleAddItem` function as a prop to the `FeedbackForm` component. The purpose of this prop is to allow the `FeedbackForm` component to communicate with the `App` component and update the state of the `feedback` array in the `App` component.
 
-1. `useState`: The `Rating` component uses the `useState` hook to manage its state. It has a state variable `selected` to keep track of the currently selected rating.
+Here's how the two logics are connected:
 
-2. `numbers` array: The `numbers` array is created using `Array.from(Array(11).keys()).splice(1)`. It generates an array of numbers from 1 to 10. These numbers represent the possible ratings the user can choose from.
+1.  In the `FeedbackForm` component:
 
-3. `handleSelectChange`: This function is called whenever the user selects a rating option. It updates the `selected` state to the newly chosen rating and also calls the `selectedRating` prop function, passing the newly selected rating as an argument. This allows the parent component (`FeedbackForm`) to be notified whenever the user selects a rating and update its own state with the chosen rating.
+    - When the user submits the form (by clicking the "Send" button), the `handleFormSubmit` function is called.
+    - Inside `handleFormSubmit`, a new feedback item is created with the current `text` and `rating`.
+    - The `handleAddItem` function, which is passed down as a prop from the `App` component, is called with the newly created `newFeedbackItem`. This function is responsible for updating the state of the `feedback` array in the `App` component by adding the new feedback item to it.
+    - After calling `handleAddItem`, the `text` state is reset to an empty string so that the input field is cleared.
 
-4. `selectList`: The `selectList` variable is created by mapping through the `numbers` array and generating a list of `<li>` elements, each representing a rating option. For each rating option, an `<input>` element of type "radio" is created with a corresponding label.
+2.  In the `App` component:
 
-5. `checked` attribute: The `checked` attribute of the `<input>` element is set to `selected === item`, which means that the radio button will be checked if the `selected` state is equal to the current rating number `item`. This ensures that the currently selected rating is visually highlighted in the UI.
+    - The `addFeedbackItem` function is defined in the `App` component, and it takes a `newFeedbackItem` as a parameter.
+    - Inside `addFeedbackItem`, a new unique `id` is generated for the feedback item using `v4()` from the `uuid` library.
+    - The `id` is then added to the `newFeedbackItem` object.
+    - The `feedback` array state is updated by creating a new array that contains the `newFeedbackItem` at the beginning, followed by the existing `feedback` array. This ensures that the newest feedback item is displayed first in the feedback list.
+    - The state is updated using `setFeedback`, and the UI will re-render with the newly added feedback item.
+    - The comments in `FeedbackList` and `FeedbackItem` are related to the use of UUIDs (Universally Unique Identifiers) as the unique identifier for the feedback items. Let's explain them one by one:
 
-In the `FeedbackForm`, the `Rating` component is used as follows:
+          - In `FeedbackList`:
 
-```jsx
-<Rating selectedRating={(rating) => setRating(rating)} />
-```
+          ```jsx
+          /* Now that we are using uuid as our updated id, the prop type for id can either be a number (initial ids) or a string (updated ids) */
+          // Warning: Failed prop type: Invalid prop `feedback[0].id` of type `string` supplied to `FeedbackList`, expected `number`.
+          ```
 
-The `selectedRating` prop is passed to the `Rating` component, which is a function that sets the `rating` state in the parent component (`FeedbackForm`). When the user selects a rating in the `Rating` component, the `handleSelectChange` function inside `Rating` is triggered, which updates the `selected` state in `Rating` and calls the `selectedRating` prop function with the newly selected rating. This, in turn, updates the `rating` state in the `FeedbackForm`, allowing it to keep track of the selected rating.
+    Explanation: The `FeedbackList` component receives the `feedback` prop, which is an array of feedback items. With the use of UUIDs as the unique identifier for feedback items, the `id` property of the items can be either a number (for the initial feedback items that used numeric identifiers) or a string (for the updated feedback items that use UUIDs). The prop type definition for `id` in the `PropTypes` check needs to allow for both types, so it should be defined as `PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired`. This way, the component will correctly handle both numeric and UUID-based `id` values.
 
-Overall, the `Rating` component handles the presentation and selection of rating options, while the `FeedbackForm` component manages the overall form state, including the selected rating and the user's text input.
+        - In `FeedbackItem`:
+
+        ```jsx
+        /* Now that we are using uuid as our updated id, the prop type for id can be either a number (for initial ids) or a string (for updated ids) */
+        // Warning: Failed prop type: Invalid prop `item.id` of type `string` supplied to `FeedbackItem`, expected `number`.
+        ```
+
+    Explanation: The `FeedbackItem` component receives the `item` prop, which represents a single feedback item. Since the `id` property of the feedback item can now be either a number or a string, the `PropTypes` check for the `item` prop should also allow for both types. Therefore, the `id` prop of the `item` object should be defined as `PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired`.
+
+To summarize, these comments indicate that due to the use of UUIDs as the unique identifiers for feedback items, the `id` prop in `FeedbackList` and `FeedbackItem` should allow for both number and string types to accommodate the different types of IDs used in the feedback data. This way, the components can correctly handle and display the feedback items regardless of their ID format.
+
+So, by passing the `handleAddItem` function as a prop to the `FeedbackForm` component, the `FeedbackForm` component can communicate back to the `App` component and update the state of the feedback items list. This is how the logic in `FeedbackForm` is connected to the `App` component, enabling the two components to work together and manage the feedback data effectively.
 
 ## Installation
 
@@ -43,34 +63,43 @@ To run the project on your local machine, follow these steps:
 
 ## Usage
 
-The `Rating` component is a reusable component used in the `FeedbackForm` to allow users to select a rating for the service provided. It utilizes the `useState` hook to manage its state, keeping track of the currently selected rating. The component generates a list of rating options (from 1 to 10) using the `numbers` array and displays them as radio buttons with corresponding labels.
+The main usage and connection between the components can be summarized as follows:
 
-When the user selects a rating option, the `handleSelectChange` function is triggered. It updates the `selected` state in the `Rating` component and also calls the `selectedRating` prop function, passing the newly selected rating as an argument. This way, the parent component (`FeedbackForm`) is notified of the selected rating and updates its own state with the chosen rating.
+1. **FeedbackForm Component**:
 
-```jsx
-const Rating = ({ selectedRating }) => {
-  const [selected, setSelected] = useState(null);
+   - The `FeedbackForm` component is responsible for gathering user feedback in the form of text input and a rating selection.
+   - It maintains its state using `useState` for the `text`, `btnDisabled`, `message`, and `rating` properties.
+   - It renders a `Rating` component to allow the user to select a rating. The `selectedRating` prop function is passed to `Rating`, which allows `FeedbackForm` to update the `rating` state whenever the user selects a rating.
+   - When the user submits the form (by clicking the "Send" button), the `handleFormSubmit` function is called.
+   - In `handleFormSubmit`, a new feedback item is created with the current `text` and `rating`.
+   - The `handleAddItem` function, passed down as a prop from the `App` component, is called with the newly created `newFeedbackItem`. This function is responsible for updating the state of the `feedback` array in the `App` component by adding the new feedback item to it.
+   - After calling `handleAddItem`, the `text` state is reset to an empty string so that the input field is cleared.
 
-  const numbers = Array.from(Array(11).keys()).splice(1);
-  const handleSelectChange = (e) => {
-    const newSelected = +e.target.value;
-    setSelected(newSelected);
-    selectedRating(newSelected);
-  };
+2. **App Component**:
 
-  ...
-};
+   - The `App` component serves as the top-level component and manages the state of the feedback items in the `feedback` array using `useState`.
+   - It also manages the visibility of the delete confirmation modal through the `showDeleteModal` state and sets the item to delete with `itemToDelete`.
+   - The `addFeedbackItem` function is defined in `App` to handle adding a new feedback item to the `feedback` array. It generates a unique `id` for the new item using `v4()` from the `uuid` library, adds the `id` to the `newFeedbackItem`, and then updates the `feedback` array by creating a new array with the new item at the beginning, followed by the existing feedback array.
+   - The `handleDeleteCard` function is used to trigger the delete confirmation modal and set the item to be deleted.
+   - The `closeModal` function is used to close the delete confirmation modal when the user clicks outside of it.
+   - The `FeedbackForm` component is rendered with the `addFeedbackItem` function passed down as a prop to allow `FeedbackForm` to add new feedback items to the `App` component's state.
+   - The `FeedbackStats` component is rendered to display the total number of reviews and the average rating based on the feedback in the `feedback` array.
+   - The `FeedbackList` component is rendered with the `feedback` array and `handleDeleteCard` function passed down as props to display the list of feedback items and allow deleting feedback.
 
-export default Rating;
-```
+3. **FeedbackList and FeedbackItem Components**:
 
-In the `FeedbackForm`, the `Rating` component is used by passing a prop `selectedRating={(rating) => setRating(rating)}`, where `setRating` is a function to update the `rating` state in the `FeedbackForm`. This ensures that the `FeedbackForm` can keep track of the selected rating along with the user's text input.
+   - The `FeedbackList` component receives the `feedback` array and the `handleDeleteCard` function as props from the `App` component.
+   - It maps through the `feedback` array and renders individual `FeedbackItem` components for each feedback item in the list, passing the feedback item and the `handleDeleteCard` function as props to each `FeedbackItem`.
+   - The `FeedbackItem` component receives an individual feedback item and the `handleDeleteCard` function as props from `FeedbackList`.
+   - It displays the rating, text, and a delete button for each feedback item.
+   - When the delete button is clicked, it triggers the `handleDeleteCard` function from the `FeedbackList` component, which sets the `showDeleteModal` state to true and sets the `itemToDelete` state to the ID of the item to be deleted.
+   - The `FeedbackItem` component contains comments related to the use of UUIDs (Universally Unique Identifiers) as the unique identifier for feedback items, suggesting that the `PropTypes` for `id` in both `FeedbackList` and `FeedbackItem` should allow for both number and string types to accommodate the different types of IDs used in the feedback data.
 
-```jsx
-<Rating selectedRating={(rating) => setRating(rating)} />
-```
+4. **FeedbackStats Component**:
+   - The `FeedbackStats` component receives the `feedback` array as a prop from the `App` component.
+   - It calculates the average rating based on the feedback ratings in the `feedback` array and displays the total number of reviews and the average rating.
 
-In summary, the `Rating` component handles the visual representation and selection of ratings, while the `FeedbackForm` manages the overall form state, combining both the selected rating and the user's text input.
+Overall, the components are designed to work together to gather, display, and manage user feedback, with the `App` component acting as the main data container and passing down necessary data and functions to its child components. The components maintain their own specific responsibilities, leading to a modular and maintainable code structure.
 
 ## Contributing
 

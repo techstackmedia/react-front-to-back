@@ -4,11 +4,20 @@ import FeedbackData from './data/FeedbackData';
 import FeedbackList from './components/FeedbackList';
 import FeedbackStats from './components/FeedbackStats';
 import FeedbackForm from './components/FeedbackForm';
+import { v4 } from 'uuid';
 
 const App = () => {
   const [feedback, setFeedback] = useState(FeedbackData);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
+
+  const addFeedbackItem = (newFeedbackItem) => {
+    // Concatenate the new feedback items with existing ones and update state
+    const id = v4()
+    newFeedbackItem.id = id
+    const updatedFeedbackArray = [newFeedbackItem, ...feedback];
+    setFeedback(updatedFeedbackArray);
+  }
 
   const handleDeleteCard = (id) => {
     setShowDeleteModal(true);
@@ -25,7 +34,6 @@ const App = () => {
   };
 
   const closeModal = (e) => {
-    console.log(e.target, e.currentTarget); // Check the console and click inside the modal. Click outside the modal to see why it gets closed.
     if (e.target === e.currentTarget) {
       setShowDeleteModal(false);
     }
@@ -52,7 +60,7 @@ const App = () => {
     <>
       <Header />
       <div className='container'>
-        <FeedbackForm />
+        <FeedbackForm handleAddItem={addFeedbackItem} />
         <FeedbackStats feedback={feedback} />
         <FeedbackList feedback={feedback} handleDeleteCard={handleDeleteCard} />
       </div>

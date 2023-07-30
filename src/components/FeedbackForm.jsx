@@ -3,7 +3,7 @@ import Card from './shared/Card';
 import Button from './Button';
 import Rating from './Rating';
 
-const FeedbackForm = () => {
+const FeedbackForm = ({ handleAddItem }) => {
   const [text, setText] = useState('');
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [message, setMessage] = useState(null);
@@ -25,10 +25,26 @@ const FeedbackForm = () => {
     setText(newText);
   };
 
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    if (text.trim().length > 9) {
+      // send data to server
+      const newFeedbackItem = {
+        text,
+        rating,
+      };
+
+      handleAddItem(newFeedbackItem);
+
+      setText('')
+    }
+  };
+
   return (
     <Card>
       <h2>How would you rate your service with us?</h2>
-      <form>
+      <form onSubmit={handleFormSubmit}>
         <Rating selectedRating={(rating) => setRating(rating)} />
         <div className='input-group'>
           <input

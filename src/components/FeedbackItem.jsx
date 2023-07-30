@@ -24,9 +24,12 @@ Card.defaultProps = {
   reverse: false,
 };
 
+/* Now that we are using uuid as our updated id, the prop type for id can be either a number (for initial ids) or a string (for updated ids) */
+// Warning: Failed prop type: Invalid prop `item.id` of type `string` supplied to `FeedbackItem`, expected `number`.
+
 FeedbackItem.propTypes = {
   item: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     rating: PropTypes.number.isRequired,
     text: PropTypes.string.isRequired,
   }).isRequired,

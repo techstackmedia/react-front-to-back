@@ -23,12 +23,15 @@ const FeedbackList = ({ feedback, handleDeleteCard }) => {
 
 export default FeedbackList;
 
-FeedbackList.prototype = {
+/* Now that we are using uuid as our updated id, the prop type for id can either be a number (initial ids) or a string (updated ids) */
+// Warning: Failed prop type: Invalid prop `feedback[0].id` of type `string` supplied to `FeedbackList`, expected `number`.
+
+FeedbackList.propTypes = {
   feedback: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number,
-      text: PropTypes.string,
-      rating: PropTypes.string,
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      text: PropTypes.string.isRequired,
+      rating: PropTypes.number.isRequired,
     })
   ),
 };
