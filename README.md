@@ -1,4 +1,4 @@
-# Improved Form Validation for "Send" Button
+# Custom Component - Rating Select
 
 ## Table of Contents
 
@@ -10,25 +10,27 @@
 
 ## Description
 
-The `const newText = text.trim();` was commented out and `const newText = e.target.value.trim();` was used instead to address an issue with the form validation. The issue was that when the button turns purple (`text.trim().length >= 10`) and then all the text is removed (`text.trim().length === 0`), the button remains purple instead of turning gray.
+The `Rating` component is a reusable component used in the `FeedbackForm`. It allows the user to select a rating for the service provided. Let's go through the logic of the `Rating` component:
 
-By using `e.target.value.trim()` instead of `text.trim()`, the `handleTextChange` function correctly captures the current value of the input field whenever it changes. This ensures that the validation logic always operates on the most up-to-date text value, even after it has been trimmed.
+1. `useState`: The `Rating` component uses the `useState` hook to manage its state. It has a state variable `selected` to keep track of the currently selected rating.
 
-Here's the updated explanation of the `handleTextChange` function with the change:
+2. `numbers` array: The `numbers` array is created using `Array.from(Array(11).keys()).splice(1)`. It generates an array of numbers from 1 to 10. These numbers represent the possible ratings the user can choose from.
 
-1. The function receives an event object `e` as an argument, which represents the change event on the input field.
+3. `handleSelectChange`: This function is called whenever the user selects a rating option. It updates the `selected` state to the newly chosen rating and also calls the `selectedRating` prop function, passing the newly selected rating as an argument. This allows the parent component (`FeedbackForm`) to be notified whenever the user selects a rating and update its own state with the chosen rating.
 
-2. The function starts by extracting the trimmed value of the input field using `const newText = e.target.value.trim();`.
+4. `selectList`: The `selectList` variable is created by mapping through the `numbers` array and generating a list of `<li>` elements, each representing a rating option. For each rating option, an `<input>` element of type "radio" is created with a corresponding label.
 
-3. It then checks if `newText` is an empty string. If it is, it means the input field is empty. In this case, it sets the `btnDisabled` state to `true` (disabling the "Send" button) and clears the `message` state by setting it to `null`. This means that when the input field is empty, the "Send" button will be disabled, and any previous error message will be cleared.
+5. `checked` attribute: The `checked` attribute of the `<input>` element is set to `selected === item`, which means that the radio button will be checked if the `selected` state is equal to the current rating number `item`. This ensures that the currently selected rating is visually highlighted in the UI.
 
-4. If `newText` is not empty, it moves to the next condition: `newText.length < 10`. This condition checks if the trimmed input text has fewer than 10 characters. If the input text length is less than 10, it sets the `btnDisabled` state to `true` (disabling the "Send" button) and sets the `message` state to `'Text must at least 10 characters'`. This means that when the input text is too short, the "Send" button will be disabled, and an error message will be displayed to inform the user about the minimum character requirement.
+In the `FeedbackForm`, the `Rating` component is used as follows:
 
-5. If none of the above conditions are met, it means the input text is valid. In this case, it sets the `btnDisabled` state to `false` (enabling the "Send" button) and clears the `message` state by setting it to `null`. This means that when the input text is valid and meets the minimum length requirement, the "Send" button will be enabled, and any previous error message will be cleared.
+```jsx
+<Rating selectedRating={(rating) => setRating(rating)} />
+```
 
-6. Finally, the function updates the `text` state to the current value of the input field, using `setText(e.target.value)`.
+The `selectedRating` prop is passed to the `Rating` component, which is a function that sets the `rating` state in the parent component (`FeedbackForm`). When the user selects a rating in the `Rating` component, the `handleSelectChange` function inside `Rating` is triggered, which updates the `selected` state in `Rating` and calls the `selectedRating` prop function with the newly selected rating. This, in turn, updates the `rating` state in the `FeedbackForm`, allowing it to keep track of the selected rating.
 
-By using `e.target.value.trim()` inside the `handleTextChange` function, we ensure that the validation and state updates are correctly based on the latest input value, resolving the issue where the button would remain purple when all the text was removed.
+Overall, the `Rating` component handles the presentation and selection of rating options, while the `FeedbackForm` component manages the overall form state, including the selected rating and the user's text input.
 
 ## Installation
 
@@ -41,79 +43,34 @@ To run the project on your local machine, follow these steps:
 
 ## Usage
 
-The `handleTextChange` function is designed to be used as an event handler for handling changes in an input field. It provides input validation and controls the state of a form based on the text input value. It updates the `text`, `btnDisabled`, and `message` variables to enable or disable the "Send" button and display an error message when necessary.
+The `Rating` component is a reusable component used in the `FeedbackForm` to allow users to select a rating for the service provided. It utilizes the `useState` hook to manage its state, keeping track of the currently selected rating. The component generates a list of rating options (from 1 to 10) using the `numbers` array and displays them as radio buttons with corresponding labels.
 
-To use `handleTextChange`, follow these steps:
-
-1. Import `useState` from 'react' in your component file:
+When the user selects a rating option, the `handleSelectChange` function is triggered. It updates the `selected` state in the `Rating` component and also calls the `selectedRating` prop function, passing the newly selected rating as an argument. This way, the parent component (`FeedbackForm`) is notified of the selected rating and updates its own state with the chosen rating.
 
 ```jsx
-import React, { useState } from 'react';
-```
+const Rating = ({ selectedRating }) => {
+  const [selected, setSelected] = useState(null);
 
-2. Declare and initialize the state variables (`text`, `btnDisabled`, and `message`) using `useState`. For example:
+  const numbers = Array.from(Array(11).keys()).splice(1);
+  const handleSelectChange = (e) => {
+    const newSelected = +e.target.value;
+    setSelected(newSelected);
+    selectedRating(newSelected);
+  };
 
-```jsx
-const [text, setText] = useState('');
-const [btnDisabled, setBtnDisabled] = useState(true);
-const [message, setMessage] = useState(null);
-```
-
-3. Implement the `handleTextChange` function within your component. You can use the provided explanation to construct the function correctly.
-
-```jsx
-const handleTextChange = (e) => {
-  const newText = e.target.value.trim();
-
-  if (newText === '') {
-    setBtnDisabled(true);
-    setMessage(null);
-  } else if (newText.length < 10) {
-    setBtnDisabled(true);
-    setMessage('Text must be at least 10 characters');
-  } else {
-    setBtnDisabled(false);
-    setMessage(null);
-  }
-
-  setText(newText);
+  ...
 };
+
+export default Rating;
 ```
 
-4. In your JSX code, attach the `handleTextChange` function to the input field as an `onChange` event handler:
+In the `FeedbackForm`, the `Rating` component is used by passing a prop `selectedRating={(rating) => setRating(rating)}`, where `setRating` is a function to update the `rating` state in the `FeedbackForm`. This ensures that the `FeedbackForm` can keep track of the selected rating along with the user's text input.
 
 ```jsx
-<input
-  placeholder='Write a review'
-  type='text'
-  onChange={handleTextChange}
-  value={text}
-/>
+<Rating selectedRating={(rating) => setRating(rating)} />
 ```
 
-5. Conditionally render the error message div using the logical AND (`&&`) operator or a ternary operator:
-
-Using the logical AND (`&&`) operator:
-
-```jsx
-{message && <div className='message'>{message}</div>}
-```
-
-OR using a ternary operator:
-
-```jsx
-{message ? <div className='message'>{message}</div> : null}
-```
-
-6. Use the `btnDisabled` state to disable or enable the "Send" button based on the validation:
-
-```jsx
-<Button type='submit' isDisabled={btnDisabled}>
-  Send
-</Button>
-```
-
-By following these steps, you will be able to leverage the `handleTextChange` function to control the state of your form's input field, enable/disable the "Send" button, and display an error message when necessary, ensuring a smooth and interactive user experience.
+In summary, the `Rating` component handles the visual representation and selection of ratings, while the `FeedbackForm` manages the overall form state, combining both the selected rating and the user's text input.
 
 ## Contributing
 
