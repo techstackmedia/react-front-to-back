@@ -1,4 +1,4 @@
-# Event target and current Target
+# Form Input State
 
 ## Table of Contents
 
@@ -10,60 +10,18 @@
 
 ## Description
 
-In React event handling, `e.target` and `e.currentTarget` refer to different elements involved in the event. Understanding their differences is essential to handle events correctly.
+1. `FeedbackForm` Component:
 
-1. `e.target`:
+   - This is a functional component that renders a form to collect user feedback.
+   - It uses the `useState` hook to manage the state of the text input field. The state variable `text` holds the user's feedback text, and the `handleTextChange` function updates this state whenever the user types in the input field.
+   - The form contains an `<input>` element for the user to write their review and a "Send" button for submitting the feedback.
+   - The form is wrapped inside a `Card` component, which is likely a custom component responsible for displaying the form with a card-like layout.
+   - Regarding the comment `{/* @todo - rating select component */}`, it suggests that there is a plan to add a "rating select" component in the future. The component will allows users to select a rating (from 1 to 10 input buttons) for the feedback. It serves as a reminder or a note for future development.
 
-   - `e.target` refers to the DOM element that triggered the event initially.
-   - It always points to the innermost element where the event originated.
-   - For example, in a nested structure of elements, if you click on the innermost child, `e.target` will refer to that child element.
+2. `App` Component
+   - In the App.js file, we imported the `FeedbackForm` component above the `FeedbackStats` based on the design pattern.
 
-2. `e.currentTarget`:
-   - `e.currentTarget` refers to the DOM element that has the event listener attached to it.
-   - It always points to the element where the event listener is registered.
-   - For example, if you have an event listener on a parent container, and you click on any child element inside that container, `e.currentTarget` will refer to the parent container where the event listener is attached.
-
-Now, let's understand the difference in the code you provided:
-
-In the code you shared, there is a modal represented by the `div` with the class `custom-modal`. The modal appears when `showDeleteModal` is true and disappears when `showDeleteModal` is false.
-
-```jsx
-const closeModal = (e) => {
-  console.log(e.target, e.currentTarget); // Check the console and click inside the modal. Click outside the modal to see why it gets closed.
-  if (e.target === e.currentTarget) {
-    setShowDeleteModal(false);
-  }
-};
-```
-
-In the `closeModal` function, you have attached an `onClick` event listener to the modal `div`. When you click on the modal (the gray area), the `onClick` event is triggered. At this point, `e.target` will refer to the specific element you clicked inside the modal (e.g., the "Confirm" or "Cancel" button). However, `e.currentTarget` will refer to the `div` with the class `custom-modal`, which is the element where the event listener is attached.
-
-The condition `if (e.target === e.currentTarget)` checks if you clicked on the gray area (the modal itself) and not on any of its child elements. If you click on any child element within the modal, the condition will be false, and the `setShowDeleteModal(false)` won't be executed. This behavior ensures that the modal only closes when clicking outside its content (gray area) and not when clicking on the buttons inside it.
-
-In the `closeModal` function, as shown above, when different elements inside the modal are clicked, the console output for `e.target` and `e.currentTarget` changes accordingly:
-
-1. Clicking the text "Confirmation" inside the modal yields the following console output:
-
-```html
-<h2>Confirmation</h2>
-<div class="custom-modal">...</div>
-```
-
-2. Clicking the text "Are you sure you want to delete this item?" inside the modal yields the following console output:
-
-```html
-<p>Are you sure you want to delete this item?</p>
-<div class="custom-modal">...</div>
-```
-
-3. When clicking outside the modal to close it, the console shows two identical outputs:
-
-```html
-<div class="custom-modal">...</div>
-<div class="custom-modal">...</div>
-```
-
-In summary, the `closeModal` function is designed to close the modal when clicking outside its content (the gray area) by comparing `e.target` with `e.currentTarget`. If they are equal, it means you clicked on the modal itself, and then the `setShowDeleteModal(false)` is called to close the modal. If they are not equal (you clicked on a child element inside the modal), the modal remains open.
+> **Note**: Check the React developer tool and notice that besides the props we've seen in the past, we also have the state (hooks). The state keeps updating when inputting text to the input field; the state updates.
 
 ## Installation
 
@@ -76,23 +34,56 @@ To run the project on your local machine, follow these steps:
 
 ## Usage
 
-The usage of `e.target` and `e.currentTarget` in React event handling is crucial to handle events correctly. Here's an explanation of their usage based on the content provided:
+1. Import the `FeedbackForm` component:
+   In your `App.js` (or any other file where you want to use the `FeedbackForm`), you need to import the `FeedbackForm` component. The `App.js` is directly below the project directory and `FeedbackForm.js` is in the component folder, you would import it like this:
 
-1. `e.target`:
-   - `e.target` represents the DOM element that triggered the event initially.
-   - It always points to the innermost element where the event originated.
-   - For example, in a nested structure of elements, if you click on the innermost child, `e.target` will refer to that specific child element.
+```jsx
+import FeedbackForm from './components/FeedbackForm';
+```
 
-2. `e.currentTarget`:
-   - `e.currentTarget` represents the DOM element that has the event listener attached to it.
-   - It always points to the element where the event listener is registered.
-   - For instance, if you have an event listener on a parent container, and you click on any child element inside that container, `e.currentTarget` will refer to the parent container where the event listener is attached.
+The file structure of your project looks like this:
 
-In the provided code, there is a modal represented by the `div` with the class `custom-modal`. The modal appears when `showDeleteModal` is `true` and disappears when `showDeleteModal` is `false`.
+```jsx
+project_directory/
+  |- App.js
+  |- components/
+      |- FeedbackForm.js
+```
 
-The `closeModal` function is responsible for handling the modal's closing behavior. When you click on the modal (the gray area), the `onClick` event is triggered. At this point, `e.target` will refer to the specific element you clicked inside the modal (e.g., the "Confirm" or "Cancel" button). However, `e.currentTarget` will refer to the `div` with the class `custom-modal`, which is the element where the event listener is attached.
+2. Use the `FeedbackForm` component:
+   Once you've imported the `FeedbackForm` component, you can use it in your `App` component's JSX to render the feedback form. For example, in your `App.js`, you can include the `FeedbackForm` like this:
 
-The condition `if (e.target === e.currentTarget)` checks if you clicked on the gray area (the modal itself) and not on any of its child elements. If you click on any child element within the modal, the condition will be false, and the `setShowDeleteModal(false)` won't be executed. This behavior ensures that the modal only closes when clicking outside its content (gray area) and not when clicking on the buttons inside it.
+```jsx
+import React from 'react';
+import FeedbackForm from './FeedbackForm';
+import FeedbackStats from './FeedbackStats';
+
+const App = () => {
+  return (
+    ...
+    <>
+      <Header />
+      <div className='container'>
+        <FeedbackForm /> {/* Above FeedbackStats */}
+        <FeedbackStats feedback={feedback} />
+        <FeedbackList feedback={feedback} handleDeleteCard={handleDeleteCard} />
+      </div>
+ 
+      {alertConfirmationModal}
+    </>
+  );
+};
+
+export default App;
+```
+
+In this example, the `App` component renders a header, the `FeedbackForm`, component (which is imported at the top), and the `FeedbackStats` and `FeedbackList` component. Now, whenever you visit the app, you will see the feedback form being displayed on the page.
+
+3. Functionality of `FeedbackForm` component:
+   The `FeedbackForm` component uses the `useState` hook to manage the state of the input field. When the user types in the input field, the `handleTextChange` function is called, which updates the `text` state with the user's feedback text. The input value is controlled by the `text` state, ensuring that it reflects the current state value.
+
+4. Future Development:
+   The comment `{/* @todo - rating select component */}` suggests that there is a plan to add a "rating select" component in the future. This component will allow users to select a rating for the feedback.
 
 ## Contributing
 
