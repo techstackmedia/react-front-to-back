@@ -38,7 +38,7 @@ Here's how the switch from using `window.confirm` to building a custom confirmat
 
 By using a custom confirmation modal, the application gains more flexibility in terms of design and interaction. It allows for a better user experience as the confirmation dialog is now consistent with the overall application design, and the user can easily understand the consequences of their actions. Additionally, custom modals provide developers with more control over the appearance and behavior, making it easier to customize the confirmation process to match specific application requirements.
 
-> Note: Check the styling of the modal delete confirmation alert in **index.css** file below the comment `/* Additional styles to enhance the appearance */`.
+> Note: Check the styling of the modal delete confirmation alert in **index.css** file below the comment, `/* Additional styles to enhance the appearance */`.
 
 ## Installation
 
