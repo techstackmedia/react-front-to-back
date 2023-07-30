@@ -7,10 +7,7 @@ const FeedbackForm = () => {
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [message, setMessage] = useState(null);
   const handleTextChange = (e) => {
-    const newText = text.trim();
-
-    /* ...will explain why we need to use the variable newText to store the value e.target.value.trim() instead of text.trim() in the next chapter or branch. */
-    // const newText = e.target.value.trim()
+    const newText = e.target.value.trim();
 
     if (newText === '') {
       setBtnDisabled(true);
@@ -23,8 +20,7 @@ const FeedbackForm = () => {
       setMessage(null);
     }
 
-    setText(e.target.value);
-    // setText(newText)
+    setText(newText);
   };
 
   return (

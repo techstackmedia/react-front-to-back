@@ -1,4 +1,4 @@
-# Form Input Validation
+# Improved Form Validation for "Send" Button
 
 ## Table of Contents
 
@@ -10,33 +10,25 @@
 
 ## Description
 
-The `handleTextChange` function is an input validation function that is used to control the state of the form based on the text input value. It is responsible for updating the state of the `text`, `btnDisabled`, and `message` variables based on the user's input.
+The `const newText = text.trim();` was commented out and `const newText = e.target.value.trim();` was used instead to address an issue with the form validation. The issue was that when the button turns purple (`text.trim().length >= 10`) and then all the text is removed (`text.trim().length === 0`), the button remains purple instead of turning gray.
 
-Here's an explanation of the `handleTextChange` function:
+By using `e.target.value.trim()` instead of `text.trim()`, the `handleTextChange` function correctly captures the current value of the input field whenever it changes. This ensures that the validation logic always operates on the most up-to-date text value, even after it has been trimmed.
+
+Here's the updated explanation of the `handleTextChange` function with the change:
 
 1. The function receives an event object `e` as an argument, which represents the change event on the input field.
 
-2. The function starts by checking if the `text` state is an empty string. If it is, it means the input field is empty. In this case, it sets the `btnDisabled` state to `true` (disabling the "Send" button) and clears the `message` state by setting it to `null`. This means that when the input field is empty, the "Send" button will be disabled, and any previous error message will be cleared.
+2. The function starts by extracting the trimmed value of the input field using `const newText = e.target.value.trim();`.
 
-3. If the input field is not empty, it moves to the next condition: `text !== '' && text.trim().length < 10`. This condition checks if the input text has fewer than 10 characters after trimming any leading or trailing white spaces. If the input text length is less than 10, it sets the `btnDisabled` state to `true` (disabling the "Send" button) and sets the `message` state to `'Text must at least 10 characters'`. This means that when the input text is too short, the "Send" button will be disabled, and an error message will be displayed to inform the user about the minimum character requirement.
+3. It then checks if `newText` is an empty string. If it is, it means the input field is empty. In this case, it sets the `btnDisabled` state to `true` (disabling the "Send" button) and clears the `message` state by setting it to `null`. This means that when the input field is empty, the "Send" button will be disabled, and any previous error message will be cleared.
 
-4. If none of the above conditions are met, it means the input text is valid. In this case, it sets the `btnDisabled` state to `false` (enabling the "Send" button) and clears the `message` state by setting it to `null`. This means that when the input text is valid and meets the minimum length requirement, the "Send" button will be enabled, and any previous error message will be cleared.
+4. If `newText` is not empty, it moves to the next condition: `newText.length < 10`. This condition checks if the trimmed input text has fewer than 10 characters. If the input text length is less than 10, it sets the `btnDisabled` state to `true` (disabling the "Send" button) and sets the `message` state to `'Text must at least 10 characters'`. This means that when the input text is too short, the "Send" button will be disabled, and an error message will be displayed to inform the user about the minimum character requirement.
 
-5. Finally, the function updates the `text` state to the current value of the input field, using `setText(e.target.value)`.
+5. If none of the above conditions are met, it means the input text is valid. In this case, it sets the `btnDisabled` state to `false` (enabling the "Send" button) and clears the `message` state by setting it to `null`. This means that when the input text is valid and meets the minimum length requirement, the "Send" button will be enabled, and any previous error message will be cleared.
 
-Regarding the rendering of the message div, the code uses a ternary operator to conditionally render the message div based on the value of `message`. The expression `{message ? <div className='message'>{message}</div> : null}` checks if `message` is truthy. If it is, it renders the `<div>` element with the error message, and if `message` is `null`, it renders `null`, effectively omitting the error message.
+6. Finally, the function updates the `text` state to the current value of the input field, using `setText(e.target.value)`.
 
-An alternative way to conditionally render the message div is to use the logical AND (`&&`) operator. The `&&` operator returns the second operand if the first operand is truthy, and it returns the first operand if it is falsy. In this case, we can utilize this behavior to conditionally render the message div as follows:
-
-```jsx
-{message && <div className='message'>{message}</div>}
-```
-
-This code snippet accomplishes the same functionality as the original ternary expression but in a more concise way. If `message` is truthy, it renders the `<div>` element with the error message, and if `message` is `null`, it renders nothing (since `null` is falsy), effectively omitting the error message.
-
-## Issue
-
-There is just one issue with the form validation: when the button turns dark blue color (text.trim().length >= 10) and you then remove all the text (text.trim().length === 0), the button remains dark blue color instead of turning gray.
+By using `e.target.value.trim()` inside the `handleTextChange` function, we ensure that the validation and state updates are correctly based on the latest input value, resolving the issue where the button would remain purple when all the text was removed.
 
 ## Installation
 
@@ -48,8 +40,6 @@ To run the project on your local machine, follow these steps:
 4. Start the development server: `npm start` or `yarn start`
 
 ## Usage
-
-Imagine `const newText = e.target.value.trim()` was used instead of `const newText = text.trim()`, the usage applies below:
 
 The `handleTextChange` function is designed to be used as an event handler for handling changes in an input field. It provides input validation and controls the state of a form based on the text input value. It updates the `text`, `btnDisabled`, and `message` variables to enable or disable the "Send" button and display an error message when necessary.
 
