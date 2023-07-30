@@ -36,7 +36,7 @@ This code snippet accomplishes the same functionality as the original ternary ex
 
 ## Issue
 
-There is just one issue with the form validation: when the button turns purple (text.trim().length >= 10) and you then remove all the text (text.trim().length === 0), the button remains purple instead of turning gray.
+There is just one issue with the form validation: when the button turns dark blue color (text.trim().length >= 10) and you then remove all the text (text.trim().length === 0), the button remains dark blue color instead of turning gray.
 
 ## Installation
 
