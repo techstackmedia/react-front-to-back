@@ -10,7 +10,7 @@
 
 ## Description
 
-In the given code, there are two main components: `App.js` and `FeedbackForm.jsx`, along with other supporting components (`FeedbackList.jsx`, `FeedbackItem.jsx`, and `Rating.jsx`). The purpose of these components is to create a feedback application where users can add, edit, and delete feedback items. Let's understand the flow of the code and the logic behind it.
+There are two main components: `App.js` and `FeedbackForm.jsx`, along with other supporting components (`FeedbackList.jsx`, `FeedbackItem.jsx`, and `Rating.jsx`). The purpose of these components is to create a feedback application where users can add, edit, and delete feedback items. Let's understand the flow of the code and the logic behind it.
 
 1. `App.js` Component:
 
