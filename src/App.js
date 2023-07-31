@@ -1,107 +1,21 @@
-import { useState } from 'react';
+import PropTypes from 'prop-types'
 import Header from './components/Header';
-import FeedbackData from './data/FeedbackData';
+import FeedbackItem from './components/FeedbackItem';
 import FeedbackList from './components/FeedbackList';
 import FeedbackStats from './components/FeedbackStats';
 import FeedbackForm from './components/FeedbackForm';
-import { v4 } from 'uuid';
+import { useContext } from 'react';
+import FeedbackContext from './context/FeedbackContext';
 
 const App = () => {
-  const [feedback, setFeedback] = useState(FeedbackData);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [itemToDelete, setItemToDelete] = useState(null);
-  const [feedbackEdit, setFeedbackEdit] = useState({
-    item: {},
-    edit: false,
-  });
-
-  const addFeedbackItem = (newFeedbackItem) => {
-    const id = v4();
-    newFeedbackItem.id = id;
-    const updatedFeedbackArray = [newFeedbackItem, ...feedback];
-    setFeedback(updatedFeedbackArray);
-  };
-
-  const editFeedback = (item) => {
-    setFeedbackEdit({
-      item,
-      edit: true,
-    });
-  };
-
-  const deleteFeedback = (id) => {
-    setShowDeleteModal(true);
-    setItemToDelete(id);
-  };
-
-  const updateFeedback = (id, itemUpdate) => {
-    console.log(id, itemUpdate);
-    setFeedback(
-      feedback.map((item) => {
-        return item.id === id ? { ...item, ...itemUpdate } : item;
-      })
-    );
-  };
-
-  const handleDeleteConfirmed = () => {
-    setShowDeleteModal(false);
-    setFeedback((prev) => {
-      return prev.filter((item) => {
-        return item.id !== itemToDelete;
-      });
-    });
-  };
-
-  const handleDeleteCancelled = () => {
-    setShowDeleteModal(false);
-  };
-
-  const closeModal = (e) => {
-    if (e.target === e.currentTarget) {
-      setShowDeleteModal(false);
-    }
-  };
-
-  const alertConfirmationModal = showDeleteModal && (
-    <div className='custom-modal' onClick={closeModal}>
-      <div className='modal-content'>
-        <h2>Confirmation</h2>
-        <p>Are you sure you want to delete this item?</p>
-        <div className='modal-actions'>
-          <button
-            type='button'
-            onClick={handleDeleteConfirmed}
-            className='btn-confirm'
-          >
-            Confirm
-          </button>
-          <button
-            type='button'
-            onClick={handleDeleteCancelled}
-            className='btn-cancel'
-          >
-            Cancel
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-
+  const { alertConfirmationModal } = useContext(FeedbackContext);
   return (
     <>
       <Header />
       <div className='container'>
-        <FeedbackForm
-          handleAddItem={addFeedbackItem}
-          feedbackEdit={feedbackEdit}
-          handleUpdateFeedback={updateFeedback}
-        />
-        <FeedbackStats feedback={feedback} />
-        <FeedbackList
-          feedback={feedback}
-          handleDeleteFeedback={deleteFeedback}
-          handleEditFeedback={editFeedback}
-        />
+        <FeedbackForm />
+        <FeedbackStats />
+        <FeedbackList />
       </div>
 
       {alertConfirmationModal}
@@ -110,3 +24,44 @@ const App = () => {
 };
 
 export default App;
+
+Header.defaultProps = {
+  text: 'Feedback UI',
+  bgColor: 'rgba(0, 0, 0, 0.4)',
+  textColor: '#ff6a95',
+};
+
+/* You can optionally remove all prop-types checking  */
+Header.propTypes = {
+  text: PropTypes.string,
+  bgColor: PropTypes.string,
+  textColor: PropTypes.string,
+};
+
+FeedbackItem.propTypes = {
+  item: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    rating: PropTypes.number.isRequired,
+    text: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+FeedbackList.propTypes = {
+  feedback: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      text: PropTypes.string.isRequired,
+      rating: PropTypes.number.isRequired,
+    })
+  ),
+};
+
+FeedbackStats.prototype = {
+  feedback: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      text: PropTypes.string,
+      rating: PropTypes.string,
+    })
+  ),
+};

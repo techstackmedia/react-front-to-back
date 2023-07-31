@@ -9,6 +9,7 @@ Card.defaultProps = {
   reverse: false,
 };
 
+/* You can optionally remove all prop-types checking  */
 Card.propTypes = {
   children: PropTypes.node.isRequired,
   reverse: PropTypes.bool,
