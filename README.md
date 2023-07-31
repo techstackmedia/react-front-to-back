@@ -67,6 +67,20 @@ To run the project on your local machine, follow these steps:
 
 Optionally, avoid using the `react-icons` package and instead, import and use custom SVG images or any other image formats directly in your component without relying on any external library.
 
+You can download icons from various platforms and websites that offer free or paid icon resources. Here are some popular platforms where you can find and download icons:
+
+1. Flaticon: [flaticon.com](https://www.flaticon.com)
+2. FontAwesome: [fontawesome.com](https://fontawesome.com)
+3. Google Material Design Icons: [fonts.google.com/icons](https://fonts.google.com/icons)
+4. Icons8: icons8.com
+5. Noun Project: [thenounproject.com](https://thenounproject.com)
+6. Iconfinder: [iconfinder.com](https://www.iconfinder.com)
+7. Freepik: [freepik.com](https://www.freepik.com)
+8. Iconscout: [iconscout.com](https://iconscout.com)
+9. Pixabay: [pixabay.com](https://pixabay.com) (offers both photos and vector illustrations, including icons)
+
+Each platform may have its own licensing terms, so make sure to check the usage rights and license agreements before using any icons in your projects, especially for commercial purposes. Some websites offer both free and premium (paid) icon options, so you can choose the ones that best suit your needs and budget.
+
 ## Contributing
 
 If you'd like to contribute to this project, follow these steps:
