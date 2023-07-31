@@ -44,6 +44,8 @@ There are two main components: `App.js` and `FeedbackForm.jsx`, along with other
    };
    ```
 
+   > **Note:** Check out the browser's console and notice the response when a feedback item object (text and rating) is updated.
+
    - Instead of using `map` and creating a new array, you can find the index of the item to be updated in the `feedback` array and modify it directly.
 
    ```jsx
