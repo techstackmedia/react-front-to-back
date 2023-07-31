@@ -12,6 +12,8 @@
 
 The comments in the code files indicate that the prop-types checking can be optionally removed. The reason for this is that the application is stable and has been thoroughly tested, so the developers may choose to skip prop-types checking to improve performance, reduce bundle size, and make the codebase cleaner.
 
+Note the comment in the Button, Card, and App.js below:
+
 ```jsx
 /* You can optionally remove all prop-types checking */
 ```
