@@ -4,7 +4,11 @@ import Button from './shared/Button';
 import Rating from './Rating';
 import { useEffect } from 'react';
 
-const FeedbackForm = ({ handleAddItem, feedbackEdit }) => {
+const FeedbackForm = ({
+  handleAddItem,
+  feedbackEdit,
+  handleUpdateFeedback,
+}) => {
   const [text, setText] = useState('');
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [message, setMessage] = useState(null);
@@ -35,9 +39,13 @@ const FeedbackForm = ({ handleAddItem, feedbackEdit }) => {
         rating,
       };
 
-      handleAddItem(newFeedbackItem);
+      if (feedbackEdit.edit === true) {
+        handleUpdateFeedback(feedbackEdit.item.id, newFeedbackItem);
+      } else {
+        handleAddItem(newFeedbackItem);
+      }
 
-      setText('')
+      setText('');
     }
   };
 
@@ -46,13 +54,16 @@ const FeedbackForm = ({ handleAddItem, feedbackEdit }) => {
       setBtnDisabled(false);
       setText(feedbackEdit.item.text);
     }
-  }, [feedbackEdit])
+  }, [feedbackEdit]);
 
   return (
     <Card>
       <h2>How would you rate your service with us?</h2>
       <form onSubmit={handleFormSubmit}>
-        <Rating selectedRating={(rating) => setRating(rating)} feedbackEdit={feedbackEdit} />
+        <Rating
+          selectedRating={(rating) => setRating(rating)}
+          feedbackEdit={feedbackEdit}
+        />
         <div className='input-group'>
           <input
             placeholder='Write a review'

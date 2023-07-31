@@ -14,7 +14,7 @@ const App = () => {
   const [feedbackEdit, setFeedbackEdit] = useState({
     item: {},
     edit: false,
-  })
+  });
 
   const addFeedbackItem = (newFeedbackItem) => {
     const id = v4();
@@ -26,20 +26,31 @@ const App = () => {
   const editFeedback = (item) => {
     setFeedbackEdit({
       item,
-      edit: true
-    })
-  }
-
-  console.log(feedbackEdit)
+      edit: true,
+    });
+  };
 
   const deleteFeedback = (id) => {
     setShowDeleteModal(true);
     setItemToDelete(id);
   };
 
+  const updateFeedback = (id, itemUpdate) => {
+    console.log(id, itemUpdate);
+    setFeedback(
+      feedback.map((item) => {
+        return item.id === id ? { ...item, ...itemUpdate } : item;
+      })
+    );
+  };
+
   const handleDeleteConfirmed = () => {
     setShowDeleteModal(false);
-    setFeedback((prev) => prev.filter((item) => item.id !== itemToDelete));
+    setFeedback((prev) => {
+      return prev.filter((item) => {
+        return item.id !== itemToDelete;
+      });
+    });
   };
 
   const handleDeleteCancelled = () => {
@@ -94,9 +105,17 @@ const App = () => {
     <>
       <Header />
       <div className='container'>
-        <FeedbackForm handleAddItem={addFeedbackItem} feedbackEdit={feedbackEdit} />
+        <FeedbackForm
+          handleAddItem={addFeedbackItem}
+          feedbackEdit={feedbackEdit}
+          handleUpdateFeedback={updateFeedback}
+        />
         <FeedbackStats feedback={feedback} />
-        <FeedbackList feedback={feedback} handleDeleteFeedback={deleteFeedback} handleEditFeedback={editFeedback} />
+        <FeedbackList
+          feedback={feedback}
+          handleDeleteFeedback={deleteFeedback}
+          handleEditFeedback={editFeedback}
+        />
       </div>
 
       {alertConfirmationModal}
