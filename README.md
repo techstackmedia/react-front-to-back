@@ -13,10 +13,10 @@
 The comments in the code files indicate that the prop-types checking can be optionally removed. The reason for this is that the application is stable and has been thoroughly tested, so the developers may choose to skip prop-types checking to improve performance, reduce bundle size, and make the codebase cleaner.
 
 ```jsx
-/* You can optionally remove all prop-types checking  */
+/* You can optionally remove all prop-types checking */
 ```
 
-In fact in the next branch or chapter all prop-Types will be removed since it has served it's purpose and the app is ready for deployment.
+In fact, in the next branch or chapter, all prop-types will be removed since it has served its purpose. This means the app can be deployed without any errors related to prop types.
 
 Prop-types are used to enforce the type and presence of certain props passed to React components. They are especially helpful during development and debugging as they provide warnings in the console when incorrect props are passed. However, in production, these checks can add some overhead and might not be necessary if the app is well-tested and stable.
 
