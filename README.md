@@ -1,4 +1,4 @@
-# Uninstall `react-icons` library
+# Uninstall `framer-motion` library
 
 ## Table of Contents
 
@@ -10,49 +10,67 @@
 
 ## Description
 
-You can uninstall the `react-icons` package from your terminal using the following commands:
+The `framer-motion` library can be uninstalled from your app using the following commands:
 
 ```bash
-npm un react-icons
+npm un framer-motion
 ```
 
 or
 
 ```bash
-yarn remove react-icons
+yarn remove framer-motion
 ```
 
-Instead of using the `react-icons` package, the code below demonstrates how to use custom SVG images `closeIcon.svg` and `editIcon.svg` in the `FeedbackItem.jsx` file. The import statement for `FaEdit` and `FaTimes` from `react-icons/fa` has been removed, and the SVG images are imported into the `FeedbackItem` file as follows:
+Additionally, make sure to remove all imports of framer-motion from your app.
+
+`FeedbackList.jsx`
 
 ```jsx
-import closeIcon from '../images/closeIcon.svg';
-import editIcon from '../images/editIcon.svg';
+<div className='feedback-list'>
+  {feedback.map((feedbackItem) => {
+    return (
+      <FeedbackItem
+        item={feedbackItem}
+        key={feedbackItem.id}
+        handleDeleteFeedback={handleDeleteFeedback}
+        handleEditFeedback={handleEditFeedback}
+      />
+    );
+  })}
+</div>
 ```
 
-With this setup, the `FeedbackItem` component displays the SVG images using the `img` tag instead of using `react-icons`. Here is the updated code for the `FeedbackItem` component:
+`App.js`
 
 ```jsx
-import closeIcon from '../images/closeIcon.svg'
-import editIcon from '../images/editIcon.svg'
-
-  return (
-    <Card>
-      <div className='num-display'>{item.rating}</div>
-      <button onClick={handleDeleteButton} className='close'>
-        <img src={closeIcon} alt='close icon' width={16} />
-      </button>
-      <button onClick={handleEditButton} className='edit'>
-        <img src={editIcon} alt='edit icon' width={16} />
-      </button>
-      <div className='text-display'>{item.text}</div>
-    </Card>
-  );
-};
-
-export default FeedbackItem;
+const alertConfirmationModal = showDeleteModal && (
+  <div className='custom-modal' onClick={closeModal}>
+    <div className='modal-content'>
+      <h2>Confirmation</h2>
+      <p>Are you sure you want to delete this item?</p>
+      <div className='modal-actions'>
+        <button
+          type='button'
+          onClick={handleDeleteConfirmed}
+          className='btn-confirm'
+        >
+          Confirm
+        </button>
+        <button
+          type='button'
+          onClick={handleDeleteCancelled}
+          className='btn-cancel'
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+);
 ```
 
-> **Note:** It is optional to uninstall the `react-icons` package. The removal is shown only to demonstrate how to import and use custom SVG images (or any other image formats) directly in your component without relying on any external library like `react-icons`.
+> **Note:** Optionally uninstall and remove the `framer-motion` package from the app.
 
 ## Installation
 
@@ -65,21 +83,9 @@ To run the project on your local machine, follow these steps:
 
 ## Usage
 
-Optionally, avoid using the `react-icons` package and instead, import and use custom SVG images or any other image formats directly in your component without relying on any external library.
-
-You can download icons from various platforms and websites that offer free or paid icon resources. Here are some popular platforms where you can find and download icons:
-
-1. Flaticon: [flaticon.com](https://www.flaticon.com)
-2. FontAwesome: [fontawesome.com](https://fontawesome.com)
-3. Google Material Design Icons: [fonts.google.com/icons](https://fonts.google.com/icons)
-4. Icons8: icons8.com
-5. Noun Project: [thenounproject.com](https://thenounproject.com)
-6. Iconfinder: [iconfinder.com](https://www.iconfinder.com)
-7. Freepik: [freepik.com](https://www.freepik.com)
-8. Iconscout: [iconscout.com](https://iconscout.com)
-9. Pixabay: [pixabay.com](https://pixabay.com) (offers both photos and vector illustrations, including icons)
-
-Each platform may have its own licensing terms, so make sure to check the usage rights and license agreements before using any icons in your projects, especially for commercial purposes. Some websites offer both free and premium (paid) icon options, so you can choose the ones that best suit your needs and budget.
+1. Perform the installation steps `npm install`.
+2. Run the development server.
+3. Interact with the app and manage feedback items.
 
 ## Contributing
 
