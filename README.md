@@ -72,6 +72,52 @@ const alertConfirmationModal = showDeleteModal && (
 
 > **Note:** Optionally uninstall and remove the `framer-motion` package from the app.
 
+Animation is added to the alert confirmation modal using just css:
+
+```css
+.custom-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease-in-out; /* animation effect */
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  max-width: 400px;
+  animation: slideIn 0.3s ease-in-out; /* animation effect */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+```
+
 ## Installation
 
 To run the project on your local machine, follow these steps:
