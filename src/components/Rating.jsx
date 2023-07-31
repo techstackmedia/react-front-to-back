@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-const Rating = ({ selectedRating }) => {
+const Rating = ({ selectedRating, feedbackEdit }) => {
   const [selected, setSelected] = useState(null);
 
   const numbers = Array.from(Array(11).keys()).splice(1);
@@ -9,6 +9,10 @@ const Rating = ({ selectedRating }) => {
     setSelected(newSelected);
     selectedRating(newSelected);
   };
+
+  useEffect(() => {
+    setSelected(feedbackEdit.item.rating)
+  }, [feedbackEdit])
 
   const selectList = numbers.map((item) => {
     return (

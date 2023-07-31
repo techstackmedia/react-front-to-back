@@ -11,6 +11,10 @@ const App = () => {
   const [feedback, setFeedback] = useState(FeedbackData);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
+  const [feedbackEdit, setFeedbackEdit] = useState({
+    item: {},
+    edit: false,
+  })
 
   const addFeedbackItem = (newFeedbackItem) => {
     const id = v4();
@@ -19,7 +23,16 @@ const App = () => {
     setFeedback(updatedFeedbackArray);
   };
 
-  const handleDeleteCard = (id) => {
+  const editFeedback = (item) => {
+    setFeedbackEdit({
+      item,
+      edit: true
+    })
+  }
+
+  console.log(feedbackEdit)
+
+  const deleteFeedback = (id) => {
     setShowDeleteModal(true);
     setItemToDelete(id);
   };
@@ -81,9 +94,9 @@ const App = () => {
     <>
       <Header />
       <div className='container'>
-        <FeedbackForm handleAddItem={addFeedbackItem} />
+        <FeedbackForm handleAddItem={addFeedbackItem} feedbackEdit={feedbackEdit} />
         <FeedbackStats feedback={feedback} />
-        <FeedbackList feedback={feedback} handleDeleteCard={handleDeleteCard} />
+        <FeedbackList feedback={feedback} handleDeleteFeedback={deleteFeedback} handleEditFeedback={editFeedback} />
       </div>
 
       {alertConfirmationModal}

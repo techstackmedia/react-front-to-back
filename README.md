@@ -1,4 +1,4 @@
-# Animation with Framer Motion
+# Managing Feedback Editing and Intro to useEffect
 
 ## Table of Contents
 
@@ -10,28 +10,33 @@
 
 ## Description
 
-In both `App.js` and `FeedbackList.jsx`, the `framer-motion` library is used to add animations to components. The animations help create smooth transitions and visual effects when components are mounted, unmounted, or updated. Let's explore how `framer-motion` is used in each file:
+We have a React application that allows users to provide feedback by rating and leaving comments. The main components involved are `FeedbackForm`, `FeedbackList`, `FeedbackItem`, and `Rating`.
 
-1. `FeedbackList.jsx`:
+1. **Explanation of `useEffect` in `FeedbackForm`**:
 
-In this file, `framer-motion` is used to animate the individual `FeedbackItem` components when they are added or removed from the list. The `AnimatePresence` component from `framer-motion` is used to wrap the list of `FeedbackItem` components. It allows `framer-motion` to handle the animations when components are added or removed.
+In the `FeedbackForm` component, we have the `feedbackEdit` prop being passed down from the parent component (`App`). The prop `feedbackEdit` contains an object with two properties: `item` (representing the feedback item to edit) and `edit` (a boolean indicating whether the form is in edit mode).
 
-For each `FeedbackItem` component, a wrapping `motion.div` is used to apply animations to the individual items. The `motion.div` component is provided with `initial`, `animate`, and `exit` props to define how the item should behave during its initial mount, while it is present, and when it is removed from the list, respectively. In this case, `opacity` is animated from 0 to 1 during the initial mount, and from 1 to 0 during the exit.
+The `useEffect` hook in `FeedbackForm` is used to update the form fields (`text` and `rating`) when the component mounts and when `feedbackEdit` changes. This is useful when the user clicks the "Edit" button on a feedback item in the list, and the form should be pre-filled with the existing feedback details for editing.
 
-2. `App.jsx`:
+If `feedbackEdit.edit` is `true`, it means the form is in edit mode, and we set the form fields (`setText`, `setBtnDisabled`, and `setRating`) based on the `feedbackEdit.item` properties. This ensures that the form reflects the selected feedback item's details when the user wants to edit it.
 
-In this file, `framer-motion` is used to animate the custom delete confirmation modal that appears when a user wants to delete a feedback item. The modal is conditionally rendered based on the `showDeleteModal` state.
+**When to use `useEffect`**: We use `useEffect` in this scenario to handle side effects (in this case, updating form fields) when certain dependencies change. In this case, the effect runs whenever the `feedbackEdit` prop changes, which allows us to update the form fields accordingly.
 
-Just like in `FeedbackList.jsx`, the `motion.div` component is used to animate the modal's appearance (`initial` and `animate` props) and disappearance (`exit` prop). Additionally, the inner content of the modal (the actual delete confirmation content) is also animated using another `motion.div`. This allows for separate animations on the modal itself and its inner content.
+2. **Explanation of `feedbackEdit` prop in `Rating`**:
 
-The following animations are applied to the modal:
+In the `Rating` component, the `feedbackEdit` prop is passed down from the `FeedbackForm`. It is used to set the initial value of the `selected` state, which represents the current rating selected by the user.
 
-- For the modal's appearance, it scales from `scale: 0.5` to `scale: 1`, and its opacity changes from `opacity: 0` to `opacity: 1`.
-- For the modal's disappearance, it scales from `scale: 1` to `scale: 0.5`, and its opacity changes from `opacity: 1` to `opacity: 0`.
+The `useEffect` in the `Rating` component is responsible for updating the `selected` state whenever the `feedbackEdit` prop changes. This ensures that when the user switches from editing one feedback item to another, the rating selection in the `Rating` component reflects the rating of the selected feedback item.
 
-In both cases, `framer-motion` handles the animations in a declarative manner by providing the necessary properties (`initial`, `animate`, and `exit`) for the components involved in the animation.
+**Why `useEffect` is used in `Rating` and not in `FeedbackForm`**: The reason we have the `useEffect` in `Rating` instead of `FeedbackForm` is that the `Rating` component is used for both adding new feedback and editing existing feedback. So, we need to ensure that the `selected` state, which represents the current rating selection, is updated based on the feedback item being edited.
 
-These animations help create a more visually appealing and interactive user experience by adding smooth transitions and visual cues during certain actions like adding feedback items to the list or confirming the deletion of a feedback item.
+3. **Explanation of `handleEditFeedback` prop in `FeedbackList`**:
+
+In the `FeedbackList` component, the `handleEditFeedback` function is passed down from the parent component (`App`). This function is used to handle the editing of a feedback item.
+
+When the user clicks the "Edit" button in a feedback item (`FeedbackItem` component), the `handleEditButton` function is called, which, in turn, calls the `handleEditFeedback` function, passing the selected `item` as an argument. This allows the parent component (`App`) to know which feedback item is being edited.
+
+**Why `handleEditFeedback` is passed to `FeedbackList`**: By passing down `handleEditFeedback` to `FeedbackList`, we enable the `FeedbackItem` component to interact with the parent component (`App`) and trigger the editing process when the "Edit" button is clicked.
 
 ## Installation
 
@@ -44,25 +49,7 @@ To run the project on your local machine, follow these steps:
 
 ## Usage
 
-The usage of the `framer-motion` library in both `App.js` and `FeedbackList.jsx` is to add animations to components and create smooth transitions and visual effects during different scenarios. Here's a summary of how `framer-motion` is used in each file:
-
-1. `FeedbackList.jsx`:
-
-- `framer-motion` is used to animate the individual `FeedbackItem` components when they are added or removed from the list.
-- The `AnimatePresence` component from `framer-motion` is used to wrap the list of `FeedbackItem` components, allowing the library to handle the animations when components are added or removed.
-- Each `FeedbackItem` component is wrapped in a `motion.div` component, which applies animations to the individual items. The `motion.div` component is provided with `initial`, `animate`, and `exit` props to define how the item behaves during its initial mount, presence, and when it is removed from the list.
-- In this case, the `opacity` property is animated from 0 to 1 during the initial mount, and from 1 to 0 during the exit, creating a fade-in and fade-out effect.
-
-2. `App.jsx`:
-
-- `framer-motion` is used to animate the custom delete confirmation modal that appears when a user wants to delete a feedback item.
-- The modal is conditionally rendered based on the `showDeleteModal` state.
-- The modal itself is wrapped in a `motion.div` component, which animates its appearance (`initial` and `animate` props) and disappearance (`exit` prop).
-- Additionally, the inner content of the modal (the actual delete confirmation content) is also animated using another `motion.div`. This allows for separate animations on the modal itself and its inner content.
-- For the modal's appearance, it scales from `scale: 0.5` to `scale: 1`, and its opacity changes from `opacity: 0` to `opacity: 1`, creating a scaling-up effect with fading in.
-- For the modal's disappearance, it scales from `scale: 1` to `scale: 0.5`, and its opacity changes from `opacity: 1` to `opacity: 0`, creating a scaling-down effect with fading out.
-
-Overall, `framer-motion` is used to create visually appealing and interactive animations in both files, enhancing the user experience by providing smooth transitions and visual cues during certain actions like adding feedback items or confirming deletions.
+The `FeedbackForm` component is used for adding new feedback and editing existing feedback, with `useEffect` used to set form fields when editing. The `Rating` component handles the rating selection, and `useEffect` is used to update the selected rating when the feedback item to edit changes. The `FeedbackList` component displays the list of feedback items and handles the interactions with the parent component (`App`) to perform edit and delete operations.
 
 ## Contributing
 

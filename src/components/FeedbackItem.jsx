@@ -1,19 +1,26 @@
-import { FaTimes } from 'react-icons/fa';
+import { FaEdit, FaTimes } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import Card from './shared/Card';
 
-const FeedbackItem = ({ item: { rating, text, id }, handleDeleteCard }) => {
-  const handleClickButton = () => {
-    handleDeleteCard(id)
+const FeedbackItem = ({ item, handleDeleteFeedback, handleEditFeedback }) => {
+  const handleDeleteButton = () => {
+    handleDeleteFeedback(item.id)
+  }
+
+  const handleEditButton = () => {
+    handleEditFeedback(item)
   }
 
   return (
     <Card>
-      <div className='num-display'>{rating}</div>
-      <button onClick={handleClickButton} className='close'>
+      <div className='num-display'>{item.rating}</div>
+      <button onClick={handleDeleteButton} className='close'>
         <FaTimes color='purple' />
       </button>
-      <div className='text-display'>{text}</div>
+      <button onClick={handleEditButton} className='edit'>
+        <FaEdit color='purple' />
+      </button>
+      <div className='text-display'>{item.text}</div>
     </Card>
   );
 };
