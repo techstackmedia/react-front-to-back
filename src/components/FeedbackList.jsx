@@ -21,7 +21,7 @@ const FeedbackList = ({ feedback, handleDeleteFeedback, handleEditFeedback }) =>
               <FeedbackItem
                 item={feedbackItem}
                 key={feedbackItem.id}
-                handleDeleteCard={handleDeleteFeedback}
+                handleDeleteFeedback={handleDeleteFeedback}
                 handleEditFeedback={handleEditFeedback}
               />
             </motion.div>
