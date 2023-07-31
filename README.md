@@ -16,6 +16,8 @@ We have a React application that allows users to provide feedback by rating and 
 
 In the `FeedbackForm` component, we have the `feedbackEdit` prop being passed down from the parent component (`App`). The prop `feedbackEdit` contains an object with two properties: `item` (representing the feedback item to edit) and `edit` (a boolean indicating whether the form is in edit mode).
 
+> **Note:** Check out the browser's console and notice the logged response from `feedbackEdit`, and observe how it updates when the "Edit" button is clicked.
+
 The `useEffect` hook in `FeedbackForm` is used to update the form fields (`text` and `rating`) when the component mounts and when `feedbackEdit` changes. This is useful when the user clicks the "Edit" button on a feedback item in the list, and the form should be pre-filled with the existing feedback details for editing.
 
 If `feedbackEdit.edit` is `true`, it means the form is in edit mode, and we set the form fields (`setText`, `setBtnDisabled`, and `setRating`) based on the `feedbackEdit.item` properties. This ensures that the form reflects the selected feedback item's details when the user wants to edit it.
