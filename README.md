@@ -142,13 +142,13 @@ To run the project on your local machine, follow these steps:
 
 - The `Footer` component uses the `NavLink` component from `react-router-dom` to create links for the home and about pages. The `NavLink` component automatically applies a specific style (underlined in this case) to the active link based on the current location pathname. This helps users visually identify the active page in the navigation.
 
-**7. ServerError.jsx:**
+**7. Server.jsx:**
 
 - The `ServerError` component uses the `Link` component from `react-router-dom` to create a link back to the home page. This component is displayed when there is a server error, allowing users to navigate back to the home page easily.
 
 **8. NotFound.jsx:**
 
-- The `NotFound` component uses the `Link` component from `react-router-dom` to create a link back to the home page. This component is displayed when a route is not found (404), allowing users to navigate back to the home page in case they enter an invalid URL.
+- The `NotFoundError` component uses the `Link` component from `react-router-dom` to create a link back to the home page. This component is displayed when a route is not found (404), allowing users to navigate back to the home page in case they enter an invalid URL.
 
 In summary, `react-router-dom` is used in various components to create navigation links, handle redirections, and provide a smooth single-page application experience in the React application. It plays a vital role in managing the application's routing and allows users to navigate between different pages without reloading the entire page.
 
