@@ -66,11 +66,25 @@ Step 4: Deploy the App
 1. In your project directory, open the terminal or command prompt.
 2. Run the following command to build the project:
 
-```txt
+```bash
 npm run build
 ```
 
+step 5: Serve production build (optional)
+
 This will create a "build" folder in your project directory with the optimized production build of your React app.
+
+**Note:** You can install `serve` globally in order to serve the production build, run the commands below:
+
+```bash
+npm i -g serve
+```
+
+```bash
+serve -s build
+```
+
+It will serve it on `http://localhost:5000` to see the production build.
 
 **3.** Finally, run the following command to deploy your app to GitHub Pages:
 
@@ -80,13 +94,13 @@ npm run deploy
 
 This command will use the "gh-pages" package to push the contents of the "build" folder to the "gh-pages" branch of your GitHub repository.
 
-Step 5: Configure GitHub Repository Settings
+Step 6: Configure GitHub Repository Settings
 
 1. Go to your GitHub repository's settings.
 2. Scroll down to the "GitHub Pages" section.
 3. Under "Source," select "gh-pages branch" and click "Save."
 
-Step 6: Access Your Deployed App
+Step 7: Access Your Deployed App
 After a few moments, your app will be deployed to GitHub Pages. You can access it using the following URL:
 
 ```txt
