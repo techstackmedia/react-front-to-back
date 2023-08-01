@@ -102,8 +102,7 @@ It is assumed you are pushing for the first time, if not skip the command `git r
 git add .
 git commit -m "commit message"
 git remote add origin "https://github.com/techstackmedia/react-front-to-back.git"
-git branch gh-pages
-git push origin gh-pages
+git push origin master
 ```
 
 By pushing to the gh-pages branch, your app will be deployed to GitHub Pages, and you can access it at `https://techstackmedia.github.io/react-front-to-back`[https://techstackmedia.github.io/react-front-to-back].
@@ -111,8 +110,8 @@ By pushing to the gh-pages branch, your app will be deployed to GitHub Pages, an
 Step 7: Configure GitHub Repository Settings
 
 1. Go to your GitHub repository's settings.
-2. Scroll down to the "GitHub Pages" section.
-3. Under "Source," select "gh-pages branch" and click "Save."
+2. In the sidebar, scroll down to the GitHub "Pages" and click - `https://github.com/your-username/repo-name/settings/pages`.
+3. Click the **Visit site** button
 
 Step 8: Access Your Deployed App
 After a few moments, your app will be deployed to GitHub Pages. You can access it using the following URL:
