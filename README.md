@@ -70,11 +70,19 @@ Step 4: Deploy the App
 npm run build
 ```
 
+**3.** Finally, run the following command to deploy your app to GitHub Pages:
+
+```txt
+npm run deploy
+```
+
+This command will use the "gh-pages" package to push the contents of the "build" folder to the "gh-pages" branch of your GitHub repository.
+
 step 5: Serve production build (optional)
 
 This will create a "build" folder in your project directory with the optimized production build of your React app.
 
-**Note:** You can install `serve` globally in order to serve the production build, run the commands below:
+**Note:** You need to install `serve` globally in order to serve the production build:
 
 ```bash
 npm i -g serve
@@ -84,15 +92,20 @@ npm i -g serve
 serve -s build
 ```
 
-It will serve it on `http://localhost:5000` to see the production build.
+It will serve it on `http://localhost:5000` for you to see the production build.
 
-**3.** Finally, run the following command to deploy your app to GitHub Pages:
+Step 6: Push to GitHub
 
-```txt
-npm run deploy
+It is assumed you are pushing for the first time, if not skip the command `git remote add origin "https://github.com/techstackmedia/react-front-to-back.git"`:
+
+```bash
+git add .
+git commit -m "commit message"
+git remote add origin "https://github.com/techstackmedia/react-front-to-back.git"
+git push origin gh-pages
 ```
 
-This command will use the "gh-pages" package to push the contents of the "build" folder to the "gh-pages" branch of your GitHub repository.
+By pushing to the gh-pages branch, your app will be deployed to GitHub Pages, and you can access it at `https://techstackmedia.github.io/react-front-to-back`[https://techstackmedia.github.io/react-front-to-back].
 
 Step 6: Configure GitHub Repository Settings
 
