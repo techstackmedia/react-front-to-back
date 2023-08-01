@@ -6,7 +6,7 @@ const Blog = () => {
   if (status === 500) {
     return <Navigate to='/notfound' />;
   } else {
-    return <div className='container'>Hello World!</div>;
+    return <div className='container'>This is a blog page</div>;
   }
 };
 
