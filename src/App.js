@@ -1,30 +1,22 @@
-import Header from './components/Header';
-import FeedbackList from './components/FeedbackList';
-import FeedbackStats from './components/FeedbackStats';
-import FeedbackForm from './components/FeedbackForm';
-import { useContext } from 'react';
-import FeedbackContext from './context/FeedbackContext';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home'
+import About from './pages/About';
+import Blog from './pages/Blog';
+import ServerError from './components/Error/Server';
+import NotFound from './components/Error/NotFound';
 
-const App = () => {
-  const { alertConfirmationModal } = useContext(FeedbackContext);
+function App() {
   return (
-    <>
-      <Header />
-      <div className='container'>
-        <FeedbackForm />
-        <FeedbackStats />
-        <FeedbackList />
-      </div>
-
-      {alertConfirmationModal}
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/about' element={<About />} />
+        <Route path='/blog' element={<Blog />} />
+        <Route path='/500' element={<ServerError />} />
+        <Route path='*' element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
-};
+}
 
 export default App;
-
-Header.defaultProps = {
-  text: 'Feedback UI',
-  bgColor: 'rgba(0, 0, 0, 0.4)',
-  textColor: '#ff6a95',
-};

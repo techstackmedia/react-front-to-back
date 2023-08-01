@@ -33,9 +33,8 @@ const FeedbackProvider = ({ children }) => {
   };
 
   const updateFeedback = (id, itemUpdate) => {
-    console.log(id, itemUpdate);
-    setFeedback(
-      feedback.map((item) => {
+    setFeedback((prevFeedback) =>
+      prevFeedback.map((item) => {
         return item.id === id ? { ...item, ...itemUpdate } : item;
       })
     );
@@ -43,8 +42,8 @@ const FeedbackProvider = ({ children }) => {
 
   const handleDeleteConfirmed = () => {
     setShowDeleteModal(false);
-    setFeedback((prev) => {
-      return prev.filter((item) => {
+    setFeedback((prevFeedback) => {
+      return prevFeedback.filter((item) => {
         return item.id !== itemToDelete;
       });
     });
@@ -84,7 +83,7 @@ const FeedbackProvider = ({ children }) => {
       </div>
     </div>
   );
-  
+
   return (
     <FeedbackContext.Provider
       value={{

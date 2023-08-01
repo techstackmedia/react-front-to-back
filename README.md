@@ -1,4 +1,4 @@
-# Feedback Context API
+# React Router in Feedback App
 
 ## Table of Contents
 
@@ -10,53 +10,100 @@
 
 ## Description
 
-The comments in the code files indicate that the prop-types checking can be optionally removed. The reason for this is that the application is stable and has been thoroughly tested, so the developers may choose to skip prop-types checking to improve performance, reduce bundle size, and make the codebase cleaner.
+To understand the use of `react-router-dom` in each of the files and the overall logic, let's go through them one by one:
 
-Prop-types are used to enforce the type and presence of certain props passed to React components. They are especially helpful during development and debugging as they provide warnings in the console when incorrect props are passed. However, in production, these checks can add some overhead and might not be necessary if the app is well-tested and stable.
+**1. Blog.jsx:**
 
-Now, let's talk about the use of the Context API. The Context API is a feature provided by React that allows data to be passed down the component tree without manually passing props at every level. It is used for sharing state and data between components that are not directly related through parent-child relationships. Context API helps simplify the management of state in large applications and can be used as an alternative to passing props through multiple levels of components.
+- In this file, the `react-router-dom` library is not used directly, and there is no routing logic. The `Blog` component is a functional component that checks the `status` variable, and if it equals 500, it uses the `Navigate` component to redirect the user to the '/notfound' route. Otherwise, it displays a simple "Hello World!" message.
 
-In the given code, a context called "FeedbackContext" is defined in the file `FeedbackContext.js`. This context provides access to various pieces of feedback-related data and functions throughout the app. The data managed by the context includes the feedback items, the edit status of feedback, whether the delete modal is shown, and the item to be deleted. The context also provides functions to add, edit, and delete feedback.
+> **Note**: The use of `Navigate` component is appropriate for handling redirection based on the `status` variable. However, it's generally better to use HTTP status codes to handle server errors. You can return an HTTP 404 status code directly from the server, and then let the `react-router-dom` handle the rendering of the `NotFound` component for you. This way, the server returns the correct status code, and the routing is handled by the router.
 
-The context is consumed in different components like `FeedbackForm`, `FeedbackItem`, `FeedbackList`, `FeedbackStats`, and `App` through the `useContext` hook, which allows these components to access the data and functions provided by the `FeedbackContext`.
+**2. About.jsx:**
 
-Using the Context API here prevents the need to pass feedback-related data and functions as props through multiple levels of components. It offers a centralized way to manage and share this data, making it easier to update and maintain the application. The components can simply use `useContext` to access the necessary data from the context without worrying about the component hierarchy.
+- The `react-router-dom` library is used to create a link to the home page. The `About` component renders a header, a card with some information, and a link to the home page using the `Link` component from `react-router-dom`.
 
-The reason why `FeedbackProvider` is wrapped around the `App` component in the `index.js` file is to make the data and functions provided by the `FeedbackContext` available to all components rendered within the `App` component.
+**3. Home/index.jsx:**
+
+- The `Home` component imports several other components and uses them to construct the main layout of the application. It also uses the `useContext` hook to get the `alertConfirmationModal` from the `FeedbackContext`. However, there is no direct use of `react-router-dom` in this file.
+
+**4. App.jsx:**
+
+- This file is responsible for setting up the routing logic using `react-router-dom`. It imports the necessary components and configures the routes using the `BrowserRouter` and `Routes` components from `react-router-dom`.
+
+**5. AboutIcon.jsx:**
+
+- The `AboutIcon` component uses the `Link` component from `react-router-dom` to create a link to the '/about' route. It renders an SVG icon wrapped in a link, allowing users to navigate to the About page.
+
+**6. Footer.jsx:**
+
+- The `Footer` component uses the `NavLink` component from `react-router-dom` to create links for the home and about pages. The `NavLink` component adds an underline style to the active link based on the current location pathname.
+
+**7. ServerError.jsx:**
+
+- The `ServerError` component uses the `Link` component from `react-router-dom` to create a link back to the home page. This component is displayed when there is a server error, and it allows users to navigate back to the home page.
+
+**8. NotFound.jsx:**
+
+- The `NotFound` component uses the `Link` component from `react-router-dom` to create a link back to the home page. This component is displayed when a route is not found (404), and it allows users to navigate back to the home page.
+
+**Note:**
+
+In order to enable the usage of the `handleClick` function handler in the `NotFound` component, the `onClick` prop has been added to the `./shared/Button` component as follows:
 
 ```jsx
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import { FeedbackProvider } from './context/FeedbackContext';
+const Button = ({ children, version, type, isDisabled, onClick }) => {
+  return (
+    <button
+      type={type}
+      disabled={isDisabled}
+      className={`btn btn-${version}`}
+      onClick={onClick} // Pass the onClick prop to the button
+    >
+      {children}
+    </button>
+  );
+};
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <FeedbackProvider>
-      <App />
-    </FeedbackProvider>
-  </React.StrictMode>
-);
+Button.defaultProps = {
+  version: 'primary',
+  type: 'button',
+  isDisabled: false,
+};
+
+export default Button;
 ```
 
-The `FeedbackProvider` is a custom component defined in the `FeedbackContext.js` file. It wraps the entire application with the context data that includes feedback-related state and functions. By wrapping the `App` component with `FeedbackProvider`, all child components rendered by `App` can access this shared data and functions using the `useContext` hook.
+By adding the `onClick` prop to the `./shared/Button` component, it becomes possible to use the `handleClick` function defined in the `NotFound` component and pass it to the `Button` component as the `onClick` prop. This enables the button to trigger the `handleClick` function when clicked, and as a result, the user will be navigated back to the home page due to the usage of `useNavigate()` from `react-router-dom`.
 
-Here's how it works:
+```jsx
+import { useNavigate } from 'react-router-dom';
+import Button from '../shared/Button';
 
-1. The `FeedbackProvider` component in `FeedbackContext.js` contains the state for feedback data, the status of the delete modal, the item to be deleted, the feedback edit status, and various functions to manage feedback.
+const NotFound = () => {
+  const navigate = useNavigate('/');
 
-2. In the `index.js` file, the `FeedbackProvider` is imported from `./context/FeedbackContext`.
+  const handleClick = () => {
+    navigate('/');
+  };
+  return (
+    <div className='container'>
+      <div className='not-found'>
+        <h1>Oops! 🤔</h1>
+        <h2>404 - Not Found</h2>
+        <div style={{ justifyContent: 'center' }}>
+          <Button type='button' version='secondary' onClick={handleClick}>
+            Back to Home
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-3. The `FeedbackProvider` is then wrapped around the `App` component using JSX syntax within the `ReactDOM.createRoot(...)` method.
+export default NotFound;
+```
 
-4. By doing this, the entire application tree, starting with the `App` component, becomes a child of the `FeedbackProvider`.
-
-5. As a result, all components within the `App` component (i.e., `FeedbackForm`, `FeedbackList`, `FeedbackStats`, and others) will have access to the state and functions provided by the `FeedbackContext` through the `useContext` hook.
-
-This approach ensures that the data and functions related to feedback management are available globally across the application, without the need to pass them down manually through props. This pattern makes it easier to manage and share state among components, especially when the components are not directly related through parent-child relationships. It also helps to avoid "prop drilling," which can make the codebase cleaner and more maintainable.
-
-In summary, the use of the Context API in this application simplifies the management of feedback-related data and functions, making it more maintainable and avoiding prop drilling. Additionally, the removal of prop-types checking in the production build can lead to performance improvements, as prop-types checks are primarily useful during development for catching potential issues with props passed to components.
+In summary, the main file responsible for handling the routing logic is `AppRouter.jsx`, where the routes for the different pages of the application (Home, About, Blog, 500, and NotFound) are defined using `react-router-dom`. Other components use the `Link` and `NavLink` components to create navigation links to different pages within the application.
 
 ## Installation
 
@@ -69,11 +116,41 @@ To run the project on your local machine, follow these steps:
 
 ## Usage
 
-1. Prop-types Checking
-Prop-types are used to enforce the type and presence of certain props passed to React components. They are helpful during development and debugging as they provide warnings in the console when incorrect props are passed. However, in this case, the comments indicate that the developers may choose to remove prop-types checking in the production build. The reason for this is that the application is stable and thoroughly tested, so the overhead of prop-types checks might not be necessary in the final build. By removing prop-types checking, the app's performance can be improved, the bundle size reduced, and the codebase made cleaner.
+`react-router-dom` is a library used for handling routing in React applications. It allows you to create a single-page application (SPA) by enabling navigation and rendering different components based on the URL without reloading the entire page. Below is a brief summary of how `react-router-dom` is used in each of the files mentioned:
 
-2. Context API
-The Context API is used to allow data to be passed down the component tree without manually passing props at every level. It facilitates sharing state and data between components that are not directly related through parent-child relationships. In this application, the Context API is implemented through the "FeedbackContext" defined in the `FeedbackContext.js` file. It provides various pieces of feedback-related data and functions to different components, including `FeedbackForm`, `FeedbackItem`, `FeedbackList`, `FeedbackStats`, and `App`. The use of `useContext` hook in these components allows them to access the data and functions provided by the "FeedbackContext" easily. By using the Context API, the need for prop drilling is avoided, making the codebase more maintainable and improving the management of state in large applications.
+**1. Blog.jsx:**
+
+- The `Blog` component uses the `Navigate` component from `react-router-dom` to redirect the user to the '/notfound' route when the `status` variable is equal to 500. This allows the application to handle errors and guide users to an appropriate page if something goes wrong.
+
+**2. About.jsx:**
+
+- The `About` component uses the `Link` component from `react-router-dom` to create a link to the home page. When users click on this link, they can navigate to the home page without a full page reload. This provides a smooth user experience within the single-page application.
+
+**3. Home/index.jsx:**
+
+- The `Home` component itself doesn't directly use `react-router-dom`. Instead, it is a container component that imports and renders other components that make up the main layout of the application. Routing and navigation are set up in `App.jsx`, not in this component.
+
+**4. App.js:**
+
+- The `App` component is responsible for setting up the routing logic using `react-router-dom`. It imports the necessary components (Home, About, Blog, ServerError, and NotFound) and configures the routes using the `BrowserRouter` and `Routes` components from `react-router-dom`. This file is the central place where the routing configuration is defined for the entire application.
+
+**5. AboutIcon.jsx:**
+
+- The `AboutIcon` component uses the `Link` component from `react-router-dom` to create a link to the '/about' route. This allows users to navigate to the About page by clicking on an SVG icon, maintaining the SPA behavior.
+
+**6. Footer.jsx:**
+
+- The `Footer` component uses the `NavLink` component from `react-router-dom` to create links for the home and about pages. The `NavLink` component automatically applies a specific style (underlined in this case) to the active link based on the current location pathname. This helps users visually identify the active page in the navigation.
+
+**7. ServerError.jsx:**
+
+- The `ServerError` component uses the `Link` component from `react-router-dom` to create a link back to the home page. This component is displayed when there is a server error, allowing users to navigate back to the home page easily.
+
+**8. NotFound.jsx:**
+
+- The `NotFound` component uses the `Link` component from `react-router-dom` to create a link back to the home page. This component is displayed when a route is not found (404), allowing users to navigate back to the home page in case they enter an invalid URL.
+
+In summary, `react-router-dom` is used in various components to create navigation links, handle redirections, and provide a smooth single-page application experience in the React application. It plays a vital role in managing the application's routing and allows users to navigate between different pages without reloading the entire page.
 
 ## Contributing
 

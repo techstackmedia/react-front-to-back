@@ -192,17 +192,27 @@ input:focus {
 .about-link {
   display: flex;
   justify-content: flex-end;
+  margin-right: 5px;
+  position: fixed;
+  right: 5px;
+  bottom: 20px;
 }
 
 /* FIX: Remove position: absolute to keep about icon at the bottom of the
  * document */
-.about-link a {
-  color: #fff;
-  cursor: pointer;
+
+.about-link img {
+  background-color: white;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  overflow: hidden;
+  padding: 5px;
+  border: 1px solid #000;
 }
 
-.about-link a:hover {
-  color: #ff6a95;
+.about-link img:hover {
+  background-color: purple;
 }
 
 .about h1 {
@@ -224,6 +234,7 @@ input:focus {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1;
   animation: fadeIn 0.3s ease-in-out;
 }
 
@@ -300,6 +311,19 @@ input:focus {
 
 .feedback-list .card {
   margin-bottom: 10px;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.not-found {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 @media (max-width: 600px) {

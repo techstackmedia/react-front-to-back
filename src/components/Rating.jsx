@@ -4,8 +4,8 @@ import FeedbackContext from '../context/FeedbackContext';
 const Rating = ({ selectedRating }) => {
   const [selected, setSelected] = useState(null);
   const { feedbackEdit } = useContext(FeedbackContext);
-
   const numbers = Array.from(Array(11).keys()).splice(1);
+
   const handleSelectChange = (e) => {
     const newSelected = +e.target.value;
     setSelected(newSelected);
@@ -31,6 +31,7 @@ const Rating = ({ selectedRating }) => {
       </li>
     );
   });
+  
   return <ul className='rating'>{selectList}</ul>;
 };
 
