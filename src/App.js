@@ -3,7 +3,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Blog from './pages/Blog';
 import ServerError from './components/Error/Server';
-import NotFound from './components/Error/NotFound';
+import NotFoundError from './components/Error/NotFound';
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
         <Route path='/about' element={<About />} />
         <Route path='/blog' element={<Blog />} />
         <Route path='/500' element={<ServerError />} />
-        <Route path='*' element={<NotFound />} />
+        <Route path='*' element={<NotFoundError />} />
       </Routes>
     </BrowserRouter>
   );
