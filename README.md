@@ -1,4 +1,4 @@
-# React Router in Feedback App
+# Feedback App Deployment via GitHub Pages
 
 ## Table of Contents
 
