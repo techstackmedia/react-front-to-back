@@ -326,6 +326,10 @@ input:focus {
   height: 100vh;
 }
 
+.error {
+  color: rgb(238, 63, 63);
+}
+
 @media (max-width: 600px) {
   .rating li {
     margin: 10px 3px;

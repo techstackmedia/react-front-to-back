@@ -10,12 +10,17 @@ const NotFound = () => {
   return (
     <div className='container'>
       <div className='not-found'>
-        <h1>Oops! 🤔</h1>
-        <h2>404 - Not Found</h2>
+        <h1 style={{ position: 'relative', top: -10 }}>
+          This page is not found
+        </h1>
         <div style={{ justifyContent: 'center' }}>
           <Button type='button' version='secondary' onClick={handleClick}>
             Back to Home
           </Button>
+          <h1 style={{ position: 'absolute', top: '30vh', fontSize: 60 }}>
+            <span className='error'>4</span>0
+            <span className='error'>4</span>
+          </h1>
         </div>
       </div>
     </div>
