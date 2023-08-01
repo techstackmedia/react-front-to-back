@@ -72,7 +72,7 @@ npm run build
 
 **3.** Finally, run the following command to deploy your app to GitHub Pages:
 
-```txt
+```bash
 npm run deploy
 ```
 
@@ -82,7 +82,7 @@ step 5: Serve production build (optional)
 
 This will create a "build" folder in your project directory with the optimized production build of your React app.
 
-**Note:** You need to install `serve` globally in order to serve the production build:
+> **Note:** You need to install `serve` globally in order to serve the production build:
 
 ```bash
 npm i -g serve
