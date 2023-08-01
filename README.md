@@ -102,6 +102,7 @@ It is assumed you are pushing for the first time, if not skip the command `git r
 git add .
 git commit -m "commit message"
 git remote add origin "https://github.com/techstackmedia/react-front-to-back.git"
+git branch gh-pages
 git push origin gh-pages
 ```
 
