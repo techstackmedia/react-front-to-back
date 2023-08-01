@@ -7,7 +7,7 @@ import Header from '../../components/Header';
 import AboutIcon from '../../components/AboutIcon';
 import FeedbackContext from '../../context/FeedbackContext';
 
-function App() {
+const Home = () => {
   const { alertConfirmationModal } = useContext(FeedbackContext);
 
   return (
@@ -28,4 +28,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;

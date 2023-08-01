@@ -7,6 +7,7 @@ const NotFound = () => {
   const handleClick = () => {
     navigate('/');
   };
+
   return (
     <div className='container'>
       <div className='not-found'>
@@ -18,8 +19,7 @@ const NotFound = () => {
             Back to Home
           </Button>
           <h1 style={{ position: 'absolute', top: '30vh', fontSize: 60 }}>
-            <span className='error'>4</span>0
-            <span className='error'>4</span>
+            <span className='error'>4</span>0<span className='error'>4</span>
           </h1>
         </div>
       </div>

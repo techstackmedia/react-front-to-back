@@ -31,7 +31,7 @@ const Rating = ({ selectedRating }) => {
       </li>
     );
   });
-  
+
   return <ul className='rating'>{selectList}</ul>;
 };
 
