@@ -10,100 +10,92 @@
 
 ## Description
 
-To understand the use of `react-router-dom` in each of the files and the overall logic, let's go through them one by one:
+To deploy your React app using GitHub Pages, follow these steps:
 
-**1. Blog.jsx:**
+Step 1: Set Up Your GitHub Repository
 
-- In this file, the `react-router-dom` library is not used directly, and there is no routing logic. The `Blog` component is a functional component that checks the `status` variable, and if it equals 500, it uses the `Navigate` component to redirect the user to the '/notfound' route. Otherwise, it displays a simple "Hello World!" message.
+1. Create a new repository on GitHub with the name "react-front-to-back".
+2. Clone the repository to your local machine using Git.
 
-> **Note**: The use of `Navigate` component is appropriate for handling redirection based on the `status` variable. However, it's generally better to use HTTP status codes to handle server errors. You can return an HTTP 404 status code directly from the server, and then let the `react-router-dom` handle the rendering of the `NotFound` component for you. This way, the server returns the correct status code, and the routing is handled by the router.
+> **Note:** Use an repository name of your choice but for this article, "react-front-to-back" will be used.
 
-**2. About.jsx:**
+Step 2: Install gh-pages Package
 
-- The `react-router-dom` library is used to create a link to the home page. The `About` component renders a header, a card with some information, and a link to the home page using the `Link` component from `react-router-dom`.
+1. In your project directory, open the terminal or command prompt.
+2. Run the following command to install the gh-pages package as a dev dependency:
 
-**3. Home/index.jsx:**
-
-- The `Home` component imports several other components and uses them to construct the main layout of the application. It also uses the `useContext` hook to get the `alertConfirmationModal` from the `FeedbackContext`. However, there is no direct use of `react-router-dom` in this file.
-
-**4. App.jsx:**
-
-- This file is responsible for setting up the routing logic using `react-router-dom`. It imports the necessary components and configures the routes using the `BrowserRouter` and `Routes` components from `react-router-dom`.
-
-**5. AboutIcon.jsx:**
-
-- The `AboutIcon` component uses the `Link` component from `react-router-dom` to create a link to the '/about' route. It renders an SVG icon wrapped in a link, allowing users to navigate to the About page.
-
-**6. Footer.jsx:**
-
-- The `Footer` component uses the `NavLink` component from `react-router-dom` to create links for the home and about pages. The `NavLink` component adds an underline style to the active link based on the current location pathname.
-
-**7. ServerError.jsx:**
-
-- The `ServerError` component uses the `Link` component from `react-router-dom` to create a link back to the home page. This component is displayed when there is a server error, and it allows users to navigate back to the home page.
-
-**8. NotFound.jsx:**
-
-- The `NotFound` component uses the `Link` component from `react-router-dom` to create a link back to the home page. This component is displayed when a route is not found (404), and it allows users to navigate back to the home page.
-
-**Note:**
-
-In order to enable the usage of the `handleClick` function handler in the `NotFound` component, the `onClick` prop has been added to the `./shared/Button` component as follows:
-
-```jsx
-const Button = ({ children, version, type, isDisabled, onClick }) => {
-  return (
-    <button
-      type={type}
-      disabled={isDisabled}
-      className={`btn btn-${version}`}
-      onClick={onClick} // Pass the onClick prop to the button
-    >
-      {children}
-    </button>
-  );
-};
-
-Button.defaultProps = {
-  version: 'primary',
-  type: 'button',
-  isDisabled: false,
-};
-
-export default Button;
+```bash
+npm i gh-pages -D
 ```
 
-By adding the `onClick` prop to the `./shared/Button` component, it becomes possible to use the `handleClick` function defined in the `NotFound` component and pass it to the `Button` component as the `onClick` prop. This enables the button to trigger the `handleClick` function when clicked, and as a result, the user will be navigated back to the home page due to the usage of `useNavigate()` from `react-router-dom`.
+Step 3: Update package.json
 
-```jsx
-import { useNavigate } from 'react-router-dom';
-import Button from '../shared/Button';
+1. Open the "package.json" file in your project's root directory.
+2. Add the following properties at the top-level of the "package.json" file:
 
-const NotFound = () => {
-  const navigate = useNavigate('/');
-
-  const handleClick = () => {
-    navigate('/');
-  };
-  return (
-    <div className='container'>
-      <div className='not-found'>
-        <h1>Oops! 🤔</h1>
-        <h2>404 - Not Found</h2>
-        <div style={{ justifyContent: 'center' }}>
-          <Button type='button' version='secondary' onClick={handleClick}>
-            Back to Home
-          </Button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default NotFound;
+```json
+{
+  "name": "react-front-to-back",
+  "version": "1.0.0",
+  "homepage": "https://techstackmedia.github.io/react-front-to-back"
+  // ...
+}
 ```
 
-In summary, the main file responsible for handling the routing logic is `AppRouter.jsx`, where the routes for the different pages of the application (Home, About, Blog, 500, and NotFound) are defined using `react-router-dom`. Other components use the `Link` and `NavLink` components to create navigation links to different pages within the application.
+Replace ["https://techstackmedia.github.io/react-front-to-back"](https://techstackmedia.github.io/react-front-to-back) with the URL of your GitHub Pages site once deployed. This URL is based on your GitHub username and repository name.
+
+```txt
+https://username.github.io/repo
+```
+
+**3.** Add the "deploy" and "predeploy" scripts to the "scripts" section of "package.json":
+
+```json
+{
+  "scripts": {
+    // ...
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  }
+  // ...
+}
+```
+
+Step 4: Deploy the App
+
+1. In your project directory, open the terminal or command prompt.
+2. Run the following command to build the project:
+
+```txt
+npm run build
+```
+
+This will create a "build" folder in your project directory with the optimized production build of your React app.
+
+**3.** Finally, run the following command to deploy your app to GitHub Pages:
+
+```txt
+npm run deploy
+```
+
+This command will use the "gh-pages" package to push the contents of the "build" folder to the "gh-pages" branch of your GitHub repository.
+
+Step 5: Configure GitHub Repository Settings
+
+1. Go to your GitHub repository's settings.
+2. Scroll down to the "GitHub Pages" section.
+3. Under "Source," select "gh-pages branch" and click "Save."
+
+Step 6: Access Your Deployed App
+After a few moments, your app will be deployed to GitHub Pages. You can access it using the following URL:
+
+```txt
+https://techstackmedia.github.io/react-front-to-back
+```
+
+Replace "techstackmedia" with your GitHub username and "react-front-to-back" with your repository name.
+
+Now your React app is deployed using GitHub Pages, and it should be accessible via the provided URL. Any time you make changes to your app and want to update the deployed version, repeat Step 4 by running `npm run deploy`.
 
 ## Installation
 
@@ -116,41 +108,7 @@ To run the project on your local machine, follow these steps:
 
 ## Usage
 
-`react-router-dom` is a library used for handling routing in React applications. It allows you to create a single-page application (SPA) by enabling navigation and rendering different components based on the URL without reloading the entire page. Below is a brief summary of how `react-router-dom` is used in each of the files mentioned:
-
-**1. Blog.jsx:**
-
-- The `Blog` component uses the `Navigate` component from `react-router-dom` to redirect the user to the '/notfound' route when the `status` variable is equal to 500. This allows the application to handle errors and guide users to an appropriate page if something goes wrong.
-
-**2. About.jsx:**
-
-- The `About` component uses the `Link` component from `react-router-dom` to create a link to the home page. When users click on this link, they can navigate to the home page without a full page reload. This provides a smooth user experience within the single-page application.
-
-**3. Home/index.jsx:**
-
-- The `Home` component itself doesn't directly use `react-router-dom`. Instead, it is a container component that imports and renders other components that make up the main layout of the application. Routing and navigation are set up in `App.jsx`, not in this component.
-
-**4. App.js:**
-
-- The `App` component is responsible for setting up the routing logic using `react-router-dom`. It imports the necessary components (Home, About, Blog, ServerError, and NotFound) and configures the routes using the `BrowserRouter` and `Routes` components from `react-router-dom`. This file is the central place where the routing configuration is defined for the entire application.
-
-**5. AboutIcon.jsx:**
-
-- The `AboutIcon` component uses the `Link` component from `react-router-dom` to create a link to the '/about' route. This allows users to navigate to the About page by clicking on an SVG icon, maintaining the SPA behavior.
-
-**6. Footer.jsx:**
-
-- The `Footer` component uses the `NavLink` component from `react-router-dom` to create links for the home and about pages. The `NavLink` component automatically applies a specific style (underlined in this case) to the active link based on the current location pathname. This helps users visually identify the active page in the navigation.
-
-**7. Server.jsx:**
-
-- The `ServerError` component uses the `Link` component from `react-router-dom` to create a link back to the home page. This component is displayed when there is a server error, allowing users to navigate back to the home page easily.
-
-**8. NotFound.jsx:**
-
-- The `NotFoundError` component uses the `Link` component from `react-router-dom` to create a link back to the home page. This component is displayed when a route is not found (404), allowing users to navigate back to the home page in case they enter an invalid URL.
-
-In summary, `react-router-dom` is used in various components to create navigation links, handle redirections, and provide a smooth single-page application experience in the React application. It plays a vital role in managing the application's routing and allows users to navigate between different pages without reloading the entire page.
+GitHub Pages deployed your React app using GitHub Pages, and generates a URL. Any time you make changes to your app and want to update the deployed version, repeat Step 4 by running `npm run deploy`.
 
 ## Contributing
 
