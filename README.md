@@ -94,7 +94,7 @@ serve -s build
 
 It will serve it on `http://localhost:5000` for you to see the production build.
 
-Step 6: Push to GitHub
+Step 6: Push to GitHub (optional)
 
 It is assumed you are pushing for the first time, if not skip the command `git remote add origin "https://github.com/techstackmedia/react-front-to-back.git"`:
 
