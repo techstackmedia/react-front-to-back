@@ -40,6 +40,7 @@ const FeedbackForm = () => {
 
       if (feedbackEdit.edit === true) {
         updateFeedback(feedbackEdit.item.id, newFeedbackItem);
+        setBtnDisabled(true);
       } else {
         addFeedback(newFeedbackItem);
       }
@@ -52,6 +53,7 @@ const FeedbackForm = () => {
     if (feedbackEdit.edit === true) {
       setBtnDisabled(false);
       setText(feedbackEdit.item.text);
+      setRating(feedbackEdit.item.rating);
     }
   }, [feedbackEdit]);
 

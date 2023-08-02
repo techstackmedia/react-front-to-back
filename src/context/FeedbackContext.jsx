@@ -1,11 +1,10 @@
-import { createContext, useState } from 'react';
-import FeedbackData from '../data/FeedbackData';
-import { v4 } from 'uuid';
+import { createContext, useEffect, useState } from 'react';
 
 const FeedbackContext = createContext();
 
 const FeedbackProvider = ({ children }) => {
-  const [feedback, setFeedback] = useState(FeedbackData);
+  const [feedback, setFeedback] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
   const [feedbackEdit, setFeedbackEdit] = useState({
@@ -13,10 +12,31 @@ const FeedbackProvider = ({ children }) => {
     edit: false,
   });
 
-  const addFeedback = (newFeedbackItem) => {
-    const id = v4();
-    newFeedbackItem.id = id;
-    const updatedFeedbackArray = [newFeedbackItem, ...feedback];
+  // useEffect(() => {
+  //   const getFeedback = () => {
+  //     fetch('http://localhost:5000/feedback', {
+  //       method: "GET",
+  //     })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setFeedback(data)
+  //       setIsLoading(false)
+  //     })
+  //   }
+  //   getFeedback()
+  // }, [])
+
+  const addFeedback = async (newFeedbackItem) => {
+    const response = await fetch(`http://localhost:5000/feedback`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newFeedbackItem),
+    });
+
+    const data = await response.json();
+    const updatedFeedbackArray = [data, ...feedback];
     setFeedback(updatedFeedbackArray);
   };
 
@@ -32,15 +52,29 @@ const FeedbackProvider = ({ children }) => {
     setItemToDelete(id);
   };
 
-  const updateFeedback = (id, itemUpdate) => {
+  const updateFeedback = async (id, itemUpdate) => {
+    const response = await fetch(`http://localhost:5000/feedback/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(itemUpdate),
+    });
+
+    const data = await response.json();
+
     setFeedback((prevFeedback) =>
       prevFeedback.map((item) => {
-        return item.id === id ? { ...item, ...itemUpdate } : item;
+        return item.id === id ? { ...item, ...data } : item;
       })
     );
   };
 
-  const handleDeleteConfirmed = () => {
+  const handleDeleteConfirmed = async () => {
+    await fetch(`http://localhost:5000/feedback/${itemToDelete}`, {
+      method: 'DELETE',
+    });
+
     setShowDeleteModal(false);
     setFeedback((prevFeedback) => {
       return prevFeedback.filter((item) => {
@@ -84,6 +118,33 @@ const FeedbackProvider = ({ children }) => {
     </div>
   );
 
+  useEffect(() => {
+    const getFeedback = async () => {
+      try {
+        const response = await fetch(
+          'http://localhost:5000/feedback?_sort=id&_order=desc',
+          {
+            method: 'GET',
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+
+        setFeedback(data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setIsLoading(false);
+      }
+    };
+
+    getFeedback();
+  }, []);
+
   return (
     <FeedbackContext.Provider
       value={{
@@ -96,6 +157,7 @@ const FeedbackProvider = ({ children }) => {
         deleteFeedback,
         updateFeedback,
         alertConfirmationModal,
+        isLoading,
       }}
     >
       {children}

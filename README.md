@@ -1,4 +1,4 @@
-# Feedback App Deployment via GitHub Pages
+# Feedback App CRUD Operation with JSON Server
 
 ## Table of Contents
 
@@ -10,119 +10,50 @@
 
 ## Description
 
-To deploy your React app using GitHub Pages, follow these steps:
+There's a React application for managing feedback data. The application interacts with a backend server, which is a JSON server, to fetch, add, update, and delete feedback items. Let's break down the code and explain each part.
 
-Step 1: Set Up Your GitHub Repository
+1. `package.json`:
 
-1. Create a new repository on GitHub with the name "react-front-to-back".
-2. Clone the repository to your local machine using Git.
+The `package.json` file contains scripts to run the application and the JSON server concurrently during development. The script `"server": "json-server --watch db.json --port 5000"` is used to start the JSON server, which watches the `db.json` file and runs on port 5000. The `"dev": "concurrently \"npm start\" \"npm run server\""` script is used to run both the React application (using `npm start`) and the JSON server (using the previously defined `"server"` script) simultaneously.
 
-> **Note:** Use an repository name of your choice but for this article, "react-front-to-back" will be used.
-
-Step 2: Install gh-pages Package
-
-1. In your project directory, open the terminal or command prompt.
-2. Run the following command to install the gh-pages package as a dev dependency:
-
-```bash
-npm i gh-pages -D
-```
-
-Step 3: Update package.json
-
-1. Open the "package.json" file in your project's root directory.
-2. Add the following properties at the top-level of the "package.json" file:
-
-```json
-{
-  "name": "react-front-to-back",
-  "version": "1.0.0",
-  "homepage": "https://techstackmedia.github.io/react-front-to-back"
-  // ...
+```jsx
+"scripts": {
+  "server": "json-server --watch db.json --port 5000",
+  "dev": "concurrently \"npm start\" \"npm run server\""
 }
 ```
 
-Replace ["https://techstackmedia.github.io/react-front-to-back"](https://techstackmedia.github.io/react-front-to-back) with the URL of your GitHub Pages site once deployed. This URL is based on your GitHub username and repository name.
+2. `FeedbackContext` and `FeedbackProvider`:
 
-```txt
-https://username.github.io/repo
-```
+The `FeedbackContext` is a React context that provides a state and functions related to feedback management. The `FeedbackProvider` is a component that wraps its children with the context provider and holds the state for feedback, loading state, and other related variables and functions.
 
-**3.** Add the "deploy" and "predeploy" scripts to the "scripts" section of "package.json":
+3. Fetching Data and Updating `db.json`:
 
-```json
-{
-  "scripts": {
-    // ...
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
-  }
-  // ...
-}
-```
+The `useEffect` hook in the `FeedbackProvider` component is used to fetch data from the backend server (JSON server) when the component mounts. It fetches the feedback data from the endpoint `'http://localhost:5000/feedback?_sort=id&_order=desc'` and stores it in the `feedback` state using `setFeedback(data)`.
 
-Step 4: Deploy the App
+When new feedback is submitted using the `FeedbackForm` component, the `addFeedback` function is called. It sends a POST request to the backend with the new feedback data, and upon receiving the response, it adds the new feedback to the local `feedback` state using `setFeedback(updatedFeedbackArray)`.
 
-1. In your project directory, open the terminal or command prompt.
-2. Run the following command to build the project:
+Similarly, when feedback is edited using the `updateFeedback` function, it sends a PATCH request to the backend with the updated feedback data. Once the response is received, it updates the corresponding feedback item in the local `feedback` state using `setFeedback((prevFeedback) => prevFeedback.map(...))`.
 
-```bash
-npm run build
-```
+When a feedback item is deleted using the `deleteFeedback` function, it sends a DELETE request to the backend with the ID of the item to be deleted. Upon successful deletion, it removes the corresponding feedback item from the local `feedback` state using `setFeedback((prevFeedback) => prevFeedback.filter(...))`.
 
-**3.** Finally, run the following command to deploy your app to GitHub Pages:
+4. `Pulse` Component:
 
-```bash
-npm run deploy
-```
+The `Pulse` component is a simple component that displays an animated pulse icon.
 
-This command will use the "gh-pages" package to push the contents of the "build" folder to the "gh-pages" branch of your GitHub repository.
+5. `FeedbackList` Component:
 
-step 5: Serve production build (optional)
+The `FeedbackList` component displays a list of feedback items. It consumes the `FeedbackContext` to access the `feedback` state and the `isLoading` state. If there are no feedback items (`feedback` is null or has zero length), it displays a message saying "No Feedback Yet." If `isLoading` is true, it displays the `Pulse` component to indicate loading. Otherwise, it maps through the `feedback` array and renders `FeedbackItem` components for each feedback item.
 
-This will create a "build" folder in your project directory with the optimized production build of your React app.
+6. `FeedbackForm` Component:
 
-> **Note:** You need to install `serve` globally in order to serve the production build:
+The `FeedbackForm` component is used for adding and editing feedback items. It uses the `useContext` hook to access the `addFeedback`, `updateFeedback`, and `feedbackEdit` variables from the `FeedbackContext`. The component includes a form with a rating selector and a text input for the feedback message. When the form is submitted, it calls the `handleFormSubmit` function, which checks the length of the text input and either adds or updates the feedback accordingly.
 
-```bash
-npm i -g serve
-```
+7. `db.json`:
 
-```bash
-serve -s build
-```
+The `db.json` file acts as the backend server's data store. It contains an array of feedback objects. The JSON server reads and updates this file to provide a RESTful API for the React application.
 
-It will serve it on `http://localhost:5000` for you to see the production build.
-
-Step 6: Push to GitHub
-
-It is assumed you are pushing for the first time, if not skip the command `git remote add origin "https://github.com/techstackmedia/react-front-to-back.git"`:
-
-```bash
-git add .
-git commit -m "commit message"
-git remote add origin "https://github.com/techstackmedia/react-front-to-back.git"
-git push origin master
-```
-
-By pushing to the gh-pages branch, your app will be deployed to GitHub Pages, and you can access it at `https://techstackmedia.github.io/react-front-to-back`[https://techstackmedia.github.io/react-front-to-back].
-
-Step 7: Configure GitHub Repository Settings
-
-1. Go to your GitHub repository's settings.
-2. In the sidebar, scroll down to the GitHub "Pages" and click - `https://github.com/your-username/repo-name/settings/pages`.
-3. Click the **Visit site** button
-
-Step 8: Access Your Deployed App
-After a few moments, your app will be deployed to GitHub Pages. You can access it using the following URL:
-
-```txt
-https://techstackmedia.github.io/react-front-to-back
-```
-
-Replace "techstackmedia" with your GitHub username and "react-front-to-back" with your repository name.
-
-Now your React app is deployed using GitHub Pages, and it should be accessible via the provided URL. Any time you make changes to your app and want to update the deployed version, repeat Step 4 by running `npm run deploy`.
+In summary, the React application interacts with the JSON server (backend) through various API calls (GET, POST, PATCH, DELETE) to manage feedback data. The `FeedbackProvider` component holds the state and functions for data management, and the other components use the `FeedbackContext` to access this shared state and perform CRUD operations.
 
 ## Installation
 
@@ -135,7 +66,7 @@ To run the project on your local machine, follow these steps:
 
 ## Usage
 
-GitHub Pages deployed your React app using GitHub Pages, and generates a URL. Any time you make changes to your app and want to update the deployed version, repeat Step 4 by running `npm run deploy`.
+ The React application fetches data from the JSON server using the fetch API, and the JSON server reads and serves data from the db.json file. Feedback data is added, edited, and deleted by making POST, PATCH, and DELETE requests to the JSON server, which updates the db.json file accordingly.
 
 ## Contributing
 
