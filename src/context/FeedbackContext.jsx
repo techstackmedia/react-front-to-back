@@ -16,28 +16,11 @@ const FeedbackProvider = ({ children }) => {
     edit: false,
   });
 
-  // useEffect(() => {
-  //   const getFeedback = () => {
-  //     fetch('http://localhost:5000/feedback', {
-  //       method: "GET",
-  //     })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setFeedback(data)
-  //       setIsLoading(false)
-  //     })
-  //   }
-  //   getFeedback()
-  // }, [])
-
   const getFeedback = async () => {
     try {
-      const response = await fetch(
-        'http://localhost:5000/feedback?_sort=id&_order=desc',
-        {
-          method: 'GET',
-        }
-      );
+      const response = await fetch('/feedback?_sort=id&_order=desc', {
+        method: 'GET',
+      });
 
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -54,7 +37,7 @@ const FeedbackProvider = ({ children }) => {
   };
 
   const addFeedback = async (newFeedbackItem) => {
-    const response = await fetch(`http://localhost:5000/feedback`, {
+    const response = await fetch(`/feedback`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -63,8 +46,6 @@ const FeedbackProvider = ({ children }) => {
     });
 
     const data = await response.json();
-    // data.id = -(new Date().getTime()); // You can use any unique negative value for ID
-
     const updatedFeedbackArray = [data, ...feedback];
     setFeedback(updatedFeedbackArray);
   };
@@ -82,7 +63,7 @@ const FeedbackProvider = ({ children }) => {
   };
 
   const updateFeedback = async (id, itemUpdate) => {
-    const response = await fetch(`http://localhost:5000/feedback/${id}`, {
+    const response = await fetch(`/feedback/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -100,7 +81,7 @@ const FeedbackProvider = ({ children }) => {
   };
 
   const handleDeleteConfirmed = async () => {
-    await fetch(`http://localhost:5000/feedback/${itemToDelete}`, {
+    await fetch(`/feedback/${itemToDelete}`, {
       method: 'DELETE',
     });
 

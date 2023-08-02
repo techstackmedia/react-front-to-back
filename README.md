@@ -1,9 +1,8 @@
-# Feedback App CRUD Operation with JSON Server
+# Setting a proxy for the Feedback App
 
 ## Table of Contents
 
 - [Description](#description)
-- [Issue](#issue)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
@@ -11,117 +10,25 @@
 
 ## Description
 
-There's a React application for managing feedback data. The application interacts with a backend server, which is a JSON server, to fetch, add, update, and delete feedback items. Let's break down the code and explain each part.
+In the Feedback App, the `proxy` field in the `package.json` is used to define a proxy for the development server. Let's break it down step by step:
 
 1. `package.json`:
+   In Node.js projects, the `package.json` file is used to store various metadata related to the project, including project name, version, dependencies, scripts, and other configurations.
 
-The `package.json` file contains scripts to run the application and the JSON server concurrently during development. The script `"server": "json-server --watch db.json --port 5000"` is used to start the JSON server, which watches the `db.json` file and runs on port 5000. The `"dev": "concurrently \"npm start\" \"npm run server\""` script is used to run both the React application (using `npm start`) and the JSON server (using the previously defined `"server"` script) simultaneously.
+2. `proxy` Field:
+   The `proxy` field is a setting that can be added to the `package.json` file in React applications (created using `create-react-app`). It allows you to specify a proxy URL that the development server will use when making API requests during development.
 
-```jsx
-"scripts": {
-  "server": "json-server --watch db.json --port 5000",
-  "dev": "concurrently \"npm start\" \"npm run server\""
-}
-```
+3. Purpose of Proxy:
+   When developing a frontend application that communicates with a backend server, it is common for the backend server to run on a different port (e.g., 5000) than the frontend development server (e.g., 3000). This can lead to CORS (Cross-Origin Resource Sharing) issues when trying to make API requests from the frontend to the backend during development.
 
-This means to run the application and the JSON server concurrently run `npm run dev`:
+By setting the `proxy` field in the `package.json`, you instruct the development server to forward specific API requests to the specified proxy URL instead of directly making them from the frontend. This helps bypass the CORS restrictions during development and allows seamless communication between the frontend and backend.
 
-```bash
-npm run dev
-```
+4. Proxy Configuration:
+   In the given `package.json`, the proxy is set to `"http://localhost:5000"`. This means that any API requests made to the relative path `/feedback` will be automatically forwarded to `http://localhost:5000/feedback` during development.
 
-2. `FeedbackContext` and `FeedbackProvider`:
+For example, instead of making an API request to `http://localhost:5000/feedback`, the frontend code can make the request to `/feedback`, and the development server will handle forwarding the request to the correct backend URL.
 
-The `FeedbackContext` is a React context that provides a state and functions related to feedback management. The `FeedbackProvider` is a component that wraps its children with the context provider and holds the state for feedback, loading state, and other related variables and functions.
-
-3. Fetching Data and Updating `db.json`:
-
-The `useEffect` hook in the `FeedbackProvider` component is used to fetch data from the backend server (JSON server) when the component mounts. It fetches the feedback data from the endpoint `'http://localhost:5000/feedback?_sort=id&_order=desc'` and stores it in the `feedback` state using `setFeedback(data)`.
-
-When new feedback is submitted using the `FeedbackForm` component, the `addFeedback` function is called. It sends a POST request to the backend with the new feedback data, and upon receiving the response, it adds the new feedback to the local `feedback` state using `setFeedback(updatedFeedbackArray)`.
-
-Similarly, when feedback is edited using the `updateFeedback` function, it sends a PATCH request to the backend with the updated feedback data. Once the response is received, it updates the corresponding feedback item in the local `feedback` state using `setFeedback((prevFeedback) => prevFeedback.map(...))`.
-
-When a feedback item is deleted using the `deleteFeedback` function, it sends a DELETE request to the backend with the ID of the item to be deleted. Upon successful deletion, it removes the corresponding feedback item from the local `feedback` state using `setFeedback((prevFeedback) => prevFeedback.filter(...))`.
-
-4. `Pulse` Component:
-
-The `Pulse` component is a simple component that displays an animated pulse icon.
-
-5. `FeedbackList` Component:
-
-The `FeedbackList` component displays a list of feedback items. It consumes the `FeedbackContext` to access the `feedback` state and the `isLoading` state. If there are no feedback items (`feedback` is null or has zero length), it displays a message saying "No Feedback Yet." If `isLoading` is true, it displays the `Pulse` component to indicate loading. Otherwise, it maps through the `feedback` array and renders `FeedbackItem` components for each feedback item.
-
-6. `FeedbackForm` Component:
-
-The `FeedbackForm` component is used for adding and editing feedback items. It uses the `useContext` hook to access the `addFeedback`, `updateFeedback`, and `feedbackEdit` variables from the `FeedbackContext`. The component includes a form with a rating selector and a text input for the feedback message. When the form is submitted, it calls the `handleFormSubmit` function, which checks the length of the text input and either adds or updates the feedback accordingly.
-
-7. `db.json`:
-
-The `db.json` file acts as the backend server's data store. It contains an array of feedback objects. The JSON server reads and updates this file to provide a RESTful API for the React application.
-
-In summary, the React application interacts with the JSON server (backend) through various API calls (GET, POST, PATCH, DELETE) to manage feedback data. The `FeedbackProvider` component holds the state and functions for data management, and the other components use the `FeedbackContext` to access this shared state and perform CRUD operations.
-
-## Issue
-
-The issue with the order of the items being added to the list might be related to the way JSON-server handles the creation of new items and assigns their IDs. JSON-server automatically assigns an ID to the newly created item, and by default, it increments the ID based on the existing maximum ID in the database.
-
-Since you are using JSON-server, it's essential to check the behavior of JSON-server when creating new items. By default, JSON-server assigns a new item the next available ID, which would be the highest ID in the existing list plus one. This might result in the newly added item appearing at the bottom of the list, even though the code seems to add it to the top.
-
-If you want to maintain a specific order when adding items to the list, you need to ensure that the server is providing the data in the desired order. In this case, you can modify your JSON-server data file to arrange the items in the order you want them to appear.
-
-To do this, you can manually set the ID for the new item when adding it through the `addFeedback` function. For example, you can set the ID to a negative value to ensure it appears at the top of the list:
-
-```jsx
-const addFeedback = async (newFeedbackItem) => {
-  const response = await fetch(`http://localhost:5000/feedback`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(newFeedbackItem),
-  });
-
-  const data = await response.json();
-
-  // Use a unique negative ID for the newly added item to ensure it appears at the top
-  data.id = -new Date().getTime(); // You can use any unique negative value for ID
-
-  // Add the item to the top of the feedback list
-  setFeedback([data, ...feedback]);
-};
-```
-
-Alternatively, use `http://localhost:5000/feedback?_sort=id&_order=desc` to sort the id in descending order in the useEffect function, `getFeedback`
-
-```jsx
-const getFeedback = async () => {
-  try {
-    const response = await fetch(
-      'http://localhost:5000/feedback?_sort=id&_order=desc',
-      {
-        method: 'GET',
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-
-    const data = await response.json();
-
-    setFeedback(data);
-    setIsLoading(false);
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    setIsLoading(false);
-  }
-};
-```
-
-With this approach, the new item will always be assigned a unique negative ID, ensuring it appears at the top of the list when displayed in the UI.
-
-Keep in mind that this solution will work specifically with JSON-server and assumes that the ID field is unique and sortable (e.g., numbers or timestamps). If your API or backend has different constraints, you may need to adjust the approach accordingly.
+This configuration simplifies the development process by abstracting the backend URL in the frontend code, making it easier to switch between development and production environments without manually changing the backend URLs.
 
 ## Installation
 
@@ -134,7 +41,7 @@ To run the project on your local machine, follow these steps:
 
 ## Usage
 
-The React application fetches data from the JSON server using the fetch API, and the JSON server reads and serves data from the db.json file. Feedback data is added, edited, and deleted by making POST, PATCH, and DELETE requests to the JSON server, which updates the db.json file accordingly.
+the `proxy` field in the `package.json` is used to set up a proxy for API requests during development, forwarding them to the specified backend server URL (`http://localhost:5000` in this case). It helps avoid CORS issues and allows a smoother frontend-backend communication during development.
 
 ## Contributing
 
