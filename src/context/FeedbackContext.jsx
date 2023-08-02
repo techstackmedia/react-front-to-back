@@ -63,6 +63,8 @@ const FeedbackProvider = ({ children }) => {
     });
 
     const data = await response.json();
+    // data.id = -(new Date().getTime()); // You can use any unique negative value for ID
+    
     const updatedFeedbackArray = [data, ...feedback];
     setFeedback(updatedFeedbackArray);
   };
