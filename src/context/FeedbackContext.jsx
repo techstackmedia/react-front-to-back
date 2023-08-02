@@ -3,6 +3,10 @@ import { createContext, useEffect, useState } from 'react';
 const FeedbackContext = createContext();
 
 const FeedbackProvider = ({ children }) => {
+  useEffect(() => {
+    getFeedback();
+  }, []);
+
   const [feedback, setFeedback] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -25,6 +29,29 @@ const FeedbackProvider = ({ children }) => {
   //   }
   //   getFeedback()
   // }, [])
+
+  const getFeedback = async () => {
+    try {
+      const response = await fetch(
+        'http://localhost:5000/feedback?_sort=id&_order=desc',
+        {
+          method: 'GET',
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+
+      setFeedback(data);
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setIsLoading(false);
+    }
+  };
 
   const addFeedback = async (newFeedbackItem) => {
     const response = await fetch(`http://localhost:5000/feedback`, {
@@ -117,33 +144,6 @@ const FeedbackProvider = ({ children }) => {
       </div>
     </div>
   );
-
-  useEffect(() => {
-    const getFeedback = async () => {
-      try {
-        const response = await fetch(
-          'http://localhost:5000/feedback?_sort=id&_order=desc',
-          {
-            method: 'GET',
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-
-        const data = await response.json();
-
-        setFeedback(data);
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setIsLoading(false);
-      }
-    };
-
-    getFeedback();
-  }, []);
 
   return (
     <FeedbackContext.Provider
