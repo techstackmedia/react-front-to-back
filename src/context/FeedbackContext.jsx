@@ -8,7 +8,7 @@ const FeedbackProvider = ({ children }) => {
   }, []);
 
   const [feedback, setFeedback] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
   const [feedbackEdit, setFeedbackEdit] = useState({
@@ -18,7 +18,7 @@ const FeedbackProvider = ({ children }) => {
 
   const getFeedback = async () => {
     try {
-      const response = await fetch('/feedback?_sort=id&_order=desc', {
+      const response = await fetch('/feedback', {
         method: 'GET',
       });
 
@@ -102,6 +102,8 @@ const FeedbackProvider = ({ children }) => {
       setShowDeleteModal(false);
     }
   };
+
+  console.log(feedback)
 
   const alertConfirmationModal = showDeleteModal && (
     <div className='custom-modal' onClick={closeModal}>
