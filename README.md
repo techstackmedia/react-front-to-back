@@ -70,29 +70,7 @@ Since you are using JSON-server, it's essential to check the behavior of JSON-se
 
 If you want to maintain a specific order when adding items to the list, you need to ensure that the server is providing the data in the desired order. In this case, you can modify your JSON-server data file to arrange the items in the order you want them to appear.
 
-To do this, you can manually set the ID for the new item when adding it through the `addFeedback` function. For example, you can set the ID to a negative value to ensure it appears at the top of the list:
-
-```jsx
-const addFeedback = async (newFeedbackItem) => {
-  const response = await fetch(`http://localhost:5000/feedback`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(newFeedbackItem),
-  });
-
-  const data = await response.json();
-
-  // Use a unique negative ID for the newly added item to ensure it appears at the top
-  data.id = -new Date().getTime(); // You can use any unique negative value for ID
-
-  // Add the item to the top of the feedback list
-  setFeedback([data, ...feedback]);
-};
-```
-
-Alternatively, use `http://localhost:5000/feedback?_sort=id&_order=desc` to sort the id in descending order in the useEffect function, `getFeedback`
+For the Feedback App, use `http://localhost:5000/feedback?_sort=id&_order=desc` to sort the id in descending order in the useEffect function, `getFeedback`
 
 ```jsx
 const getFeedback = async () => {
