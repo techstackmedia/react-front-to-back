@@ -102,7 +102,24 @@ It is assumed you are pushing for the first time, if not skip the command `git r
 git add .
 git commit -m "commit message"
 git remote add origin "https://github.com/techstackmedia/react-front-to-back.git"
-git branch gh-pages
+git branch -u master
+git push origin master
+```
+
+Once you've pushed to your master branch, run the code below
+
+Step 6b
+
+```bash
+git checkout gh-pages # to check if exits
+git branch gh-pages # if it doesn't exit
+git push origin gh-pages
+```
+
+> If `git push origin gh-pages` doesn't push or shows a warning "...hint: 'git pull ...') before pushing again...", run the command below instead:
+
+```bash
+git pull origin gh-pages --allow-unrelated-histories #after pulling resolve the conflict
 git push origin gh-pages
 ```
 
@@ -123,7 +140,7 @@ https://techstackmedia.github.io/react-front-to-back
 
 Replace "techstackmedia" with your GitHub username and "react-front-to-back" with your repository name.
 
-Now your React app is deployed using GitHub Pages, and it should be accessible via the provided URL. Any time you make changes to your app and want to update the deployed version, repeat Step 4 by running `npm run deploy`.
+Now your React app is deployed using GitHub Pages, and it should be accessible via the provided URL. Any time you make changes to your app and want to update the deployed version, repeat Step 6b.
 
 ## Installation
 
