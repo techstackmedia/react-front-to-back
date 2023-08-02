@@ -30,6 +30,12 @@ For example, instead of making an API request to `http://localhost:5000/feedback
 
 This configuration simplifies the development process by abstracting the backend URL in the frontend code, making it easier to switch between development and production environments without manually changing the backend URLs.
 
+> **Note:**
+>
+> - After setting up the `proxy` in the `package.json`, you may need to restart the server to effect the changes.
+> - The `proxy` field in the `package.json` is mainly used during development and is specific to the local development server. It is not applicable or used in production.
+> - The purpose of the proxy is to handle CORS (Cross-Origin Resource Sharing) issues during development when the frontend and backend are running on different ports or domains. In production, when the frontend and backend are typically served from the same domain or when CORS is properly configured on the server, the proxy is not needed.
+
 ## Installation
 
 To run the project on your local machine, follow these steps:
