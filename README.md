@@ -3,6 +3,7 @@
 ## Table of Contents
 
 - [Description](#description)
+- [Issue](#issue)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
@@ -21,6 +22,12 @@ The `package.json` file contains scripts to run the application and the JSON ser
   "server": "json-server --watch db.json --port 5000",
   "dev": "concurrently \"npm start\" \"npm run server\""
 }
+```
+
+This means to run the application and the JSON server concurrently run `npm run dev`:
+
+```bash
+npm run dev
 ```
 
 2. `FeedbackContext` and `FeedbackProvider`:
@@ -55,6 +62,67 @@ The `db.json` file acts as the backend server's data store. It contains an array
 
 In summary, the React application interacts with the JSON server (backend) through various API calls (GET, POST, PATCH, DELETE) to manage feedback data. The `FeedbackProvider` component holds the state and functions for data management, and the other components use the `FeedbackContext` to access this shared state and perform CRUD operations.
 
+## Issue
+
+The issue with the order of the items being added to the list might be related to the way JSON-server handles the creation of new items and assigns their IDs. JSON-server automatically assigns an ID to the newly created item, and by default, it increments the ID based on the existing maximum ID in the database.
+
+Since you are using JSON-server, it's essential to check the behavior of JSON-server when creating new items. By default, JSON-server assigns a new item the next available ID, which would be the highest ID in the existing list plus one. This might result in the newly added item appearing at the bottom of the list, even though the code seems to add it to the top.
+
+If you want to maintain a specific order when adding items to the list, you need to ensure that the server is providing the data in the desired order. In this case, you can modify your JSON-server data file to arrange the items in the order you want them to appear.
+
+To do this, you can manually set the ID for the new item when adding it through the `addFeedback` function. For example, you can set the ID to a negative value to ensure it appears at the top of the list:
+
+```jsx
+const addFeedback = async (newFeedbackItem) => {
+  const response = await fetch(`http://localhost:5000/feedback`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(newFeedbackItem),
+  });
+
+  const data = await response.json();
+
+  // Use a unique negative ID for the newly added item to ensure it appears at the top
+  data.id = -new Date().getTime(); // You can use any unique negative value for ID
+
+  // Add the item to the top of the feedback list
+  setFeedback([data, ...feedback]);
+};
+```
+
+Alternatively, use `http://localhost:5000/feedback?_sort=id&_order=desc` to sort the id in descending order in the useEffect function, `getFeedback`
+
+```jsx
+const getFeedback = async () => {
+  try {
+    const response = await fetch(
+      'http://localhost:5000/feedback?_sort=id&_order=desc',
+      {
+        method: 'GET',
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+
+    setFeedback(data);
+    setIsLoading(false);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    setIsLoading(false);
+  }
+};
+```
+
+With this approach, the new item will always be assigned a unique negative ID, ensuring it appears at the top of the list when displayed in the UI.
+
+Keep in mind that this solution will work specifically with JSON-server and assumes that the ID field is unique and sortable (e.g., numbers or timestamps). If your API or backend has different constraints, you may need to adjust the approach accordingly.
+
 ## Installation
 
 To run the project on your local machine, follow these steps:
@@ -66,7 +134,7 @@ To run the project on your local machine, follow these steps:
 
 ## Usage
 
- The React application fetches data from the JSON server using the fetch API, and the JSON server reads and serves data from the db.json file. Feedback data is added, edited, and deleted by making POST, PATCH, and DELETE requests to the JSON server, which updates the db.json file accordingly.
+The React application fetches data from the JSON server using the fetch API, and the JSON server reads and serves data from the db.json file. Feedback data is added, edited, and deleted by making POST, PATCH, and DELETE requests to the JSON server, which updates the db.json file accordingly.
 
 ## Contributing
 
