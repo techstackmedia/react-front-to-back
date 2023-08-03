@@ -15,7 +15,7 @@ const FeedbackList = () => {
   ) : (
      <div className='feedback-list'>
       {feedback.map((feedbackItem) => {
-        return <FeedbackItem item={feedbackItem} key={feedbackItem.id} />;
+        return <FeedbackItem item={feedbackItem} key={feedbackItem._id} />;
       })}
     </div>
   );

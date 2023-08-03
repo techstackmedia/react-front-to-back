@@ -53,9 +53,11 @@ const FeedbackProvider = ({ children }) => {
   const editFeedback = (item) => {
     setFeedbackEdit({
       item,
+      id: item._id,
       edit: true,
     });
   };
+  
 
   const deleteFeedback = (id) => {
     setShowDeleteModal(true);
@@ -63,23 +65,39 @@ const FeedbackProvider = ({ children }) => {
   };
 
   const updateFeedback = async (id, itemUpdate) => {
-    const response = await fetch(`/feedback/${id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(itemUpdate),
-    });
-
-    const data = await response.json();
-
-    setFeedback((prevFeedback) =>
-      prevFeedback.map((item) => {
-        return item.id === id ? { ...item, ...data } : item;
-      })
-    );
+    try {
+      const response = await fetch(`/feedback/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(itemUpdate),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+  
+      // Get the updated feedback data from the response
+      const updatedFeedbackData = await response.json();
+  
+      setFeedback((prevFeedback) =>
+        prevFeedback.map((item) => {
+          return item._id === id ? { ...item, ...updatedFeedbackData } : item;
+        })
+      );
+  
+      // Reset the feedbackEdit state after updating the feedback
+      setFeedbackEdit((prevFeedbackEdit) => ({
+        ...prevFeedbackEdit,
+        item: {},
+        edit: false,
+      }));
+    } catch (error) {
+      console.error('Error updating feedback:', error);
+    }
   };
-
+  
   const handleDeleteConfirmed = async () => {
     await fetch(`/feedback/${itemToDelete}`, {
       method: 'DELETE',
@@ -102,8 +120,6 @@ const FeedbackProvider = ({ children }) => {
       setShowDeleteModal(false);
     }
   };
-
-  console.log(feedback)
 
   const alertConfirmationModal = showDeleteModal && (
     <div className='custom-modal' onClick={closeModal}>

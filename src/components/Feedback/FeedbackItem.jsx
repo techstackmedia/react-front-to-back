@@ -12,6 +12,7 @@ const FeedbackItem = ({ item }) => {
   };
 
   const handleEditButton = () => {
+    console.log(item)
     editFeedback(item);
   };
 
