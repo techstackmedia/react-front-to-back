@@ -108,8 +108,9 @@ Here are the steps to get started:
 
 Now you have the backend code up and running, and it is connected to the MongoDB Atlas database. The frontend should communicate with the backend API seamlessly, allowing you to test the complete application locally or deploy it to your preferred hosting service.
 
-**Note:**
-When deploying the backend, ensure that you have the necessary environment variables and their corresponding values set in the `.env` file on the deployment platform. However, it is important to never set the backend's port in the environment variable of your deploying platform. This caution also applies to the frontend.
+> **Note:**
+>
+> When deploying the backend, ensure that you have the necessary environment variables and their corresponding values set in the `.env` file on the deployment platform. However, it is important to never set the backend's port in the environment variable of your deploying platform. This caution also applies to the frontend.
 
 Below is an example of having the API URL in the environment variable, whether locally or in a deploying platform's environment variable:
 
