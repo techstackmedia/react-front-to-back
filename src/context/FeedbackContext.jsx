@@ -106,7 +106,7 @@ const FeedbackProvider = ({ children }) => {
     setShowDeleteModal(false);
     setFeedback((prevFeedback) => {
       return prevFeedback.filter((item) => {
-        return item.id !== itemToDelete;
+        return item._id !== itemToDelete;
       });
     });
   };

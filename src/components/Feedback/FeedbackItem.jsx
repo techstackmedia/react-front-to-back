@@ -8,7 +8,7 @@ const FeedbackItem = ({ item }) => {
   const { deleteFeedback, editFeedback } = useContext(FeedbackContext);
 
   const handleDeleteButton = () => {
-    deleteFeedback(item.id);
+    deleteFeedback(item._id);
   };
 
   const handleEditButton = () => {

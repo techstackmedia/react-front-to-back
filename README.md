@@ -48,9 +48,33 @@ To make the MongoDB Atlas version work correctly, you made the following changes
 - Modified the `FeedbackItem` component to use `feedbackItem._id` as the key.
 - In the `updateFeedback` function in `FeedbackContext`, use `item._id` instead of `item.id` to match the feedback item with the correct `_id` from the backend.
 
-These changes were necessary because the MongoDB `_id` is a more complex data type, and it needs to be handled appropriately when updating the feedback items in the state.
+Additionally, the `deleteFeedback` function has been updated as follows for the MongoDB Atlas version:
 
-Please refer to the repository's README.md for further details and troubleshooting tips. Happy coding!
+```jsx
+const deleteFeedback = (id) => {
+  setShowDeleteModal(true);
+  setItemToDelete(id);
+};
+
+const handleDeleteConfirmed = async () => {
+  await fetch(`/feedback/${itemToDelete}`, {
+    method: 'DELETE',
+  });
+
+  setShowDeleteModal(false);
+  setFeedback((prevFeedback) => {
+    return prevFeedback.filter((item) => {
+      return item._id !== itemToDelete;
+    });
+  });
+};
+```
+
+These changes were necessary because the MongoDB `_id` is a more complex data type, and it needs to be handled appropriately when deleting the feedback items from the state.
+
+Please refer to the repository's README.md for further details and troubleshooting tips.
+
+Happy coding!
 
 ## Installation
 
