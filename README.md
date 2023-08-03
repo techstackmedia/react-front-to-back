@@ -102,7 +102,8 @@ Here are the steps to get started:
 7. Adjust Proxy Port (Optional):
    By default, the proxy in the frontend's package.json is set to `http://localhost:5000`, which matches the backend's default port. If you wish to run the backend server on a different port, make sure to adjust the proxy in the package.json to the corresponding port.
 
-   > If you are not using the JSON-server, you can optionally delete the db.json file in the root directory.
+   > **Note:**
+   > If you are not using the JSON-server, you can optionally delete the `db.json` file in the root directory.
 
 Now you have the backend code up and running, and it is connected to the MongoDB Atlas database. The frontend should communicate with the backend API seamlessly, allowing you to test the complete application locally or deploy it to your preferred hosting service.
 
