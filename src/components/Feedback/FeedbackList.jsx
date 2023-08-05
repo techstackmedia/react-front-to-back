@@ -1,15 +1,19 @@
-import { useContext /* , useReducer */ } from 'react';
+// eslint-disable-next-line no-unused-vars
+import { useContext, useReducer } from 'react';
 import FeedbackItem from './FeedbackItem';
 import FeedbackContext from '../../context/FeedbackContext';
 import Pulse from '../Pulse';
-// import { feedbackReducer } from '../../context/feedbackReducer';
+// eslint-disable-next-line no-unused-vars
+import { feedbackReducer } from '../../context/feedbackReducer';
 
 const FeedbackList = () => {
   const { feedback, isLoading } = useContext(FeedbackContext);
 
-  // const initialState = {};
+  // eslint-disable-next-line no-unused-vars
+  const initialState = {};
 
-  // const [state] = useReducer(feedbackReducer, initialState);
+  // eslint-disable-next-line no-unused-vars
+  const [state, dispatch] = useReducer(feedbackReducer, initialState);
 
   if (!isLoading && (!feedback || feedback.length === 0)) {
     return <p>No Feedback Yet</p>;

@@ -13,6 +13,7 @@ const NotFound = () => {
     rating: 0,
   };
 
+  // eslint-disable-next-line no-unused-vars
   const [state, dispatch] = useReducer(feedbackReducer, initialState);
 
   const handleClick = () => {
