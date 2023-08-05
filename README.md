@@ -1,4 +1,4 @@
-# useCurrentDate Custom React Hook in FeedbackProvider - useCurrentDate
+# Custom React Hook in FeedbackProvider - useCurrentDate
 
 ## Table of Contents
 
