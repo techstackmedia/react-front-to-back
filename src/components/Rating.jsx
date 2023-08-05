@@ -3,7 +3,7 @@ import FeedbackContext from '../context/FeedbackContext';
 
 const Rating = ({ selectedRating }) => {
   const [selected, setSelected] = useState(null);
-  const { feedbackEdit } = useContext(FeedbackContext);
+  const { feedbackEdit, isFalse } = useContext(FeedbackContext);
   const numbers = Array.from(Array(11).keys()).splice(1);
 
   const handleSelectChange = (e) => {
@@ -27,7 +27,12 @@ const Rating = ({ selectedRating }) => {
           onChange={handleSelectChange}
           checked={selected === item}
         />
-        <label htmlFor={`num${item}`}>{item}</label>
+        <label className={isFalse ? 'checked' : undefined}
+          style={{ color: isFalse ? '#000' : undefined }}
+          htmlFor={`num${item}`}
+        >
+          {item}
+        </label>
       </li>
     );
   });

@@ -1,9 +1,8 @@
-// FeedbackItem.jsx
-import { useContext } from 'react';
-import FeedbackContext from '../../context/FeedbackContext';
-import Card from '../shared/Card';
-import closeIcon from '../../images/closeIcon.svg';
-import editIcon from '../../images/editIcon.svg';
+import { useContext } from "react";
+import FeedbackContext from "../../context/FeedbackContext";
+import Card from "../shared/Card";
+import closeIcon from '../../images/closeIcon.svg'
+import editIcon from '../../images/editIcon.svg'
 
 const FeedbackItem = ({ item }) => {
   const { deleteFeedback, editFeedback, isFalse } = useContext(FeedbackContext);
