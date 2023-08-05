@@ -73,10 +73,10 @@ To run the project on your local machine, follow these steps:
 
 ```bash
 # Clone the remote Git repository
-git clone https://github.com/techstackmedia/feedback-application-server.git
+git clone https://github.com/techstackmedia/react-front-to-back.git
 
 # Change the current directory to the cloned repository's directory
-cd feedback-application-server
+cd react-front-to-back
 
 # Install project dependencies using npm
 npm install
@@ -95,9 +95,9 @@ The provided commands are used to clone a remote Git repository, navigate to the
 
 Here's a breakdown of each command:
 
-1. `git clone https://github.com/techstackmedia/feedback-application-server.git`: This command clones the remote Git repository from the URL `https://github.com/techstackmedia/feedback-application-server.git` to your local machine. It creates a new directory named `feedback-application-server` and copies the entire repository contents into that directory.
+1. `git clone https://github.com/techstackmedia/react-front-to-back.git`: This command clones the remote Git repository from the URL `https://github.com/techstackmedia/react-front-to-back` to your local machine. It creates a new directory named `react-front-to-back.git` and copies the entire repository contents into that directory.
 
-2. `cd feedback-application-server`: This command changes the current working directory to the `feedback-application-server` directory. After executing this command, you will be inside the project directory.
+2. `cd react-front-to-back.git`: This command changes the current working directory to the `react-front-to-back.git` directory. After executing this command, you will be inside the project directory.
 
 3. `npm install`: This command installs the dependencies required by the application. It reads the `package.json` file in the project directory and installs all the packages listed in the `dependencies` and `devDependencies` sections.
 
