@@ -14,10 +14,9 @@ To convert the provided code to use reducers, we'll need to refactor the compone
 
 Step 1: Create a Reducer
 
-Create a new file named `reducer.js` and define the reducer function for each component that uses state. We'll use this reducer to manage the state for FeedbackForm, FeedbackItem, and FeedbackList components:
+Create a new file named `feedbackReducer.js` and define the reducer function for each component that uses state. We'll use this reducer to manage the state for FeedbackForm, FeedbackItem, and FeedbackList components:
 
 ```javascript
-// reducer.js
 const feedbackReducer = (state, action) => {
   switch (action.type) {
     case 'SET_INITIAL_STATE':
