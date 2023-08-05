@@ -7,12 +7,7 @@ import editIcon from '../../images/editIcon.svg';
 import { feedbackReducer } from '../../context/feedbackReducer';
 
 const FeedbackItem = ({ item }) => {
-  const { deleteFeedback, editFeedback } = useContext(FeedbackContext);
-  const initialState = {
-    rating: item.rating,
-  };
-
-  const [state] = useReducer(feedbackReducer, initialState);
+  const { deleteFeedback, editFeedback, isFalse } = useContext(FeedbackContext);
 
   const handleDeleteButton = () => {
     deleteFeedback(item._id);
@@ -23,8 +18,8 @@ const FeedbackItem = ({ item }) => {
   };
 
   return (
-    <Card>
-      <div className='num-display'>{state.rating}</div>
+    <Card reverse={isFalse}>
+      <div className='num-display'>{item.rating}</div>
       <button onClick={handleDeleteButton} className='close'>
         <img src={closeIcon} alt='close icon' width={13.328} height={13.328} />
       </button>

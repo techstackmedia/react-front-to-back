@@ -13,7 +13,7 @@ const initialState = {
 };
 
 const FeedbackForm = () => {
-  const { addFeedback, updateFeedback, feedbackEdit } =
+  const { addFeedback, updateFeedback, feedbackEdit, isFalse } =
     useContext(FeedbackContext);
 
   const [state, dispatch] = useReducer(feedbackReducer, initialState);
@@ -75,7 +75,7 @@ const FeedbackForm = () => {
   }, [feedbackEdit]);
 
   return (
-    <Card>
+    <Card reverse={isFalse}>
       <h2>How would you rate your service with us?</h2>
       <form onSubmit={handleFormSubmit}>
         <Rating selectedRating={(rating) => dispatch({ type: 'SET_RATING', payload: rating })} />
