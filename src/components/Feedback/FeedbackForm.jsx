@@ -5,7 +5,7 @@ import Button from '../shared/Button';
 import Rating from '../Rating';
 
 const FeedbackForm = () => {
-  const { addFeedback, updateFeedback, feedbackEdit } =
+  const { addFeedback, updateFeedback, feedbackEdit, isFalse } =
     useContext(FeedbackContext);
   const [text, setText] = useState('');
   const [btnDisabled, setBtnDisabled] = useState(true);
@@ -38,7 +38,6 @@ const FeedbackForm = () => {
         rating,
       };
 
-
       if (feedbackEdit.edit) {
         updateFeedback(feedbackEdit.id, newFeedbackItem);
       } else {
@@ -60,7 +59,7 @@ const FeedbackForm = () => {
   }, [feedbackEdit]);
 
   return (
-    <Card>
+    <Card reverse={isFalse}>
       <h2>How would you rate your service with us?</h2>
       <form onSubmit={handleFormSubmit}>
         <Rating selectedRating={(rating) => setRating(rating)} />
@@ -70,6 +69,7 @@ const FeedbackForm = () => {
             type='text'
             onChange={handleTextChange}
             value={text}
+            style={{ color: isFalse ? '#fff' : undefined }}
           />
           <Button type='submit' isDisabled={btnDisabled}>
             Send

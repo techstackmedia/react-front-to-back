@@ -1,4 +1,4 @@
-# Feedback App Refactoring
+# Enhanced Feedback App: Dark/Light Mode Toggle with Local Storage Persistence
 
 ## Table of Contents
 
@@ -10,55 +10,81 @@
 
 ## Description
 
-The refactoring in the Feedback app was done to improve readability and remove unnecessary code.
+The added feature to the React application now allows users to toggle between dark and light mode, in addition to leaving feedback and viewing feedback items. There are several components involved in the application, including `FeedbackProvider`, `FeedbackForm`, `FeedbackItem`, `Toggler`, `Header`, `Rating`, `Footer`, and `About`.
 
-1. Refactoring in Footer Component:
-   In the original version of the Footer component, the ternary operator was used twice to check the conditions for applying the 'underline' style to the NavLink component. However, the conditions were unnecessarily duplicated. In the refactored version, the conditions were combined into a single ternary operator, which makes the code cleaner and easier to understand.
+### Utilizing Local Storage and State Updates for Enhanced User Experience
 
-Original:
+#### 1. Handling Toggle Button and Local Storage
 
-```javascript
-textDecoration:
-  pathname === '/' && item === 'home'
-    ? 'underline'
-    : pathname === '/about' && item === 'about'
-    ? 'underline'
-    : 'none',
+The code has added a `Toggler` component that displays a toggle button based on the `isFalse` state obtained from the `FeedbackContext`. The `handleClickToggler` function in the `FeedbackContext` updates the `isFalse` state and also saves its value in the local storage with the key `'switch'`. This allows the application to remember the toggle state even after page reloads.
+
+#### 2. Dynamic Toggling Effect using React State and Local Storage
+
+A new state variable `isFalse` is introduced to keep track of the toggle state. Initially, it is set to `false` by default. The `handleClickToggler` function is used to toggle the value of `isFalse` and store it in the local storage using `localStorage.setItem`.
+
+```jsx
+const [isFalse, setIsFalse] = useState(false);
+
+const handleClickToggler = () => {
+  setIsFalse((prevState) => !prevState);
+  localStorage.setItem('switch', JSON.stringify(!isFalse));
+};
 ```
 
-Refactored:
+The `useEffect` hook is used to retrieve the stored value from local storage and set it in the state during the initial component mount.
 
-```javascript
-textDecoration:
-  (pathname === '/' && item === 'home') || (pathname === '/about' && item === 'about')
-    ? 'underline'
-    : 'none',
+```jsx
+useEffect(() => {
+  const storedValue = localStorage.getItem('switch');
+  if (storedValue) {
+    setIsFalse(JSON.parse(storedValue));
+  }
+}, []);
 ```
 
-2. Refactoring in FeedbackForm Component:
-   In the original version of the FeedbackForm component, there was an unnecessary check in the `handleFormSubmit` function. The check `feedbackEdit.edit === true` can be simplified to `feedbackEdit.edit`, as it is a boolean value and already evaluates to true or false. This makes the code more concise and easier to read.
+#### 3. Removal of Default Props
 
-Original:
+The `defaultProps` for `Card` component (`Card.defaultProps = { reverse: false }`) has been removed since the `isFalse` value from local storage already handles the initial state. The `reverse` prop in the `Card` component is now directly provided from the `isFalse` state. We can remove the following line:
 
-```javascript
-if (feedbackEdit.edit === true) {
-  // code block
-} else {
-  // code block
+```jsx
+Card.defaultProps = {
+  reverse: false,
+};
+```
+
+#### 4. Using `isFalse` for Card Reverse Prop
+
+The `Card` component is updated to use the `isFalse` state variable instead of the `reverse` prop. This allows the Card background to be light when `isFalse` is `true`, and dark when `isFalse` is `false`.
+
+```jsx
+const Card = ({ children }) => {
+  const classes = `card ${isFalse ? 'reverse' : ''}`.trim();
+  return <div className={classes}>{children}</div>;
+};
+```
+
+#### 5. Changes in the `Rating` Component
+
+The `Rating` component now receives a callback function called `selectedRating`, which is used to update the `rating` state in the `FeedbackForm` component. The `selectedRating` function is triggered whenever a rating is selected in the `Rating` component.
+
+#### 6. SVG Changes for Toggle On/Off
+
+The SVG files for `toggleOn.svg` and `toggleOff.svg` have been modified to change the stroke and fill values from `currentColor` to `#ff6a95`. This changes the color of the toggle button based on the `isFalse` state.
+
+#### 7. CSS Changes in `index.css`
+
+The CSS change in `index.css` adds the `background-color: transparent;` property to the `input` element. This change makes the background of the input field transparent, ensuring it works well with the dark/light mode toggle.
+
+```css
+input {
+  flex-grow: 2;
+  border: none;
+  font-size: 16px;
+  background-color: transparent;
 }
 ```
 
-Refactored:
-
-```javascript
-if (feedbackEdit.edit) {
-  // code block
-} else {
-  // code block
-}
-```
-
-Overall, these refactoring changes are minor but contribute to better code readability and maintenance. It's always good to write code that is easy to understand and reduces unnecessary complexity.
+Overall, the application now uses the `isFalse` state from local storage to handle the dark/light mode toggle. The components have been updated to use this state, resulting in a functioning dark/light mode feature that persists even after page reloads.
 
 ## Installation
 
