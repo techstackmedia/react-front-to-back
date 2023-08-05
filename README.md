@@ -88,7 +88,7 @@ npm start
 git branch -r
 
 # Switch to a specific branch (replace <branch-name> with the desired branch name)
-git checkout <branch-name>
+git checkout <branch-name> # for example: git checkout 35-refactor
 ```
 
 The provided commands are used to clone a remote Git repository, navigate to the cloned repository's directory, install its dependencies, start the application server, list remote branches, and switch to a specific branch.
