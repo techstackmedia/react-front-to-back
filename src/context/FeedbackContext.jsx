@@ -78,7 +78,6 @@ const FeedbackProvider = ({ children }) => {
         throw new Error('Network response was not ok');
       }
   
-      // Get the updated feedback data from the response
       const updatedFeedbackData = await response.json();
   
       setFeedback((prevFeedback) =>
@@ -87,7 +86,6 @@ const FeedbackProvider = ({ children }) => {
         })
       );
   
-      // Reset the feedbackEdit state after updating the feedback
       setFeedbackEdit((prevFeedbackEdit) => ({
         ...prevFeedbackEdit,
         item: {},

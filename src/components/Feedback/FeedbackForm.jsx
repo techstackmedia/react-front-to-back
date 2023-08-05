@@ -11,7 +11,6 @@ const FeedbackForm = () => {
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [message, setMessage] = useState(null);
   const [rating, setRating] = useState(0);
-  // const [id, setId] = useState(0)
 
   const handleTextChange = (e) => {
     const newText = e.target.value;
@@ -40,8 +39,7 @@ const FeedbackForm = () => {
       };
 
 
-      if (feedbackEdit.edit === true) {
-        // updateFeedback(id, newFeedbackItem);
+      if (feedbackEdit.edit) {
         updateFeedback(feedbackEdit.id, newFeedbackItem);
       } else {
         addFeedback(newFeedbackItem);
@@ -55,7 +53,6 @@ const FeedbackForm = () => {
 
   useEffect(() => {
     if (feedbackEdit.edit === true) {
-      // setId(feedbackEdit.item._id)
       setBtnDisabled(false);
       setText(feedbackEdit.item.text);
       setRating(feedbackEdit.item.rating);
