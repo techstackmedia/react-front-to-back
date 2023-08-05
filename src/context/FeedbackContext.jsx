@@ -20,7 +20,6 @@ const FeedbackProvider = ({ children }) => {
   const [itemToDelete, setItemToDelete] = useState(null);
   const [isFalse, setIsFalse] = useState(false);
 
-  // Function to format the date and time
   const formatDateTime = (dateObj) => {
     const monthNames = [
       'January',
@@ -47,17 +46,14 @@ const FeedbackProvider = ({ children }) => {
     return `📅 ${month} ${day}, ${year} ⏲️ ${hour}:${minute}:${seconds} ${AMPM}`;
   };
 
-  // Function to zero-pad the values (if necessary)
   const zeroPad = (value) => {
     return value < 10 ? `0${value}` : value;
   };
 
-  // Function to get the AM/PM format
   const getAMPM = (hours) => {
     return hours >= 12 ? 'PM' : 'AM';
   };
 
-  // Convert 24-hour format to 12-hour format
   const formatHours = (hours) => {
     return hours % 12 || 12;
   };
@@ -67,7 +63,7 @@ const FeedbackProvider = ({ children }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentDate(new Date());
-    }, 1000); // Update every second
+    }, 1000);
 
     return () => {
       clearInterval(interval);
