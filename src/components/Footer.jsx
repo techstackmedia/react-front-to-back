@@ -4,7 +4,7 @@ import FeedbackContext from '../context/FeedbackContext';
 import { useContext } from 'react';
 
 const Footer = () => {
-  const {isFalse} = useContext(FeedbackContext)
+  const { isFalse } = useContext(FeedbackContext);
   const { pathname } = useLocation();
   const footer = ['home', 'about'];
 
@@ -13,8 +13,11 @@ const Footer = () => {
       <NavLink
         style={{
           textDecoration:
-            (pathname === '/' && item === 'home') || (pathname === '/about' && item === 'about') ? 'underline' : 'none',
-          color: isFalse ? '#fff': undefined
+            (pathname === '/' && item === 'home') ||
+            (pathname === '/about' && item === 'about')
+              ? 'underline'
+              : 'none',
+          color: isFalse ? '#fff' : undefined,
         }}
         to={`/${item}` === '/home' ? '/' : item}
       >
@@ -33,4 +36,4 @@ const Footer = () => {
   );
 };
 
-export default Footer
+export default Footer;

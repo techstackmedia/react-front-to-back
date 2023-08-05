@@ -1,4 +1,4 @@
-# Enhanced Feedback App: Dark/Light Mode Toggle with Local Storage Persistence
+# Real-Time Date and Time Update in React: Understanding setInterval and Displaying the Current Time
 
 ## Table of Contents
 
@@ -10,234 +10,52 @@
 
 ## Description
 
-The added feature to the React application now allows users to toggle between dark and light mode, in addition to leaving feedback and viewing feedback items. There are several components involved in the application, including `FeedbackProvider`, `FeedbackForm`, `FeedbackItem`, `Toggler`, `Header`, `Rating`, `Footer`, and `About`.
+In the provided code, the date and time are being updated and displayed using the `currentDate` state and the `setInterval` function. Let's go through the code snippet to understand how the date and time are continuously updated:
 
-### Utilizing Local Storage and State Updates for Enhanced User Experience
+1. Setting Up the Date and Time State:
+   At the beginning of the `FeedbackProvider` component, the `currentDate` state is initialized using `useState(new Date())`. This state holds the current date and time and will be updated every second using the `setInterval` function.
 
-#### 1. Handling Toggle Button and Local Storage
+2. Updating the Date and Time:
+   Inside the `FeedbackProvider`, there is a `useEffect` that runs only once when the component mounts:
 
-The code has added a `Toggler` component that displays a toggle button based on the `isFalse` state obtained from the `FeedbackContext`. The `handleClickToggler` function in the `FeedbackContext` updates the `isFalse` state and also saves its value in the local storage with the key `'switch'`. This allows the application to remember the toggle state even after page reloads.
+   ```javascript
+   useEffect(() => {
+     const interval = setInterval(() => {
+       setCurrentDate(new Date());
+     }, 1000); // Update every second
 
-#### 2. Dynamic Toggling Effect using React State and Local Storage
+     return () => {
+       clearInterval(interval);
+     };
+   }, []);
+   ```
 
-A new state variable `isFalse` is introduced to keep track of the toggle state. Initially, it is set to `false` by default. The `handleClickToggler` function is used to toggle the value of `isFalse` and store it in the local storage using `localStorage.setItem`.
+   In this `useEffect`, a new interval is created using `setInterval`. The function inside `setInterval` sets the `currentDate` state to a new `Date` object, which is the current date and time. The interval is set to 1000 milliseconds (1 second), so the date and time will be updated every second.
 
-```jsx
-const [isFalse, setIsFalse] = useState(false);
+3. Formatting the Date and Time:
+   In the `FeedbackStats` component, the `currentDate` context value received from the `FeedbackProvider` is used to display the date and time:
 
-const handleClickToggler = () => {
-  setIsFalse((prevState) => !prevState);
-  localStorage.setItem('switch', JSON.stringify(!isFalse));
-};
-```
+   ```javascript
+   const { currentDate } = useContext(FeedbackContext);
+   const date = currentDate.split('⏲️')[0];
+   const time = `⏲️ ${currentDate.split('⏲️')[1]}`;
+   ```
 
-The `useEffect` hook is used to retrieve the stored value from local storage and set it in the state during the initial component mount.
+   The `currentDate` value is split using the '⏲️' emoji as the separator. The first part of the split (`currentDate.split('⏲️')[0]`) represents the formatted date, and the second part (`currentDate.split('⏲️')[1]`) represents the formatted time.
 
-```jsx
-useEffect(() => {
-  const storedValue = localStorage.getItem('switch');
-  if (storedValue) {
-    setIsFalse(JSON.parse(storedValue));
-  }
-}, []);
-```
+4. Displaying the Date and Time:
+   The formatted date and time are displayed in the `FeedbackStats` component:
 
-#### 3. Removal of Default Props
+   ```javascript
+   <div className='feedback-stats'>
+     <h5>{date}</h5>
+     <h5>{time}</h5>
+   </div>
+   ```
 
-The `defaultProps` for `Card` component (`Card.defaultProps = { reverse: false }`) has been removed since the `isFalse` value from local storage already handles the initial state. The `reverse` prop in the `Card` component is now directly provided from the `isFalse` state. We can remove the following line:
+   The date and time are displayed in separate `h5` elements. The `date` variable represents the formatted date, and the `time` variable represents the formatted time.
 
-```jsx
-Card.defaultProps = {
-  reverse: false,
-};
-```
-
-#### 4. Using `isFalse` for Card Reverse Prop
-
-The `Card` component is updated to use the `isFalse` state variable instead of the `reverse` prop. This allows the Card background to be light when `isFalse` is `true`, and dark when `isFalse` is `false`.
-
-```jsx
-const Card = ({ children }) => {
-  const classes = `card ${isFalse ? 'reverse' : ''}`.trim();
-  return <div className={classes}>{children}</div>;
-};
-```
-
-#### 5. Changes in the `Rating` Component
-
-The `Rating` component now receives a callback function called `selectedRating`, which is used to update the `rating` state in the `FeedbackForm` component. The `selectedRating` function is triggered whenever a rating is selected in the `Rating` component.
-
-#### 6. SVG Changes for Toggle On/Off
-
-The SVG files for `toggleOn.svg` and `toggleOff.svg` have been modified to change the stroke and fill values from `currentColor` to `#ff6a95`. This changes the color of the toggle button based on the `isFalse` state.
-
-#### 7. CSS Changes in `index.css`
-
-The CSS change in `index.css` adds the `background-color: transparent;` property to the `input` element. This change makes the background of the input field transparent, ensuring it works well with the dark/light mode toggle.
-
-```css
-input {
-  flex-grow: 2;
-  border: none;
-  font-size: 16px;
-  background-color: transparent;
-}
-```
-
-Overall, the application now uses the `isFalse` state from local storage to handle the dark/light mode toggle. The components have been updated to use this state, resulting in a functioning dark/light mode feature that persists even after page reloads.
-To convert the provided code to use reducers, we'll need to refactor the components that use state and useState hooks. Instead of managing state using individual useState hooks, we'll create a single reducer to manage the state for each component. Here's the refactored code:
-
-Step 1: Create a Reducer
-
-Create a new file named `feedbackReducer.js` and define the reducer function for each component that uses state. We'll use this reducer to manage the state for FeedbackForm, FeedbackItem, and FeedbackList components:
-
-```javascript
-const feedbackReducer = (state, action) => {
-  switch (action.type) {
-    case 'SET_INITIAL_STATE':
-      return {
-        ...state,
-        text: action.payload.text,
-        btnDisabled: action.payload.btnDisabled,
-        message: action.payload.message,
-        rating: action.payload.rating,
-      };
-    case 'SET_TEXT':
-      return { ...state, text: action.payload };
-    case 'SET_BTN_DISABLED':
-      return { ...state, btnDisabled: action.payload };
-    case 'SET_MESSAGE':
-      return { ...state, message: action.payload };
-    case 'SET_RATING':
-      return { ...state, rating: action.payload };
-    default:
-      return state;
-  }
-};
-
-export { feedbackReducer };
-```
-
-Step 2: Refactor FeedbackForm Component
-
-In the `FeedbackForm` component, we'll use the `useReducer` hook to manage the state:
-
-```javascript
-import { useContext, useEffect, useReducer } from 'react';
-import FeedbackContext from '../../context/FeedbackContext';
-import Card from '../shared/Card';
-import Button from '../shared/Button';
-import Rating from '../Rating';
-import { feedbackReducer } from '../../context/feedbackReducer';
-
-const initialState = {
-  text: '',
-  btnDisabled: true,
-  message: null,
-  rating: 0,
-};
-
-const FeedbackForm = () => {
-  const { addFeedback, updateFeedback, feedbackEdit } =
-    useContext(FeedbackContext);
-
-  const [state, dispatch] = useReducer(feedbackReducer, initialState);
-
-  const handleTextChange = (e) => {
-    const newText = e.target.value;
-
-    if (newText.trim() === '') {
-      dispatch({ type: 'SET_TEXT', payload: newText });
-      dispatch({ type: 'SET_BTN_DISABLED', payload: true });
-      dispatch({ type: 'SET_MESSAGE', payload: null });
-    } else if (newText.trim().length < 10) {
-      dispatch({ type: 'SET_TEXT', payload: newText });
-      dispatch({ type: 'SET_BTN_DISABLED', payload: true });
-      dispatch({
-        type: 'SET_MESSAGE',
-        payload: 'Text must be at least 10 characters',
-      });
-    } else {
-      dispatch({ type: 'SET_TEXT', payload: newText });
-      dispatch({ type: 'SET_BTN_DISABLED', payload: false });
-      dispatch({ type: 'SET_MESSAGE', payload: null });
-    }
-  };
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-
-    if (state.text.trim().length > 9) {
-      const newFeedbackItem = {
-        text: state.text,
-        rating: state.rating,
-      };
-
-      if (feedbackEdit.edit === true) {
-        updateFeedback(feedbackEdit.id, newFeedbackItem);
-      } else {
-        addFeedback(newFeedbackItem);
-      }
-
-      dispatch({ type: 'SET_BTN_DISABLED', payload: true });
-      dispatch({ type: 'SET_TEXT', payload: '' });
-      dispatch({ type: 'SET_RATING', payload: 0 });
-    }
-  };
-
-  useEffect(() => {
-    if (feedbackEdit.edit === true) {
-      dispatch({
-        type: 'SET_INITIAL_STATE',
-        payload: {
-          text: feedbackEdit.item.text,
-          btnDisabled: false,
-          message: null,
-          rating: feedbackEdit.item.rating,
-        },
-      });
-    }
-  }, [feedbackEdit]);
-
-  return (
-    <Card>
-      <h2>How would you rate your service with us?</h2>
-      <form onSubmit={handleFormSubmit}>
-        <Rating
-          selectedRating={(rating) =>
-            dispatch({ type: 'SET_RATING', payload: rating })
-          }
-        />
-        <div className='input-group'>
-          <input
-            placeholder='Write a review'
-            type='text'
-            onChange={handleTextChange}
-            value={state.text}
-          />
-          <Button type='submit' isDisabled={state.btnDisabled}>
-            Send
-          </Button>
-        </div>
-        {state.message ? <div className='message'>{state.message}</div> : null}
-      </form>
-    </Card>
-  );
-};
-
-export default FeedbackForm;
-```
-
-Step 3: Repeat Step 2 for FeedbackItem and FeedbackList components
-
-Do the same refactoring using `useReducer` in the `FeedbackItem` and `FeedbackList` components, managing their respective state using the reducer.
-
-By refactoring the components to use reducers, the state management will be centralized, making the code more maintainable and easier to reason about. The reducer handles all state updates based on the dispatched actions, and each component receives its state through the `state` variable returned by the `useReducer` hook.
-
-> **Note:**
->
-> 1. Instead of passing the props down through each component, React Context allows you to broadcast props to the components below.
-> 2. The useReducer hook is used for complex state manipulations and state transitions. In the next chapter or branch, we will revert to using only useContext since the app does not deal with much state.
+Overall, the code snippet ensures that the date and time are continuously updated every second, and the formatted date and time are displayed in the `FeedbackStats` component. The displayed time will keep ticking as the interval updates the `currentDate` state every second, reflecting the current date and time.
 
 ## Installation
 

@@ -13,7 +13,7 @@ const FeedbackList = () => {
   return isLoading ? (
     <Pulse />
   ) : (
-     <div className='feedback-list'>
+    <div className='feedback-list'>
       {feedback.map((feedbackItem) => {
         return <FeedbackItem item={feedbackItem} key={feedbackItem._id} />;
       })}

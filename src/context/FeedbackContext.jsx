@@ -13,34 +13,78 @@ const FeedbackProvider = ({ children }) => {
       setIsFalse(JSON.parse(storedValue));
     }
   }, []);
-  
 
   const [feedback, setFeedback] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
   const [isFalse, setIsFalse] = useState(false);
-  // const handleClickToggler = () => {
-  //   if (isFalse === true) {
-  //     setIsFalse(false);
-  //   } else {
-  //     setIsFalse(true);
-  //   }
-  
-  //   localStorage.setItem('switch', isFalse ? 'false' : 'true');
-  // };
+
+  // Function to format the date and time
+  const formatDateTime = (dateObj) => {
+    const monthNames = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
+    const month = monthNames[dateObj.getMonth()];
+    const day = dateObj.getDate();
+    const year = dateObj.getFullYear();
+    const hour = formatHours(dateObj.getHours());
+    const minute = zeroPad(dateObj.getMinutes());
+    const seconds = zeroPad(dateObj.getSeconds());
+    const AMPM = getAMPM(dateObj.getHours());
+
+    return `📅 ${month} ${day}, ${year} ⏲️ ${hour}:${minute}:${seconds} ${AMPM}`;
+  };
+
+  // Function to zero-pad the values (if necessary)
+  const zeroPad = (value) => {
+    return value < 10 ? `0${value}` : value;
+  };
+
+  // Function to get the AM/PM format
+  const getAMPM = (hours) => {
+    return hours >= 12 ? 'PM' : 'AM';
+  };
+
+  // Convert 24-hour format to 12-hour format
+  const formatHours = (hours) => {
+    return hours % 12 || 12;
+  };
+
+  const [currentDate, setCurrentDate] = useState(new Date());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentDate(new Date());
+    }, 1000); // Update every second
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
+  const formattedDate = formatDateTime(currentDate);
 
   const handleClickToggler = () => {
     setIsFalse((prevState) => !prevState);
     localStorage.setItem('switch', JSON.stringify(!isFalse));
   };
-  
-  
+
   const [feedbackEdit, setFeedbackEdit] = useState({
     item: {},
     edit: false,
   });
-  
 
   const getFeedback = async () => {
     try {
@@ -184,6 +228,7 @@ const FeedbackProvider = ({ children }) => {
         isLoading,
         isFalse,
         handleClickToggler,
+        currentDate: formattedDate,
       }}
     >
       {children}

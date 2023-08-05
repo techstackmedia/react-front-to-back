@@ -27,7 +27,8 @@ const Rating = ({ selectedRating }) => {
           onChange={handleSelectChange}
           checked={selected === item}
         />
-        <label className={isFalse ? 'checked' : undefined}
+        <label
+          className={isFalse ? 'checked' : undefined}
           style={{ color: isFalse ? '#000' : undefined }}
           htmlFor={`num${item}`}
         >
