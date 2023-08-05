@@ -1,4 +1,4 @@
-# Custom React Hook in FeedbackProvider - useCurrentDate
+# Custom React Hook in FeedbackProvider - useFeedback
 
 ## Table of Contents
 
@@ -10,50 +10,84 @@
 
 ## Description
 
-The `useCurrentDate` is a custom React hook used to obtain the current date and time, updating every second using the `setInterval` function. The custom hook is named `useCurrentDate` because it's designed to provide the current date, and it follows the convention of naming custom hooks with a "use" prefix.
-
-Now, let's explain why and how it is used in the `FeedbackContext.jsx` file:
-
-1. Importing the `useCurrentDate` hook:
+1. `useFeedback` Custom Hook:
+The `useFeedback` hook is a custom hook created to access the state and functions provided by the `FeedbackContext`. It uses the `useContext` hook to get the values from the context and returns them as an object.
 
 ```jsx
-import useCurrentDate from '../components/hooks/useCurrentDate';
+import { useContext } from 'react';
+import FeedbackContext from '../../context/FeedbackContext';
+
+const useFeedback = () => {
+  const {
+    feedback,
+    isLoading,
+    showDeleteModal,
+    itemToDelete,
+    feedbackEdit,
+    addFeedback,
+    editFeedback,
+    deleteFeedback,
+    updateFeedback,
+    alertConfirmationModal,
+    isFalse,
+    handleClickToggler,
+    currentDate,
+  } = useContext(FeedbackContext);
+
+  return {
+    feedback,
+    isLoading,
+    showDeleteModal,
+    itemToDelete,
+    feedbackEdit,
+    addFeedback,
+    editFeedback,
+    deleteFeedback,
+    updateFeedback,
+    alertConfirmationModal,
+    isFalse,
+    handleClickToggler,
+    currentDate,
+  };
+};
+
+export default useFeedback;
 ```
 
-Here, the custom hook `useCurrentDate` is imported from the `../components/hooks/useCurrentDate` file.
+This hook allows us to use the `FeedbackContext` values directly in any component without explicitly importing the context and accessing the state and functions. It helps to keep the components clean and separates the concern of using context logic.
 
-2. Using the `useCurrentDate` hook in `FeedbackProvider` component:
+2. `FeedbackList` Component:
+The `FeedbackList` component is a functional component that renders the list of feedback items. It uses the `useFeedback` hook to access the `feedback` and `isLoading` state from the context.
 
 ```jsx
-const currentDate = useCurrentDate();
+import { useFeedback } from '../hooks/useFeedback';
+import FeedbackItem from './FeedbackItem';
+import Pulse from '../Pulse';
+
+const FeedbackList = () => {
+  const { feedback, isLoading } = useFeedback();
+
+  if (!isLoading && (!feedback || feedback.length === 0)) {
+    return <p>No Feedback Yet</p>;
+  }
+
+  return isLoading ? (
+    <Pulse />
+  ) : (
+    <div className='feedback-list'>
+      {feedback.map((feedbackItem) => {
+        return <FeedbackItem item={feedbackItem} key={feedbackItem._id} />;
+      })}
+    </div>
+  );
+};
+
+export default FeedbackList;
 ```
 
-The `useCurrentDate` hook is called inside the `FeedbackProvider` component to get the current date and time. This will give us the current date, which is updated every second due to the `setInterval` mechanism in the custom hook.
+In this component, we import the `useFeedback` hook and call it to get the `feedback` and `isLoading` values. If `isLoading` is `true`, it renders a loading indicator (`<Pulse />`), and if there is no feedback data or the feedback array is empty, it renders a message saying "No Feedback Yet." Otherwise, it maps through the `feedback` array and renders each `FeedbackItem` component passing the feedback item as a prop.
 
-3. Formatting the date obtained from `useCurrentDate`:
-
-```jsx
-const formattedDate = formatDateTime(currentDate);
-```
-
-The `formatDateTime` function is used to format the date obtained from the `useCurrentDate` hook into a human-readable string. It converts the date object into a string with the format "📅 Month day, year ⏲️ hour:minute:seconds AM/PM".
-
-4. The context value provided by `FeedbackProvider` includes the `currentDate` and `formattedDate`:
-
-```jsx
-return (
-  <FeedbackContext.Provider
-    value={{
-      // ... other context values ...
-      currentDate: formattedDate,
-    }}
-  >
-    {children}
-  </FeedbackContext.Provider>
-);
-```
-
-In the context value, the `currentDate` is assigned the value of the `formattedDate`, which is the result of formatting the date obtained from the `useCurrentDate` hook.
+By using the `useFeedback` hook, the `FeedbackList` component can easily access and utilize the feedback data and related functions provided by the `FeedbackContext`, making the code cleaner and more maintainable.
 
 Overall, the `useCurrentDate` hook is used in the `FeedbackProvider` component to get the current date and time, which is then formatted into a human-readable string and provided to the context. This allows other components within the application to access the current date and time easily through the `FeedbackContext`. It can be used, for example, to show when a piece of feedback was added or updated with the current date and time.
 
