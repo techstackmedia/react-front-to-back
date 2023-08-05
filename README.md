@@ -53,7 +53,7 @@ import FeedbackContext from '../../context/FeedbackContext';
 import Card from '../shared/Card';
 import Button from '../shared/Button';
 import Rating from '../Rating';
-import { feedbackReducer } from '../../reducer';
+import { feedbackReducer } from '../../context/feedbackReducer';
 
 const initialState = {
   text: '',
@@ -128,7 +128,11 @@ const FeedbackForm = () => {
     <Card>
       <h2>How would you rate your service with us?</h2>
       <form onSubmit={handleFormSubmit}>
-        <Rating selectedRating={(rating) => dispatch({ type: 'SET_RATING', payload: rating })} />
+        <Rating
+          selectedRating={(rating) =>
+            dispatch({ type: 'SET_RATING', payload: rating })
+          }
+        />
         <div className='input-group'>
           <input
             placeholder='Write a review'
