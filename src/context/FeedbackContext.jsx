@@ -7,40 +7,14 @@ const FeedbackProvider = ({ children }) => {
     getFeedback();
   }, []);
 
-  useEffect(() => {
-    const storedValue = localStorage.getItem('switch');
-    if (storedValue) {
-      setIsFalse(JSON.parse(storedValue));
-    }
-  }, []);
-  
-
   const [feedback, setFeedback] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
-  const [isFalse, setIsFalse] = useState(false);
-  // const handleClickToggler = () => {
-  //   if (isFalse === true) {
-  //     setIsFalse(false);
-  //   } else {
-  //     setIsFalse(true);
-  //   }
-  
-  //   localStorage.setItem('switch', isFalse ? 'false' : 'true');
-  // };
-
-  const handleClickToggler = () => {
-    setIsFalse((prevState) => !prevState);
-    localStorage.setItem('switch', JSON.stringify(!isFalse));
-  };
-  
-  
   const [feedbackEdit, setFeedbackEdit] = useState({
     item: {},
     edit: false,
   });
-  
 
   const getFeedback = async () => {
     try {
@@ -83,6 +57,7 @@ const FeedbackProvider = ({ children }) => {
       edit: true,
     });
   };
+  
 
   const deleteFeedback = (id) => {
     setShowDeleteModal(true);
@@ -98,19 +73,19 @@ const FeedbackProvider = ({ children }) => {
         },
         body: JSON.stringify(itemUpdate),
       });
-
+  
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-
+  
       const updatedFeedbackData = await response.json();
-
+  
       setFeedback((prevFeedback) =>
         prevFeedback.map((item) => {
           return item._id === id ? { ...item, ...updatedFeedbackData } : item;
         })
       );
-
+  
       setFeedbackEdit((prevFeedbackEdit) => ({
         ...prevFeedbackEdit,
         item: {},
@@ -120,7 +95,7 @@ const FeedbackProvider = ({ children }) => {
       console.error('Error updating feedback:', error);
     }
   };
-
+  
   const handleDeleteConfirmed = async () => {
     await fetch(`/feedback/${itemToDelete}`, {
       method: 'DELETE',
@@ -182,8 +157,6 @@ const FeedbackProvider = ({ children }) => {
         updateFeedback,
         alertConfirmationModal,
         isLoading,
-        isFalse,
-        handleClickToggler,
       }}
     >
       {children}

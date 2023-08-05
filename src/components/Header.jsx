@@ -1,4 +1,3 @@
-import Toggler from './shared/Toggler';
 const Header = ({ text, bgColor, textColor }) => {
   const headerStyles = {
     backgroundColor: bgColor,
@@ -9,9 +8,6 @@ const Header = ({ text, bgColor, textColor }) => {
     <header style={headerStyles}>
       <div className='container'>
         <h2>{text}</h2>
-      </div>
-      <div>
-        <Toggler text={text} />
       </div>
     </header>
   );
