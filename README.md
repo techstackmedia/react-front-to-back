@@ -1,4 +1,4 @@
-# Real-Time Date and Time Update in React: Understanding setInterval and Displaying the Current Time
+# useCurrentDate Custom React Hook in FeedbackProvider - useCurrentDate
 
 ## Table of Contents
 
@@ -10,52 +10,52 @@
 
 ## Description
 
-In the provided code, the date and time are being updated and displayed using the `currentDate` state and the `setInterval` function. Let's go through the code snippet to understand how the date and time are continuously updated:
+The `useCurrentDate` is a custom React hook used to obtain the current date and time, updating every second using the `setInterval` function. The custom hook is named `useCurrentDate` because it's designed to provide the current date, and it follows the convention of naming custom hooks with a "use" prefix.
 
-1. Setting Up the Date and Time State:
-   At the beginning of the `FeedbackProvider` component, the `currentDate` state is initialized using `useState(new Date())`. This state holds the current date and time and will be updated every second using the `setInterval` function.
+Now, let's explain why and how it is used in the `FeedbackContext.jsx` file:
 
-2. Updating the Date and Time:
-   Inside the `FeedbackProvider`, there is a `useEffect` that runs only once when the component mounts:
+1. Importing the `useCurrentDate` hook:
 
-   ```javascript
-   useEffect(() => {
-     const interval = setInterval(() => {
-       setCurrentDate(new Date());
-     }, 1000); // Update every second
+```jsx
+import useCurrentDate from '../components/hooks/useCurrentDate';
+```
 
-     return () => {
-       clearInterval(interval);
-     };
-   }, []);
-   ```
+Here, the custom hook `useCurrentDate` is imported from the `../components/hooks/useCurrentDate` file.
 
-   In this `useEffect`, a new interval is created using `setInterval`. The function inside `setInterval` sets the `currentDate` state to a new `Date` object, which is the current date and time. The interval is set to 1000 milliseconds (1 second), so the date and time will be updated every second.
+2. Using the `useCurrentDate` hook in `FeedbackProvider` component:
 
-3. Formatting the Date and Time:
-   In the `FeedbackStats` component, the `currentDate` context value received from the `FeedbackProvider` is used to display the date and time:
+```jsx
+const currentDate = useCurrentDate();
+```
 
-   ```javascript
-   const { currentDate } = useContext(FeedbackContext);
-   const date = currentDate.split('⏲️')[0];
-   const time = `⏲️ ${currentDate.split('⏲️')[1]}`;
-   ```
+The `useCurrentDate` hook is called inside the `FeedbackProvider` component to get the current date and time. This will give us the current date, which is updated every second due to the `setInterval` mechanism in the custom hook.
 
-   The `currentDate` value is split using the '⏲️' emoji as the separator. The first part of the split (`currentDate.split('⏲️')[0]`) represents the formatted date, and the second part (`currentDate.split('⏲️')[1]`) represents the formatted time.
+3. Formatting the date obtained from `useCurrentDate`:
 
-4. Displaying the Date and Time:
-   The formatted date and time are displayed in the `FeedbackStats` component:
+```jsx
+const formattedDate = formatDateTime(currentDate);
+```
 
-   ```javascript
-   <div className='feedback-stats'>
-     <h5>{date}</h5>
-     <h5>{time}</h5>
-   </div>
-   ```
+The `formatDateTime` function is used to format the date obtained from the `useCurrentDate` hook into a human-readable string. It converts the date object into a string with the format "📅 Month day, year ⏲️ hour:minute:seconds AM/PM".
 
-   The date and time are displayed in separate `h5` elements. The `date` variable represents the formatted date, and the `time` variable represents the formatted time.
+4. The context value provided by `FeedbackProvider` includes the `currentDate` and `formattedDate`:
 
-Overall, the code snippet ensures that the date and time are continuously updated every second, and the formatted date and time are displayed in the `FeedbackStats` component. The displayed time will keep ticking as the interval updates the `currentDate` state every second, reflecting the current date and time.
+```jsx
+return (
+  <FeedbackContext.Provider
+    value={{
+      // ... other context values ...
+      currentDate: formattedDate,
+    }}
+  >
+    {children}
+  </FeedbackContext.Provider>
+);
+```
+
+In the context value, the `currentDate` is assigned the value of the `formattedDate`, which is the result of formatting the date obtained from the `useCurrentDate` hook.
+
+Overall, the `useCurrentDate` hook is used in the `FeedbackProvider` component to get the current date and time, which is then formatted into a human-readable string and provided to the context. This allows other components within the application to access the current date and time easily through the `FeedbackContext`. It can be used, for example, to show when a piece of feedback was added or updated with the current date and time.
 
 ## Installation
 

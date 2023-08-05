@@ -6,7 +6,7 @@ import editIcon from '../../images/editIcon.svg';
 
 const FeedbackItem = ({ item }) => {
   const { deleteFeedback, editFeedback, isFalse } = useContext(FeedbackContext);
-
+  
   const handleDeleteButton = () => {
     deleteFeedback(item._id);
   };

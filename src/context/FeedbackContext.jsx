@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from 'react';
+import useCurrentDate from '../components/hooks/useCurrentDate';
 
 const FeedbackContext = createContext();
 
@@ -19,6 +20,8 @@ const FeedbackProvider = ({ children }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
   const [isFalse, setIsFalse] = useState(false);
+
+  const currentDate = useCurrentDate();
 
   const formatDateTime = (dateObj) => {
     const monthNames = [
@@ -57,18 +60,6 @@ const FeedbackProvider = ({ children }) => {
   const formatHours = (hours) => {
     return hours % 12 || 12;
   };
-
-  const [currentDate, setCurrentDate] = useState(new Date());
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentDate(new Date());
-    }, 1000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
 
   const formattedDate = formatDateTime(currentDate);
 
