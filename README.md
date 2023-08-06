@@ -1,4 +1,4 @@
-# Implementing Time Format Toggling in a React Feedback List
+# Implementing Time Format Toggling - Feedback List
 
 ## Table of Contents
 
