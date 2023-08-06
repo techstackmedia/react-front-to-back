@@ -23,6 +23,11 @@ ul {
   padding: 0 20px;
 }
 
+.container h2 a {
+  text-decoration: none;
+  color: #ff6a95;
+}
+
 header {
   height: 70px;
   width: 100%;
