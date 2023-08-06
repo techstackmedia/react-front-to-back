@@ -1,11 +1,10 @@
-import { useContext } from 'react';
-import FeedbackContext from '../../context/FeedbackContext';
 import Card from '../shared/Card';
 import closeIcon from '../../images/closeIcon.svg';
 import editIcon from '../../images/editIcon.svg';
+import useFeedback from '../../hooks/useFeedback';
 
 const FeedbackItem = ({ item }) => {
-  const { deleteFeedback, editFeedback, isFalse } = useContext(FeedbackContext);
+  const { deleteFeedback, editFeedback, isFalse } = useFeedback();
   
   const handleDeleteButton = () => {
     deleteFeedback(item._id);

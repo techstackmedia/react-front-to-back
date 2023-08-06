@@ -1,8 +1,7 @@
-import { useContext } from 'react';
-import FeedbackContext from '../../context/FeedbackContext';
+import useFeedback from '../../hooks/useFeedback';
 
 const FeedbackStats = () => {
-  const { feedback, currentDate } = useContext(FeedbackContext);
+  const { feedback, currentDate } = useFeedback();
   const average =
     feedback.length === 0
       ? 0

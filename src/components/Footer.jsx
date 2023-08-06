@@ -1,10 +1,9 @@
 import { NavLink, useLocation } from 'react-router-dom';
 import Card from './shared/Card';
-import FeedbackContext from '../context/FeedbackContext';
-import { useContext } from 'react';
+import useFeedback from '../hooks/useFeedback';
 
 const Footer = () => {
-  const { isFalse } = useContext(FeedbackContext);
+  const { isFalse } = useFeedback();
   const { pathname } = useLocation();
   const footer = ['home', 'about'];
 
