@@ -23,7 +23,7 @@ The use of `<Routes>` and `<Route>` components from `react-router-dom` is to def
    - The `element` prop is set to render the `Detail` component when the URL path matches '/details/:id/\*'. The `Detail` component will receive the matched `id` as a URL parameter through the `useParams` hook in its implementation.
    - The purpose of using `/:id/*` is to handle nested routes for the `Detail` component. It means that when the URL path starts with '/details/:id/', the `Detail` component will be rendered. The `*` at the end of the path acts as a wildcard, allowing any additional subpaths to be matched under '/details/:id/'.
 
-In summary, the `<Routes>` and `<Route>` components in `FeedbackDetails.js` allow the rendering of the `Footer` component alongside the rest of the content in the `FeedbackDetails` component. On the other hand, the `<Route path='/details/:id/*' element={<Detail />}/>` in `App.js` sets up a dynamic route for the `Detail` component, allowing it to handle nested routes under '/details/:id/'. 
+In summary, the `<Routes>` and `<Route>` components in `FeedbackDetails.js` allow the rendering of the `Footer` component alongside the rest of the content in the `FeedbackDetails` component. On the other hand, the `<Route path='/details/:id/*' element={<Detail />}/>` in `App.js` sets up a dynamic route for the `Detail` component, allowing it to handle nested routes under '/details/:id/'.
 
 > In short:
 >
