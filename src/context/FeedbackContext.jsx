@@ -41,7 +41,7 @@ const FeedbackProvider = ({ children }) => {
     const month = monthNames[dateObj.getMonth()];
     const day = dateObj.getDate();
     const year = dateObj.getFullYear();
-    const hour = formatHours(dateObj.getHours());
+    const hour = zeroPad(formatHours(dateObj.getHours()));
     const minute = zeroPad(dateObj.getMinutes());
     const seconds = zeroPad(dateObj.getSeconds());
     const AMPM = getAMPM(dateObj.getHours());

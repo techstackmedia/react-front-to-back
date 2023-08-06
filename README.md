@@ -1,4 +1,4 @@
-# Formatted Dates in React - Feedback Item
+# Toggling Formatted Time - Feedback Item
 
 ## Table of Contents
 
@@ -10,65 +10,91 @@
 
 ## Description
 
-User feedback is essential for any application or website to understand user experiences and improve its offerings. React, being one of the most popular front-end libraries, provides developers with a flexible and efficient way to manage user feedback. In this article, we'll explore a React component called `FeedbackItem`, which not only handles user feedback display but also enhances the user experience with formatted dates and times.
+### The `FeedbackItem` Component
 
-### The FeedbackItem Component
+### Creating a Date Object
 
-The `FeedbackItem` component is part of a larger feedback management system, and its primary responsibility is to display individual feedback entries. The component receives a feedback object `item` as a prop, which contains various details such as the rating, text, and the date the feedback was submitted.
-
-### Formatting the Date and Time
-
-One interesting aspect of the `FeedbackItem` component is how it formats the date and time of each feedback entry. The date information is provided as an ISO string, such as "2023-08-05T19:22:33.873Z," retrieved from the backend server. To make the date more user-friendly, the component utilizes JavaScript's built-in `Date` object to convert and format the date and time into a more readable format. This ISO string format is commonly used when exchanging date and time data between the frontend and backend systems.
-
-By utilizing the `Date` object and various methods such as `getMonth()`, `getDate()`, `getFullYear()`, `getHours()`, `getMinutes()`, and `getSeconds()`, the component can extract the individual components of the date and time, such as month, day, year, hours, minutes, and seconds. With this information, the component can present the date in a more human-readable format, such as "August 5, 2023," and the time in a standard "hr:min:sec" format.
-
-The use of the `padStart()` method is particularly noteworthy as it ensures that single-digit values for hours, minutes, and seconds are padded with leading zeros. This ensures a consistent and visually appealing presentation of the time information.
-
-The ability to format and display the date and time in a user-friendly manner enhances the user experience by providing clear and easily understandable feedback submission times. As a result, users can readily identify when each feedback entry was submitted, enabling them to contextualize the feedback and potentially identify patterns or trends in the user feedback data.
-
-By combining the backend-provided ISO date string with JavaScript's `Date` object and formatting methods, the `FeedbackItem` component achieves a balance between technical accuracy and user-friendly presentation, demonstrating effective front-end development practices that contribute to a seamless and engaging user experience.
+The first step in formatting the date is to create a `Date` object from the date provided by the backend. The date is provided as an ISO string, such as "2023-08-05T19:22:33.873Z," which represents the year, month, day, hour, minute, second, and milliseconds in UTC.
 
 ```javascript
 const inputDate = item.date;
 const dateObject = new Date(inputDate);
 ```
 
-The code above creates a new `Date` object using the input ISO string. Next, it extracts the month, day, and year components from the `dateObject` using the `getMonth()`, `getDate()`, and `getFullYear()` methods, respectively.
+By creating a `Date` object, we can easily extract various components of the date, such as the month, day, and year, required to present the date in a user-friendly manner.
+
+### Formatting the Date
+
+The next step is to format the date components obtained from the `Date` object into a more readable format. We create an array of month names and use the `getMonth()`, `getDate()`, and `getFullYear()` methods to obtain the corresponding month name, day, and year.
 
 ```javascript
-const monthNames = ['January', 'February', 'March', ...'December'];
+const monthNames = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
 const monthName = monthNames[dateObject.getMonth()];
 const day = dateObject.getDate();
 const year = dateObject.getFullYear();
+
+const calendar = `${monthName} ${day}, ${year}`;
 ```
 
-In this part of the code, we create an array `monthNames` containing the names of the months. We use the `getMonth()` method (which returns a value from 0 to 11) to get the corresponding month name from the array.
+In the example above, we construct the `calendar` variable, which holds the formatted date in the format "Month day, year," such as "August 5, 2023."
+
+### Formatting the Time
+
+The `FeedbackItem` component goes a step further and allows the user to toggle between 24-hour and 12-hour time formats. By clicking on the time displayed, the format switches between "hr:min:sec" (24-hour format) and "hr:min:sec AM/PM" (12-hour format).
+
+We use the `useState` hook to maintain the current time format state and the `formatTime` function to handle the formatting logic.
 
 ```javascript
-const hours = dateObject.getHours().toString().padStart(2, '0');
-const minutes = dateObject.getMinutes().toString().padStart(2, '0');
-const seconds = dateObject.getSeconds().toString().padStart(2, '0');
+const [is24HourFormat, setIs24HourFormat] = useState(true);
+
+const formatTime = (date) => {
+  const hours = date.getHours();
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  const seconds = date.getSeconds().toString().padStart(2, '0');
+
+  if (is24HourFormat) {
+    return `${hours.toString().padStart(2, '0')}:${minutes}:${seconds}`;
+  } else {
+    const amOrPm = hours >= 12 ? 'PM' : 'AM';
+    const twelveHourFormat = (hours % 12 || 12).toString().padStart(2, '0');
+    return `${twelveHourFormat}:${minutes}:${seconds} ${amOrPm}`;
+  }
+};
 ```
 
-To format the time, the component extracts the hour, minute, and second components from the `dateObject`. The `toString()` method is applied to each value to convert them to strings. Then, the `padStart()` method is used to ensure that single-digit values are padded with leading zeros to maintain a consistent format (e.g., 01, 02, ..., 09).
+In the `formatTime` function, we obtain the hour, minute, and second components from the `Date` object. If the `is24HourFormat` state is true, we display the time in the 24-hour format. Otherwise, we convert the hour component to a 12-hour format and display it with AM or PM.
 
-### Improving User Interface
+### Toggling the Time Format
 
-The formatted date and time are then displayed alongside the feedback content, enhancing the user interface. By presenting the date in a more human-readable format (e.g., "August 5, 2023") and the time in a standard "hr:min:sec" format, users can easily understand when the feedback was submitted.
+To toggle the time format, we add an `onClick` event to the time displayed. When the user clicks on the time, the `handleTimeToggle` function is called, which switches the `is24HourFormat` state between `true` and `false`.
 
 ```javascript
-<div
-  style={{
-    display: 'flex',
-    justifyContent: 'space-between',
-    position: 'relative',
-    top: 30,
-  }}
->
-  <h5>{calendar}</h5>
-  <h5>{time}</h5>
-</div>
+const handleTimeToggle = () => {
+  setIs24HourFormat((prevFormat) => !prevFormat);
+};
 ```
+
+### Bringing it All Together
+
+With all the components in place, the `FeedbackItem` component displays the feedback information with the formatted date and time. Users can easily read and understand when the feedback was submitted, and they have the option to view the time in either a 24-hour or 12-hour format.
+
+The ability to format dates effectively is crucial for providing an excellent user experience. By displaying dates and times in a human-readable format, we ensure that our users can easily interpret and interact with the information, making our React applications more intuitive and user-friendly.
+
+In conclusion, by using JavaScript's `Date` object and formatting methods, along with React's state management, we can easily format and toggle
 
 ## Installation
 
