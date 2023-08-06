@@ -140,7 +140,7 @@ input:focus {
 }
 
 .close,
-.edit, 
+.edit,
 .link {
   position: absolute;
   top: 10px;
@@ -159,7 +159,7 @@ input:focus {
 
 .link {
   right: 60px;
-  top: 5px
+  top: 5px;
 }
 
 .btn {
@@ -225,7 +225,7 @@ input:focus {
   overflow: hidden;
   padding: 5px;
   border: 1px solid #000;
-  transition: 0.3s ease
+  transition: 0.3s ease;
 }
 
 .about-link img:hover {

@@ -51,7 +51,7 @@ const FeedbackDetails = () => {
             type='button'
             version='secondary'
             onClick={onClick}
-            style={{ position: 'relative', top: 20 }}
+            sx={{ position: 'relative', top: 20 }}
           >
             Back to Home
           </Button>
