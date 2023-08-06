@@ -10,7 +10,7 @@
 
 ## Description
 
-If you checked the console in the last branch you would notice the warning
+If you checked the console in the previous branch, you would notice the warning:
 
 > Warning
 >
