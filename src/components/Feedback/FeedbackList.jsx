@@ -1,10 +1,9 @@
 import FeedbackItem from './FeedbackItem';
 import Pulse from '../Pulse';
-import { useContext } from 'react';
-import FeedbackContext from '../../context/FeedbackContext';
+import useFeedback from  '../../hooks/useFeedback'
 
 const FeedbackList = () => {
-  const { feedback, isLoading } = useContext(FeedbackContext);
+  const { feedback, isLoading } = useFeedback();
 
   if (!isLoading && (!feedback || feedback.length === 0)) {
     return <p>No Feedback Yet</p>;
