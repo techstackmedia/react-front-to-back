@@ -1,4 +1,4 @@
-# Toggling Formatted Time - Feedback Item
+# Implementing Time Format Toggling in a React Feedback List
 
 ## Table of Contents
 
@@ -10,91 +10,85 @@
 
 ## Description
 
-### The `FeedbackItem` Component
+We will create a general toggling button to control the time format for all feedback items in the `FeedbackList` component. To achieve this, we can use the `localStorage` to store the user's preference for the time format, and then apply that format to all feedback items accordingly.
 
-### Creating a Date Object
+Here's how you can modify the `FeedbackList` component to implement the general toggling for the time format:
 
-The first step in formatting the date is to create a `Date` object from the date provided by the backend. The date is provided as an ISO string, such as "2023-08-05T19:22:33.873Z," which represents the year, month, day, hour, minute, second, and milliseconds in UTC.
+```jsx
+import React, { useState, useEffect } from 'react';
+import FeedbackItem from './FeedbackItem';
+import Pulse from '../Pulse';
+import useFeedback from '../../hooks/useFeedback';
 
-```javascript
-const inputDate = item.date;
-const dateObject = new Date(inputDate);
-```
+const FeedbackList = () => {
+  const { feedback, isLoading } = useFeedback();
+  const [is24HrFormat, setIs24HrFormat] = useState(true);
 
-By creating a `Date` object, we can easily extract various components of the date, such as the month, day, and year, required to present the date in a user-friendly manner.
+  // Load the user's preference from localStorage on component mount
+  useEffect(() => {
+    const storedFormat = localStorage.getItem('timeFormat');
+    if (storedFormat) {
+      setIs24HrFormat(storedFormat === '24-hour');
+    }
+  }, []);
 
-### Formatting the Date
+  // Function to toggle the time format and update localStorage
+  const handleTimeToggle = () => {
+    setIs24HrFormat((prevFormat) => {
+      const newFormat = !prevFormat;
+      localStorage.setItem('timeFormat', newFormat ? '24-hour' : '12-hour');
+      return newFormat;
+    });
+  };
 
-The next step is to format the date components obtained from the `Date` object into a more readable format. We create an array of month names and use the `getMonth()`, `getDate()`, and `getFullYear()` methods to obtain the corresponding month name, day, and year.
-
-```javascript
-const monthNames = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
-
-const monthName = monthNames[dateObject.getMonth()];
-const day = dateObject.getDate();
-const year = dateObject.getFullYear();
-
-const calendar = `${monthName} ${day}, ${year}`;
-```
-
-In the example above, we construct the `calendar` variable, which holds the formatted date in the format "Month day, year," such as "August 5, 2023."
-
-### Formatting the Time
-
-The `FeedbackItem` component goes a step further and allows the user to toggle between 24-hour and 12-hour time formats. By clicking on the time displayed, the format switches between "hr:min:sec" (24-hour format) and "hr:min:sec AM/PM" (12-hour format).
-
-We use the `useState` hook to maintain the current time format state and the `formatTime` function to handle the formatting logic.
-
-```javascript
-const [is24HourFormat, setIs24HourFormat] = useState(true);
-
-const formatTime = (date) => {
-  const hours = date.getHours();
-  const minutes = date.getMinutes().toString().padStart(2, '0');
-  const seconds = date.getSeconds().toString().padStart(2, '0');
-
-  if (is24HourFormat) {
-    return `${hours.toString().padStart(2, '0')}:${minutes}:${seconds}`;
-  } else {
-    const amOrPm = hours >= 12 ? 'PM' : 'AM';
-    const twelveHourFormat = (hours % 12 || 12).toString().padStart(2, '0');
-    return `${twelveHourFormat}:${minutes}:${seconds} ${amOrPm}`;
+  if (!isLoading && (!feedback || feedback.length === 0)) {
+    return <p>No Feedback Yet</p>;
   }
+
+  return isLoading ? (
+    <Pulse />
+  ) : (
+    <div className='feedback-list'>
+      {/* Display the time format toggle button */}
+      <div>
+        <button onClick={handleTimeToggle}>
+          {is24HrFormat ? 'Switch to 12-hour format' : 'Switch to 24-hour format'}
+        </button>
+      </div>
+
+      {feedback.map((feedbackItem) => {
+        // Pass the is24HrFormat state to the FeedbackItem component
+        return <FeedbackItem item={feedbackItem} key={feedbackItem._id} is24HrFormat={is24HrFormat} />;
+      })}
+    </div>
+  );
+};
+
+export default FeedbackList;
+```
+
+In the modified `FeedbackList` component, we have added a state variable `is24HrFormat` to manage the time format preference. We also load the user's preference from `localStorage` using the `useEffect` hook when the component mounts.
+
+The `handleTimeToggle` function is responsible for toggling the time format and updating the state and `localStorage` accordingly. It updates the `is24HrFormat` state and sets the value in `localStorage`.
+
+The time format toggle button is displayed at the top of the `FeedbackList` component. When clicked, it toggles the time format for all the feedback items displayed. The `is24HrFormat` state is passed down to the `FeedbackItem` component through the `is24HrFormat` prop.
+
+Finally, in the `FeedbackItem` component, you can remove the `is24HrFormat` state and use the `is24HrFormat` prop passed from the `FeedbackList` component instead:
+
+```jsx
+const FeedbackItem = ({ item, is24HrFormat }) => {
+  // Rest of the FeedbackItem component code remains the same
+
+  const formatTime = (date) => {
+    // Use the is24HrFormat prop instead of the state
+    // ... (same as before)
+  };
+
+  // Rest of the FeedbackItem component code remains the same
 };
 ```
 
-In the `formatTime` function, we obtain the hour, minute, and second components from the `Date` object. If the `is24HourFormat` state is true, we display the time in the 24-hour format. Otherwise, we convert the hour component to a 12-hour format and display it with AM or PM.
-
-### Toggling the Time Format
-
-To toggle the time format, we add an `onClick` event to the time displayed. When the user clicks on the time, the `handleTimeToggle` function is called, which switches the `is24HourFormat` state between `true` and `false`.
-
-```javascript
-const handleTimeToggle = () => {
-  setIs24HourFormat((prevFormat) => !prevFormat);
-};
-```
-
-### Bringing it All Together
-
-With all the components in place, the `FeedbackItem` component displays the feedback information with the formatted date and time. Users can easily read and understand when the feedback was submitted, and they have the option to view the time in either a 24-hour or 12-hour format.
-
-The ability to format dates effectively is crucial for providing an excellent user experience. By displaying dates and times in a human-readable format, we ensure that our users can easily interpret and interact with the information, making our React applications more intuitive and user-friendly.
-
-In conclusion, by using JavaScript's `Date` object and formatting methods, along with React's state management, we can easily format and toggle
+Now, the time format for all feedback items will be consistent with the user's preference, and it will persist even when the user navigates to different pages or refreshes the page, thanks to the use of `localStorage`.
 
 ## Installation
 

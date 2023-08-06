@@ -4,8 +4,9 @@ import Card from '../shared/Card';
 import closeIcon from '../../images/closeIcon.svg';
 import editIcon from '../../images/editIcon.svg';
 
-const FeedbackItem = ({ item }) => {
+const FeedbackItem = ({ item, is24HrFormat }) => {
   const { deleteFeedback, editFeedback, isFalse } = useContext(FeedbackContext);
+  console.log(is24HrFormat)
   const inputDate = item.date;
 
   // Create a Date object from the input string
@@ -41,7 +42,7 @@ const FeedbackItem = ({ item }) => {
     const minutes = date.getMinutes().toString().padStart(2, '0');
     const seconds = date.getSeconds().toString().padStart(2, '0');
 
-    if (is24HourFormat) {
+    if (is24HourFormat && is24HrFormat) {
       return `${hours.toString().padStart(2, '0')}:${minutes}:${seconds}`;
     } else {
       const amOrPm = hours >= 12 ? 'PM' : 'AM';
@@ -49,6 +50,7 @@ const FeedbackItem = ({ item }) => {
       return `${twelveHourFormat}:${minutes}:${seconds} ${amOrPm}`;
     }
   };
+  
 
   const handleTimeToggle = () => {
     setIs24HourFormat((prevFormat) => !prevFormat);
