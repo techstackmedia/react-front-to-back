@@ -31,30 +31,6 @@ This change ensures that the parent route matches any URL that starts with `/det
 Here's the updated code:
 
 ```jsx
-import { Route, Routes, useNavigate, useParams } from 'react-router-dom';
-import useFeedback from '../../hooks/useFeedback';
-import Card from '../shared/Card';
-import Button from '../shared/Button';
-import formatDateAndTime from '../../functions/date';
-import Footer from '../Footer';
-
-const FeedbackDetails = () => {
-  // ... (existing code) ...
-
-  return (
-    <>
-      {/* ... (existing code) ... */}
-      <Routes>
-        <Route path='/show' element={<Footer />} />
-      </Routes>
-    </>
-  );
-};
-
-export default FeedbackDetails;
-```
-
-```jsx
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
