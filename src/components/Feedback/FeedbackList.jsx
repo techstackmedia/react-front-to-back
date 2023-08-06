@@ -7,7 +7,6 @@ const FeedbackList = () => {
   const { feedback, isLoading } = useFeedback();
   const [is24HrFormat, setIs24HrFormat] = useState(true);
 
-  // Load the user's preference from localStorage on component mount
   useEffect(() => {
     const storedFormat = localStorage.getItem('timeFormat');
     if (storedFormat) {
@@ -15,7 +14,6 @@ const FeedbackList = () => {
     }
   }, []);
 
-  // Function to toggle the time format and update localStorage
   const handleTimeToggle = () => {
     setIs24HrFormat((prevFormat) => {
       const newFormat = !prevFormat;
@@ -27,16 +25,11 @@ const FeedbackList = () => {
   if (!isLoading && (!feedback || feedback.length === 0)) {
     return <p>No Feedback Yet</p>;
   }
-  /*background: #fff;
-    border: 1px solid #fff;
-    padding: 5px 10px;
-    border-radius: 4px; */
 
   return isLoading ? (
     <Pulse />
   ) : (
     <div className='feedback-list'>
-      {/* Display the time format toggle button */}
       <div style={{display: 'flex', justifyContent: 'center'}}>
         <button
           onClick={handleTimeToggle}
@@ -55,7 +48,6 @@ const FeedbackList = () => {
       </div>
 
       {feedback.map((feedbackItem) => {
-        // Pass the is24HourFormat state to the FeedbackItem component
         return (
           <FeedbackItem
             item={feedbackItem}
