@@ -1,6 +1,6 @@
 import FeedbackItem from './FeedbackItem';
 import Pulse from '../Pulse';
-import useFeedback from '../hooks/useFeedback';
+import useFeedback from '../../hooks/useFeedback';
 
 const FeedbackList = () => {
   const { feedback, isLoading } = useFeedback();

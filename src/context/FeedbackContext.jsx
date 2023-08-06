@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from 'react';
-import useCurrentDate from '../components/hooks/useCurrentDate';
+import useCurrentDate from '../hooks/useCurrentDate';
 
 const FeedbackContext = createContext();
 
