@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import FeedbackItem from './FeedbackItem';
 import Pulse from '../Pulse';
-import useFeedback from '../../hooks/useFeedback';
+import FeedbackContext from '../../context/FeedbackContext';
 
 const FeedbackList = () => {
-  const { feedback, isLoading } = useFeedback();
+  const { feedback, isLoading } = useContext(FeedbackContext);
   const [is24HrFormat, setIs24HrFormat] = useState(true);
 
   useEffect(() => {

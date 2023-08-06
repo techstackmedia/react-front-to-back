@@ -1,14 +1,14 @@
 import { Route, Routes, useNavigate, useParams } from 'react-router-dom';
-import useFeedback from '../../hooks/useFeedback';
 import Card from '../shared/Card';
 import Button from '../shared/Button';
 import formatDateAndTime from '../../functions/date';
 import Footer from '../Footer';
+import { useContext } from 'react';
+import FeedbackContext from '../../context/FeedbackContext';
 
 const FeedbackDetails = () => {
-  const {isFalse} = useFeedback()
+  const {isFalse, feedback} = useContext(FeedbackContext)
   const { id } = useParams();
-  const { feedback } = useFeedback();
   const detail = feedback.find((item) => {
     return item?._id === id;
   });
@@ -30,7 +30,7 @@ const FeedbackDetails = () => {
           alignItems: 'center',
         }}
       >
-        <Card reverse={isFalse} style={{ width: '90%' }}>
+        <Card reverse={isFalse} sx={{ width: '90%' }}>
           <p>
             <b>Text: </b>
             {detail?.text}

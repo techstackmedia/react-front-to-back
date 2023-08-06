@@ -1,8 +1,8 @@
-const Card = ({ children, reverse, style }) => {
+const Card = ({ children, reverse, sx }) => {
   const classes = `card ${reverse ? 'reverse' : ''}`.trim();
 
   return (
-    <div className={classes} style={style}>
+    <div className={classes} style={sx}>
       {children}
     </div>
   );
