@@ -15,8 +15,7 @@ function App() {
         <Route path='/blog' element={<Blog />} />
         <Route path='/500' element={<ServerError />} />
         <Route path='*' element={<NotFoundError />} />
-        <Route path='/details/:id' element={<Detail />}/>
-        <Route path='/details/:id/*' element={<Detail />}/>
+        <Route path='/details/:id/*' element={<Detail />} />
       </Routes>
     </BrowserRouter>
   );

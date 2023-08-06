@@ -1,4 +1,4 @@
-# Defining nested routes - FeedbackDetails
+# Fix nested routes bug - FeedbackDetails
 
 ## Table of Contents
 
@@ -10,24 +10,78 @@
 
 ## Description
 
-The use of `<Routes>` and `<Route>` components from `react-router-dom` is to define the routing configuration for the application and determine which components should be rendered based on the current URL path.
+If you checked the console in the last branch you would notice the warning
 
-1. `<Routes>` and `<Route path='/show' element={<Footer />} />` in `FeedbackDetails.js`:
-
-   - The `<Routes>` component is used to define the routing configuration within the `FeedbackDetails` component.
-   - The `<Route>` component is nested inside `<Routes>` and specifies the URL path '/show' and the component to be rendered when the path matches. In this case, it is rendering the `Footer` component when the URL path matches '/show'.
-   - By adding this `<Route>` component inside `FeedbackDetails`, you are allowing the `Footer` component to be rendered alongside the rest of the content in the `FeedbackDetails` component. This allows you to have multiple components rendered on the same page, depending on the URL path.
-
-2. `<Route path='/details/:id/*' element={<Detail />}/>` in `App.js`:
-   - This `<Route>` component defines a dynamic URL path using the `:id` parameter. The colon `:` indicates that it is a dynamic parameter, and it can match any value in that position of the URL.
-   - The `element` prop is set to render the `Detail` component when the URL path matches `/details/:id/*`. The `Detail` component will receive the matched `id` as a URL parameter through the `useParams` hook in its implementation.
-   - The purpose of using `/:id/*` is to handle nested routes for the `Detail` component. It means that when the URL path starts with '/details/:id/', the `Detail` component will be rendered. The `*` at the end of the path acts as a wildcard, allowing any additional subpaths to be matched under '/details/:id/'.
-
-In summary, the `<Routes>` and `<Route>` components in `FeedbackDetails.js` allow the rendering of the `Footer` component alongside the rest of the content in the `FeedbackDetails` component. On the other hand, the `<Route path='/details/:id/*' element={<Detail />}/>` in `App.js` sets up a dynamic route for the `Detail` component, allowing it to handle nested routes under '/details/:id/'.
-
-> In short:
+> Warning
 >
-> The route at `/details/id/show` shows the footer, while `/details/id` will not.
+> "You rendered descendant `<Routes>` (or called `useRoutes()`) at `/details/64cf0663cab171cf5ab1449f` (under `<Route path="/details/:id">`) but the parent route path has no trailing "*". This means if you navigate deeper, the parent won't match anymore and therefore the child routes will never render."
+
+The warning message is related to the use of nested `<Routes>` within the `FeedbackDetails` component. The warning is indicating that you have rendered a `<Routes>` element inside a parent `<Route path="/details/:id">`, but the parent route path does not have a trailing "*". This means that if you navigate deeper into the nested routes, the parent won't match anymore, and the child routes will not render.
+
+In the `<FeedbackDetails>` component is rendered under the parent route `<Route path="/details/:id">`. However, you also have a nested `<Routes>` element within `<FeedbackDetails>` that handles the path `/show` and renders the `<Footer>` component.
+
+To fix the warning, you should modify the parent route's path to include a trailing "*". The modified route should look like this:
+
+```jsx
+<Route path='/details/:id/*' element={<Detail />} />
+```
+
+This change ensures that the parent route matches any URL that starts with `/details/:id/`, allowing the child routes to continue rendering as you navigate deeper into the nested routes.
+
+Here's the updated code:
+
+```jsx
+import { Route, Routes, useNavigate, useParams } from 'react-router-dom';
+import useFeedback from '../../hooks/useFeedback';
+import Card from '../shared/Card';
+import Button from '../shared/Button';
+import formatDateAndTime from '../../functions/date';
+import Footer from '../Footer';
+
+const FeedbackDetails = () => {
+  // ... (existing code) ...
+
+  return (
+    <>
+      {/* ... (existing code) ... */}
+      <Routes>
+        <Route path='/show' element={<Footer />} />
+      </Routes>
+    </>
+  );
+};
+
+export default FeedbackDetails;
+```
+
+```jsx
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import About from './pages/About';
+import Blog from './pages/Blog';
+import ServerError from './components/Error/Server';
+import NotFoundError from './components/Error/NotFound';
+import Detail from './pages/Detail';
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/about' element={<About />} />
+        <Route path='/blog' element={<Blog />} />
+        <Route path='/500' element={<ServerError />} />
+        <Route path='*' element={<NotFoundError />} />
+        <Route path='/details/:id/*' element={<Detail />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+```
+
+With this change, the warning should be resolved, and the nested routes under `<FeedbackDetails>` will render correctly as you navigate deeper into the app.
 
 ## Installation
 
