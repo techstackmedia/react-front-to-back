@@ -30,7 +30,7 @@ const FeedbackList = () => {
     <Pulse />
   ) : (
     <div className='feedback-list'>
-      <div style={{display: 'flex', justifyContent: 'center'}}>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
         <button
           onClick={handleTimeToggle}
           style={{
@@ -38,7 +38,7 @@ const FeedbackList = () => {
             border: '1px solid #fff',
             borderRadius: 4,
             cursor: 'pointer',
-            padding: '5px 10px'
+            padding: '5px 10px',
           }}
         >
           {is24HrFormat
