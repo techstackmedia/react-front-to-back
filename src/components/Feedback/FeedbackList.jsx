@@ -27,10 +27,6 @@ const FeedbackList = () => {
   if (!isLoading && (!feedback || feedback.length === 0)) {
     return <p>No Feedback Yet</p>;
   }
-  /*background: #fff;
-    border: 1px solid #fff;
-    padding: 5px 10px;
-    border-radius: 4px; */
 
   return isLoading ? (
     <Pulse />
