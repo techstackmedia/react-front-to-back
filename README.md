@@ -1,4 +1,4 @@
-# Details Page - FeedbackDetails
+# Defining nested routes - FeedbackDetails
 
 ## Table of Contents
 
@@ -10,46 +10,24 @@
 
 ## Description
 
-There are several updates made to the components to enhance their functionality and appearance:
+The use of `<Routes>` and `<Route>` components from `react-router-dom` is to define the routing configuration for the application and determine which components should be rendered based on the current URL path.
 
-1. Added a new component `Detail` that acts as a container for the `Header`, `FeedbackDetails`, and `AboutIcon` components.
+1. `<Routes>` and `<Route path='/show' element={<Footer />} />` in `FeedbackDetails.js`:
 
-2. Updated the `FeedbackItem` component to include a link to the details page for each feedback item. The link is generated using the `Link` component from `react-router-dom`. When clicked, it will navigate to the details page with the specific feedback item's ID.
+   - The `<Routes>` component is used to define the routing configuration within the `FeedbackDetails` component.
+   - The `<Route>` component is nested inside `<Routes>` and specifies the URL path '/show' and the component to be rendered when the path matches. In this case, it is rendering the `Footer` component when the URL path matches '/show'.
+   - By adding this `<Route>` component inside `FeedbackDetails`, you are allowing the `Footer` component to be rendered alongside the rest of the content in the `FeedbackDetails` component. This allows you to have multiple components rendered on the same page, depending on the URL path.
 
-3. Updated the `Button` and `Card` components to accept a `style` prop, allowing custom styles to be passed to the components.
+2. `<Route path='/details/:id/*' element={<Detail />}/>` in `App.js`:
+   - This `<Route>` component defines a dynamic URL path using the `:id` parameter. The colon `:` indicates that it is a dynamic parameter, and it can match any value in that position of the URL.
+   - The `element` prop is set to render the `Detail` component when the URL path matches '/details/:id/\*'. The `Detail` component will receive the matched `id` as a URL parameter through the `useParams` hook in its implementation.
+   - The purpose of using `/:id/*` is to handle nested routes for the `Detail` component. It means that when the URL path starts with '/details/:id/', the `Detail` component will be rendered. The `*` at the end of the path acts as a wildcard, allowing any additional subpaths to be matched under '/details/:id/'.
 
-4. Extracted the `formatDateAndTime` function to a separate file and exported it for reuse in multiple components. This function takes a date string and converts it into the desired date and time format.
+In summary, the `<Routes>` and `<Route>` components in `FeedbackDetails.js` allow the rendering of the `Footer` component alongside the rest of the content in the `FeedbackDetails` component. On the other hand, the `<Route path='/details/:id/*' element={<Detail />}/>` in `App.js` sets up a dynamic route for the `Detail` component, allowing it to handle nested routes under '/details/:id/'. 
 
-5. Added the `formatDateAndTime` function to the `FeedbackDetails` component to display the formatted date and time of the feedback item.
-
-By adding the `FeedbackDetails` page, users can now view more detailed information about each feedback item, including the formatted date and time. Additionally, the components' styles can be customized using the `style` prop, making them more attractive and flexible. The `formatDateAndTime` function was extracted to improve code reusability across different components that require date formatting.
-
-The two files, `FeedbackItem.js` and `FeedbackDetails.js`, are related components in a Feedback React application that are used to display and handle feedback data.
-
-1. `FeedbackItem.js`:
-
-   - This component displays an individual feedback item in a Card format.
-   - It imports `useContext` and `useState` from 'react', indicating that it uses the React Context API for state management and hooks for local state.
-   - It imports the `FeedbackContext` from `'../../context/FeedbackContext'`, suggesting that it is accessing the global feedback context to get data and functions related to feedback management.
-   - The component receives `item` and `is24HrFormat` as props, which represent the data of the feedback item and the time format preference, respectively.
-   - It uses the `useContext` hook to access the feedback context, allowing it to use functions like `deleteFeedback` and `editFeedback`.
-   - The component renders the feedback item's data such as rating, text, date, and time using HTML elements like `div`, `h5`, and `button`.
-   - It uses the `Link` component from `'react-router-dom'` to create a link to the details page for each feedback item. The link is based on the feedback item's ID (`item._id`).
-   - It contains functions like `handleTimeToggle`, `handleDeleteButton`, and `handleEditButton` to manage user interactions like toggling time format, deleting feedback, and editing feedback.
-   - It utilizes the `useState` hook to manage the `is24HourFormat` state, which is updated when the user toggles the time format.
-
-2. `FeedbackDetails.js`:
-   - This component displays detailed information about a specific feedback item.
-   - It imports `useParams`, `useNavigate`, and `useFeedback` from 'react-router-dom', suggesting that it is accessing the URL parameters, navigation functionality, and the feedback context.
-   - It imports the `Card`, `Button`, and `formatDateAndTime` components or functions from other files.
-   - The component uses the `useParams` hook to get the ID parameter from the URL, indicating that it fetches the specific feedback item using the ID.
-   - It uses the `useFeedback` hook to get the feedback data from the global context.
-   - The component then renders the details of the feedback item, including its text, rating, ID, and formatted date and time.
-   - It uses the `Button` component to display a button for navigating back to the home page.
-   - It contains the `onClick` function to handle the navigation back to the home page when the button is clicked.
-   - It also uses the `formatDateAndTime` function to convert the feedback item's date string into a formatted date and time.
-
-Overall, `FeedbackItem.js` and `FeedbackDetails.js` are two connected components that work together to display feedback data, allow users to interact with the feedback, and navigate to a detailed view of each feedback item. The components use React Context and React Router to manage state and handle navigation.
+> In short:
+>
+> The route at `/details/id/show` shows the footer, while `/details/id` will not.
 
 ## Installation
 

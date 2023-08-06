@@ -15,7 +15,4 @@ const formatDateAndTime = (dateString) => {
   };
 
   export default formatDateAndTime
-//   const dateStr = '2023-08-06T03:31:13.800Z';
-//   const formattedDate = formatDateAndTime(dateStr);
-//   console.log(formattedDate);
   
