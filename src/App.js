@@ -4,6 +4,7 @@ import About from './pages/About';
 import Blog from './pages/Blog';
 import ServerError from './components/Error/Server';
 import NotFoundError from './components/Error/NotFound';
+import Detail from './pages/Detail';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path='/blog' element={<Blog />} />
         <Route path='/500' element={<ServerError />} />
         <Route path='*' element={<NotFoundError />} />
+        <Route path='/details/:id' element={<Detail />}/>
       </Routes>
     </BrowserRouter>
   );

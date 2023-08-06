@@ -1,4 +1,4 @@
-# Implementing Time Format Toggling - Feedback List
+# Details Page - FeedbackDetails
 
 ## Table of Contents
 
@@ -10,85 +10,46 @@
 
 ## Description
 
-We will create a general toggling button to control the time format for all feedback items in the `FeedbackList` component. To achieve this, we can use the `localStorage` to store the user's preference for the time format, and then apply that format to all feedback items accordingly.
+There are several updates made to the components to enhance their functionality and appearance:
 
-Here's how you can modify the `FeedbackList` component to implement the general toggling for the time format:
+1. Added a new component `Detail` that acts as a container for the `Header`, `FeedbackDetails`, and `AboutIcon` components.
 
-```jsx
-import React, { useState, useEffect } from 'react';
-import FeedbackItem from './FeedbackItem';
-import Pulse from '../Pulse';
-import useFeedback from '../../hooks/useFeedback';
+2. Updated the `FeedbackItem` component to include a link to the details page for each feedback item. The link is generated using the `Link` component from `react-router-dom`. When clicked, it will navigate to the details page with the specific feedback item's ID.
 
-const FeedbackList = () => {
-  const { feedback, isLoading } = useFeedback();
-  const [is24HrFormat, setIs24HrFormat] = useState(true);
+3. Updated the `Button` and `Card` components to accept a `style` prop, allowing custom styles to be passed to the components.
 
-  // Load the user's preference from localStorage on component mount
-  useEffect(() => {
-    const storedFormat = localStorage.getItem('timeFormat');
-    if (storedFormat) {
-      setIs24HrFormat(storedFormat === '24-hour');
-    }
-  }, []);
+4. Extracted the `formatDateAndTime` function to a separate file and exported it for reuse in multiple components. This function takes a date string and converts it into the desired date and time format.
 
-  // Function to toggle the time format and update localStorage
-  const handleTimeToggle = () => {
-    setIs24HrFormat((prevFormat) => {
-      const newFormat = !prevFormat;
-      localStorage.setItem('timeFormat', newFormat ? '24-hour' : '12-hour');
-      return newFormat;
-    });
-  };
+5. Added the `formatDateAndTime` function to the `FeedbackDetails` component to display the formatted date and time of the feedback item.
 
-  if (!isLoading && (!feedback || feedback.length === 0)) {
-    return <p>No Feedback Yet</p>;
-  }
+By adding the `FeedbackDetails` page, users can now view more detailed information about each feedback item, including the formatted date and time. Additionally, the components' styles can be customized using the `style` prop, making them more attractive and flexible. The `formatDateAndTime` function was extracted to improve code reusability across different components that require date formatting.
 
-  return isLoading ? (
-    <Pulse />
-  ) : (
-    <div className='feedback-list'>
-      {/* Display the time format toggle button */}
-      <div>
-        <button onClick={handleTimeToggle}>
-          {is24HrFormat ? 'Switch to 12-hour format' : 'Switch to 24-hour format'}
-        </button>
-      </div>
+The two files, `FeedbackItem.js` and `FeedbackDetails.js`, are related components in a Feedback React application that are used to display and handle feedback data.
 
-      {feedback.map((feedbackItem) => {
-        // Pass the is24HrFormat state to the FeedbackItem component
-        return <FeedbackItem item={feedbackItem} key={feedbackItem._id} is24HrFormat={is24HrFormat} />;
-      })}
-    </div>
-  );
-};
+1. `FeedbackItem.js`:
 
-export default FeedbackList;
-```
+   - This component displays an individual feedback item in a Card format.
+   - It imports `useContext` and `useState` from 'react', indicating that it uses the React Context API for state management and hooks for local state.
+   - It imports the `FeedbackContext` from `'../../context/FeedbackContext'`, suggesting that it is accessing the global feedback context to get data and functions related to feedback management.
+   - The component receives `item` and `is24HrFormat` as props, which represent the data of the feedback item and the time format preference, respectively.
+   - It uses the `useContext` hook to access the feedback context, allowing it to use functions like `deleteFeedback` and `editFeedback`.
+   - The component renders the feedback item's data such as rating, text, date, and time using HTML elements like `div`, `h5`, and `button`.
+   - It uses the `Link` component from `'react-router-dom'` to create a link to the details page for each feedback item. The link is based on the feedback item's ID (`item._id`).
+   - It contains functions like `handleTimeToggle`, `handleDeleteButton`, and `handleEditButton` to manage user interactions like toggling time format, deleting feedback, and editing feedback.
+   - It utilizes the `useState` hook to manage the `is24HourFormat` state, which is updated when the user toggles the time format.
 
-In the modified `FeedbackList` component, we have added a state variable `is24HrFormat` to manage the time format preference. We also load the user's preference from `localStorage` using the `useEffect` hook when the component mounts.
+2. `FeedbackDetails.js`:
+   - This component displays detailed information about a specific feedback item.
+   - It imports `useParams`, `useNavigate`, and `useFeedback` from 'react-router-dom', suggesting that it is accessing the URL parameters, navigation functionality, and the feedback context.
+   - It imports the `Card`, `Button`, and `formatDateAndTime` components or functions from other files.
+   - The component uses the `useParams` hook to get the ID parameter from the URL, indicating that it fetches the specific feedback item using the ID.
+   - It uses the `useFeedback` hook to get the feedback data from the global context.
+   - The component then renders the details of the feedback item, including its text, rating, ID, and formatted date and time.
+   - It uses the `Button` component to display a button for navigating back to the home page.
+   - It contains the `onClick` function to handle the navigation back to the home page when the button is clicked.
+   - It also uses the `formatDateAndTime` function to convert the feedback item's date string into a formatted date and time.
 
-The `handleTimeToggle` function is responsible for toggling the time format and updating the state and `localStorage` accordingly. It updates the `is24HrFormat` state and sets the value in `localStorage`.
-
-The time format toggle button is displayed at the top of the `FeedbackList` component. When clicked, it toggles the time format for all the feedback items displayed. The `is24HrFormat` state is passed down to the `FeedbackItem` component through the `is24HrFormat` prop.
-
-Finally, in the `FeedbackItem` component, you can remove the `is24HrFormat` state and use the `is24HrFormat` prop passed from the `FeedbackList` component instead:
-
-```jsx
-const FeedbackItem = ({ item, is24HrFormat }) => {
-  // Rest of the FeedbackItem component code remains the same
-
-  const formatTime = (date) => {
-    // Use the is24HrFormat prop instead of the state
-    // ... (same as before)
-  };
-
-  // Rest of the FeedbackItem component code remains the same
-};
-```
-
-Now, the time format for all feedback items will be consistent with the user's preference, and it will persist even when the user navigates to different pages or refreshes the page, thanks to the use of `localStorage`.
+Overall, `FeedbackItem.js` and `FeedbackDetails.js` are two connected components that work together to display feedback data, allow users to interact with the feedback, and navigate to a detailed view of each feedback item. The components use React Context and React Router to manage state and handle navigation.
 
 ## Installation
 

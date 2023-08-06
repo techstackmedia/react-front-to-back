@@ -1,10 +1,11 @@
-const Button = ({ children, version, type, isDisabled, onClick }) => {
+const Button = ({ children, version, type, isDisabled, onClick, style }) => {
   return (
     <button
       type={type}
       disabled={isDisabled}
       className={`btn btn-${version}`}
-      onClick={onClick} // Pass the onClick prop to the button
+      onClick={onClick}
+      style={style}
     >
       {children}
     </button>

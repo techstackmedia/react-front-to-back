@@ -3,16 +3,15 @@ import FeedbackContext from '../../context/FeedbackContext';
 import Card from '../shared/Card';
 import closeIcon from '../../images/closeIcon.svg';
 import editIcon from '../../images/editIcon.svg';
+import { Link } from 'react-router-dom';
+import externalLinkIcon from '../../images/externalLinkIcon.svg'
 
 const FeedbackItem = ({ item, is24HrFormat }) => {
   const { deleteFeedback, editFeedback, isFalse } = useContext(FeedbackContext);
-  console.log(is24HrFormat)
   const inputDate = item.date;
 
-  // Create a Date object from the input string
   const dateObject = new Date(inputDate);
 
-  // Define an array of month names
   const monthNames = [
     'January',
     'February',
@@ -28,12 +27,10 @@ const FeedbackItem = ({ item, is24HrFormat }) => {
     'December',
   ];
 
-  // Get the month, day, and year components from the Date object
   const monthName = monthNames[dateObject.getMonth()];
   const day = dateObject.getDate();
   const year = dateObject.getFullYear();
   const calendar = `${monthName} ${day}, ${year}`;
-
 
   const [is24HourFormat, setIs24HourFormat] = useState(true);
 
@@ -50,7 +47,6 @@ const FeedbackItem = ({ item, is24HrFormat }) => {
       return `${twelveHourFormat}:${minutes}:${seconds} ${amOrPm}`;
     }
   };
-  
 
   const handleTimeToggle = () => {
     setIs24HourFormat((prevFormat) => !prevFormat);
@@ -66,6 +62,9 @@ const FeedbackItem = ({ item, is24HrFormat }) => {
 
   return (
     <Card reverse={isFalse}>
+      <Link className='link' to={`/details/${item._id}`}>
+        <img src={externalLinkIcon} alt='external link icon' />
+      </Link>
       <div className='num-display'>{item.rating}</div>
       <button onClick={handleDeleteButton} className='close'>
         <img src={closeIcon} alt='close icon' width={13.328} height={13.328} />
@@ -83,7 +82,9 @@ const FeedbackItem = ({ item, is24HrFormat }) => {
         }}
       >
         <h5>{calendar}</h5>
-        <h5 style={{cursor: 'pointer'}} onClick={handleTimeToggle}>{formatTime(dateObject)}</h5>
+        <h5 style={{ cursor: 'pointer' }} onClick={handleTimeToggle}>
+          {formatTime(dateObject)}
+        </h5>
       </div>
     </Card>
   );

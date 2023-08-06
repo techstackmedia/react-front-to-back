@@ -135,17 +135,26 @@ input:focus {
 }
 
 .close,
-.edit {
+.edit, 
+.link {
   position: absolute;
   top: 10px;
-  right: 20px;
   cursor: pointer;
   background: none;
   border: none;
 }
 
+.close {
+  right: 20px;
+}
+
 .edit {
   right: 40px;
+}
+
+.link {
+  right: 60px;
+  top: 5px
 }
 
 .btn {
