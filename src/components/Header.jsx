@@ -1,4 +1,4 @@
-import Toggler from './shared/Toggler';
+import Toggler from './Toggler';
 
 const Header = ({ text, bgColor, textColor }) => {
   const headerStyles = {
