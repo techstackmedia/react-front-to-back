@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import Toggler from './shared/Toggler';
 
 const Header = ({ text, bgColor, textColor }) => {
@@ -10,9 +9,7 @@ const Header = ({ text, bgColor, textColor }) => {
   return (
     <header style={headerStyles}>
       <div className='container'>
-        <h2>
-          <Link to='/'>{text}</Link>
-        </h2>
+        <h2>{text}</h2>
       </div>
       <div>
         <Toggler text={text} />
@@ -22,3 +19,9 @@ const Header = ({ text, bgColor, textColor }) => {
 };
 
 export default Header;
+
+Header.defaultProps = {
+  text: 'Feedback UI',
+  bgColor: 'rgba(0, 0, 0, 0.4)',
+  textColor: '#ff6a95',
+};

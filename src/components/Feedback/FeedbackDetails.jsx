@@ -1,7 +1,7 @@
 import { Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import Card from '../shared/Card';
 import Button from '../shared/Button';
-import formatDateAndTime from '../../functions/date';
+import formatDateAndTime from '../../utils/date';
 import Footer from '../Footer';
 import { useContext } from 'react';
 import FeedbackContext from '../../context/FeedbackContext';
