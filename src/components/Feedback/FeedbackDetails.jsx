@@ -1,10 +1,10 @@
 import { Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import Card from '../shared/Card';
 import Button from '../shared/Button';
-import formatDateAndTime from '../../utils/date';
 import Footer from '../Footer';
 import { useContext } from 'react';
 import FeedbackContext from '../../context/FeedbackContext';
+import formatDateAndTime from '../../utils/formateDateAndTime';
 
 const FeedbackDetails = () => {
   const { isFalse, feedback } = useContext(FeedbackContext);
@@ -30,6 +30,7 @@ const FeedbackDetails = () => {
           alignItems: 'center',
         }}
       >
+
         {detail ? (
           <Card reverse={isFalse} sx={{ width: '90%' }}>
             <p>
