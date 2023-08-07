@@ -4,7 +4,7 @@ import Button from '../shared/Button';
 import Footer from '../Footer';
 import { useContext } from 'react';
 import FeedbackContext from '../../context/FeedbackContext';
-import formatDateAndTime from '../../utils/formateDateAndTime';
+import formatDateAndTime from '../../utils/detailFormateDateAndTime';
 
 const FeedbackDetails = () => {
   const { isFalse, feedback } = useContext(FeedbackContext);

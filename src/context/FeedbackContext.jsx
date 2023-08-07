@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 import useCurrentDate from '../hooks/useCurrentDate';
+import formatDateTime from '../utils/counterFormatDateTime';
 
 const FeedbackContext = createContext();
 
@@ -23,32 +24,6 @@ const FeedbackProvider = ({ children }) => {
 
   const currentDate = useCurrentDate();
 
-  const formatDateTime = (dateObj) => {
-    const monthNames = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
-    ];
-    const month = monthNames[dateObj.getMonth()];
-    const day = dateObj.getDate();
-    const year = dateObj.getFullYear();
-    const hour = zeroPad(formatHours(dateObj.getHours()));
-    const minute = zeroPad(dateObj.getMinutes());
-    const seconds = zeroPad(dateObj.getSeconds());
-    const AMPM = getAMPM(dateObj.getHours());
-
-    return `📅 ${month} ${day}, ${year} ⏲️ ${hour}:${minute}:${seconds} ${AMPM}`;
-  };
-
   const zeroPad = (value) => {
     return value < 10 ? `0${value}` : value;
   };
@@ -61,7 +36,12 @@ const FeedbackProvider = ({ children }) => {
     return hours % 12 || 12;
   };
 
-  const formattedDate = formatDateTime(currentDate);
+  const formattedDate = formatDateTime(
+    currentDate,
+    zeroPad,
+    formatHours,
+    getAMPM
+  );
 
   const handleClickToggler = () => {
     setIsFalse((prevState) => !prevState);
