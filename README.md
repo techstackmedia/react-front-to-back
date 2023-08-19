@@ -97,6 +97,8 @@ To run the project on your local machine, follow these steps:
 
 ## Usage
 
+The code snippet below illustrates the process of acquiring the identical code from this repository onto your local machine.
+
 ```bash
 # Clone the remote Git repository
 git clone https://github.com/techstackmedia/react-front-to-back.git
