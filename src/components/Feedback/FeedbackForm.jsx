@@ -1,12 +1,12 @@
-import { useContext, useEffect, useState } from 'react';
-import FeedbackContext from '../../context/FeedbackContext';
+import { useEffect, useState } from 'react';
 import Card from '../shared/Card';
 import Button from '../shared/Button';
 import Rating from '../Rating';
+import useFeedback from '../../hooks/useFeedback';
 
 const FeedbackForm = () => {
   const { addFeedback, updateFeedback, feedbackEdit, isFalse } =
-    useContext(FeedbackContext);
+    useFeedback();
   const [text, setText] = useState('');
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [message, setMessage] = useState(null);

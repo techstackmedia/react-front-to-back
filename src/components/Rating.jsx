@@ -1,9 +1,9 @@
-import { useContext, useEffect, useState } from 'react';
-import FeedbackContext from '../context/FeedbackContext';
+import { useEffect, useState } from 'react';
+import useFeedback from '../hooks/useFeedback';
 
 const Rating = ({ selectedRating }) => {
   const [selected, setSelected] = useState(null);
-  const { feedbackEdit, isFalse } = useContext(FeedbackContext);
+  const { feedbackEdit, isFalse } = useFeedback();
   const numbers = Array.from(Array(11).keys()).splice(1);
 
   const handleSelectChange = (e) => {

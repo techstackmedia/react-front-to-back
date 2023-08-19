@@ -3,11 +3,10 @@ import Header from '../components/Header';
 import Card from '../components/shared/Card';
 import Footer from '../components/Footer';
 import AboutIcon from '../components/AboutIcon';
-import { useContext } from 'react';
-import FeedbackContext from '../context/FeedbackContext';
+import useFeedback from '../hooks/useFeedback';
 
 const About = () => {
-  const {isFalse} = useContext(FeedbackContext)
+  const {isFalse} = useFeedback()
   return (
     <>
       <Header />
