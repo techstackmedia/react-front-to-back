@@ -66,6 +66,14 @@ This approach ensures that the data and functions related to feedback management
 
 In summary, the use of the Context API in this application simplifies the management of feedback-related data and functions, making it more maintainable and avoiding prop drilling. Additionally, the removal of prop-types checking in the production build can lead to performance improvements, as prop-types checks are primarily useful during development for catching potential issues with props passed to components.
 
+Here is a quick and more detailed summary:
+
+1. Prop-types Checking
+Prop-types are used to enforce the type and presence of certain props passed to React components. They are helpful during development and debugging as they provide warnings in the console when incorrect props are passed. However, in this case, the comments indicate that the developers may choose to remove prop-types checking in the production build. The reason for this is that the application is stable and thoroughly tested, so the overhead of prop-types checks might not be necessary in the final build. By removing prop-types checking, the app's performance can be improved, the bundle size reduced, and the codebase made cleaner.
+
+2. Context API
+The Context API is used to allow data to be passed down the component tree without manually passing props at every level. It facilitates sharing state and data between components that are not directly related through parent-child relationships. In this application, the Context API is implemented through the "FeedbackContext" defined in the `FeedbackContext.js` file. It provides various pieces of feedback-related data and functions to different components, including `FeedbackForm`, `FeedbackItem`, `FeedbackList`, `FeedbackStats`, and `App`. The use of `useContext` hook in these components allows them to access the data and functions provided by the "FeedbackContext" easily. By using the Context API, the need for prop drilling is avoided, making the codebase more maintainable and improving the management of state in large applications.
+
 ## Installation
 
 To run the project on your local machine, follow these steps:
@@ -76,12 +84,6 @@ To run the project on your local machine, follow these steps:
 4. Start the development server: `npm start` or `yarn start`
 
 ## Usage
-
-1. Prop-types Checking
-Prop-types are used to enforce the type and presence of certain props passed to React components. They are helpful during development and debugging as they provide warnings in the console when incorrect props are passed. However, in this case, the comments indicate that the developers may choose to remove prop-types checking in the production build. The reason for this is that the application is stable and thoroughly tested, so the overhead of prop-types checks might not be necessary in the final build. By removing prop-types checking, the app's performance can be improved, the bundle size reduced, and the codebase made cleaner.
-
-2. Context API
-The Context API is used to allow data to be passed down the component tree without manually passing props at every level. It facilitates sharing state and data between components that are not directly related through parent-child relationships. In this application, the Context API is implemented through the "FeedbackContext" defined in the `FeedbackContext.js` file. It provides various pieces of feedback-related data and functions to different components, including `FeedbackForm`, `FeedbackItem`, `FeedbackList`, `FeedbackStats`, and `App`. The use of `useContext` hook in these components allows them to access the data and functions provided by the "FeedbackContext" easily. By using the Context API, the need for prop drilling is avoided, making the codebase more maintainable and improving the management of state in large applications.
 
 ## Contributing
 
