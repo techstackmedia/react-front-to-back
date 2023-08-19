@@ -32,16 +32,7 @@ The `selectedRating` prop is passed to the `Rating` component, which is a functi
 
 Overall, the `Rating` component handles the presentation and selection of rating options, while the `FeedbackForm` component manages the overall form state, including the selected rating and the user's text input.
 
-## Installation
-
-To run the project on your local machine, follow these steps:
-
-1. Clone the repository: `git clone https://github.com/techstackmedia/react-front-to-back`
-2. Navigate to the project directory: `cd react-front-to-back`
-3. Install dependencies: `npm install` or `yarn install`
-4. Start the development server: `npm start` or `yarn start`
-
-## Usage
+Below is a quick summary:
 
 The `Rating` component is a reusable component used in the `FeedbackForm` to allow users to select a rating for the service provided. It utilizes the `useState` hook to manage its state, keeping track of the currently selected rating. The component generates a list of rating options (from 1 to 10) using the `numbers` array and displays them as radio buttons with corresponding labels.
 
@@ -71,6 +62,57 @@ In the `FeedbackForm`, the `Rating` component is used by passing a prop `selecte
 ```
 
 In summary, the `Rating` component handles the visual representation and selection of ratings, while the `FeedbackForm` manages the overall form state, combining both the selected rating and the user's text input.
+
+## Installation
+
+To run the project on your local machine, follow these steps:
+
+1. Clone the repository: `git clone https://github.com/techstackmedia/react-front-to-back`
+2. Navigate to the project directory: `cd react-front-to-back`
+3. Install dependencies: `npm install` or `yarn install`
+4. Start the development server: `npm start` or `yarn start`
+
+## Usage
+
+The code snippet below illustrates the process of acquiring the identical code from this repository onto your local machine.
+
+```bash
+# Clone the remote Git repository
+git clone https://github.com/techstackmedia/react-front-to-back.git
+
+# Change the current directory to the cloned repository's directory
+cd react-front-to-back
+
+# Install project dependencies using npm
+npm install
+
+# Start the application server
+npm start
+
+# List all remote branches
+git branch -r
+
+# Switch to a specific branch (replace <branch-name> with the desired branch name)
+git checkout <branch-name> # for example: git checkout 35-refactor
+```
+
+The provided commands are used to clone a remote Git repository, navigate to the cloned repository's directory, install its dependencies, start the application server, list remote branches, and switch to a specific branch.
+
+Here's a breakdown of each command:
+
+1. `git clone https://github.com/techstackmedia/react-front-to-back.git`: This command clones the remote Git repository from the URL `https://github.com/techstackmedia/react-front-to-back` to your local machine. It creates a new directory named `react-front-to-back.git` and copies the entire repository contents into that directory.
+
+2. `cd react-front-to-back.git`: This command changes the current working directory to the `react-front-to-back.git` directory. After executing this command, you will be inside the project directory.
+
+3. `npm install`: This command installs the dependencies required by the application. It reads the `package.json` file in the project directory and installs all the packages listed in the `dependencies` and `devDependencies` sections.
+
+4. `npm start`: This command starts the application server. The specific behavior of this command depends on how it is configured in the `package.json` file. Typically, it will run the application server and make it accessible at a specific port, allowing you to interact with the application in your web browser.
+
+5. `git branch -r`: This command lists all the remote branches in the Git repository. Remote branches are branches that exist on the remote repository (in this case, on GitHub) and not on your local machine.
+
+6. `git checkout <branch-name>`: This command is used to switch to a specific branch. Replace `<branch-name>` with the name of the branch you want to switch to. After executing this command, you will be on the specified branch, and you can start working on that branch.
+
+In summary, these commands are commonly used to clone a Git repository, set up a local development environment by installing dependencies, start the application server, and switch to a specific branch to work on a particular feature or bug fix.
 
 ## Contributing
 
