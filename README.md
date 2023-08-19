@@ -35,20 +35,7 @@ An alternative way to conditionally render the message div is to use the logical
 
 This code snippet accomplishes the same functionality as the original ternary expression but in a more concise way. If `message` is truthy, it renders the `<div>` element with the error message, and if `message` is `null`, it renders nothing (since `null` is falsy), effectively omitting the error message.
 
-## Issue
-
-There is just one issue with the form validation: when the button turns dark blue color (text.trim().length >= 10) and you then remove all the text (text.trim().length === 0), the button remains dark blue color instead of turning gray.
-
-## Installation
-
-To run the project on your local machine, follow these steps:
-
-1. Clone the repository: `git clone https://github.com/techstackmedia/react-front-to-back`
-2. Navigate to the project directory: `cd react-front-to-back`
-3. Install dependencies: `npm install` or `yarn install`
-4. Start the development server: `npm start` or `yarn start`
-
-## Usage
+Below is a quick summary:
 
 Imagine `const newText = e.target.value.trim()` was used instead of `const newText = text.trim()`, the usage applies below:
 
@@ -62,7 +49,7 @@ To use `handleTextChange`, follow these steps:
 import React, { useState } from 'react';
 ```
 
-2. Declare and initialize the state variables (`text`, `btnDisabled`, and `message`) using `useState`. For example:
+**2.** Declare and initialize the state variables (`text`, `btnDisabled`, and `message`) using `useState`. For example:
 
 ```jsx
 const [text, setText] = useState('');
@@ -70,7 +57,7 @@ const [btnDisabled, setBtnDisabled] = useState(true);
 const [message, setMessage] = useState(null);
 ```
 
-3. Implement the `handleTextChange` function within your component. You can use the provided explanation to construct the function correctly.
+**3.** Implement the `handleTextChange` function within your component. You can use the provided explanation to construct the function correctly.
 
 ```jsx
 const handleTextChange = (e) => {
@@ -91,7 +78,7 @@ const handleTextChange = (e) => {
 };
 ```
 
-4. In your JSX code, attach the `handleTextChange` function to the input field as an `onChange` event handler:
+**4.** In your JSX code, attach the `handleTextChange` function to the input field as an `onChange` event handler:
 
 ```jsx
 <input
@@ -102,7 +89,7 @@ const handleTextChange = (e) => {
 />
 ```
 
-5. Conditionally render the error message div using the logical AND (`&&`) operator or a ternary operator:
+**5.** Conditionally render the error message div using the logical AND (`&&`) operator or a ternary operator:
 
 Using the logical AND (`&&`) operator:
 
@@ -116,7 +103,7 @@ OR using a ternary operator:
 {message ? <div className='message'>{message}</div> : null}
 ```
 
-6. Use the `btnDisabled` state to disable or enable the "Send" button based on the validation:
+**6.** Use the `btnDisabled` state to disable or enable the "Send" button based on the validation:
 
 ```jsx
 <Button type='submit' isDisabled={btnDisabled}>
@@ -125,6 +112,61 @@ OR using a ternary operator:
 ```
 
 By following these steps, you will be able to leverage the `handleTextChange` function to control the state of your form's input field, enable/disable the "Send" button, and display an error message when necessary, ensuring a smooth and interactive user experience.
+
+## Issue
+
+There is just one issue with the form validation: when the button turns dark blue color (text.trim().length >= 10) and you then remove all the text (text.trim().length === 0), the button remains dark blue color instead of turning gray.
+
+## Installation
+
+To run the project on your local machine, follow these steps:
+
+1. Clone the repository: `git clone https://github.com/techstackmedia/react-front-to-back`
+2. Navigate to the project directory: `cd react-front-to-back`
+3. Install dependencies: `npm install` or `yarn install`
+4. Start the development server: `npm start` or `yarn start`
+
+## Usage
+
+The code snippet below illustrates the process of acquiring the identical code from this repository onto your local machine.
+
+```bash
+# Clone the remote Git repository
+git clone https://github.com/techstackmedia/react-front-to-back.git
+
+# Change the current directory to the cloned repository's directory
+cd react-front-to-back
+
+# Install project dependencies using npm
+npm install
+
+# Start the application server
+npm start
+
+# List all remote branches
+git branch -r
+
+# Switch to a specific branch (replace <branch-name> with the desired branch name)
+git checkout <branch-name> # for example: git checkout 35-refactor
+```
+
+The provided commands are used to clone a remote Git repository, navigate to the cloned repository's directory, install its dependencies, start the application server, list remote branches, and switch to a specific branch.
+
+Here's a breakdown of each command:
+
+1. `git clone https://github.com/techstackmedia/react-front-to-back.git`: This command clones the remote Git repository from the URL `https://github.com/techstackmedia/react-front-to-back` to your local machine. It creates a new directory named `react-front-to-back.git` and copies the entire repository contents into that directory.
+
+2. `cd react-front-to-back.git`: This command changes the current working directory to the `react-front-to-back.git` directory. After executing this command, you will be inside the project directory.
+
+3. `npm install`: This command installs the dependencies required by the application. It reads the `package.json` file in the project directory and installs all the packages listed in the `dependencies` and `devDependencies` sections.
+
+4. `npm start`: This command starts the application server. The specific behavior of this command depends on how it is configured in the `package.json` file. Typically, it will run the application server and make it accessible at a specific port, allowing you to interact with the application in your web browser.
+
+5. `git branch -r`: This command lists all the remote branches in the Git repository. Remote branches are branches that exist on the remote repository (in this case, on GitHub) and not on your local machine.
+
+6. `git checkout <branch-name>`: This command is used to switch to a specific branch. Replace `<branch-name>` with the name of the branch you want to switch to. After executing this command, you will be on the specified branch, and you can start working on that branch.
+
+In summary, these commands are commonly used to clone a Git repository, set up a local development environment by installing dependencies, start the application server, and switch to a specific branch to work on a particular feature or bug fix.
 
 ## Contributing
 
