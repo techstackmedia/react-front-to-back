@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useContext, useState } from 'react';
 import FeedbackContext from '../../context/FeedbackContext';
 import Card from '../shared/Card';
@@ -53,16 +52,6 @@ const FeedbackItem = ({ item, is24HrFormat }) => {
     setIs24HourFormat((prevFormat) => !prevFormat);
   };
 
-=======
-import Card from '../shared/Card';
-import closeIcon from '../../images/closeIcon.svg';
-import editIcon from '../../images/editIcon.svg';
-import useFeedback from '../../hooks/useFeedback';
-
-const FeedbackItem = ({ item }) => {
-  const { deleteFeedback, editFeedback, isFalse } = useFeedback();
-  
->>>>>>> 0d35fda280cb42ea9f5c4458a2f3fe60b5014469
   const handleDeleteButton = () => {
     deleteFeedback(item._id);
   };
