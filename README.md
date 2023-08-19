@@ -59,6 +59,18 @@ In this implementation, a new function `onClick` is defined that calls the `hand
 
 The `FeedbackItem` component expects the `item` prop to be an object with `rating` and `text` properties, both of which must be provided and are of specific data types (`PropTypes.number.isRequired` for `rating` and `PropTypes.string.isRequired` for `text`). The `isRequired` modifier ensures that both `rating` and `text` are mandatory props, and their absence will trigger a prop type warning.
 
+Below is a quick summary:
+
+The `FeedbackItem` component provides a reusable and interactive way to display feedback items, including the ability to handle close button clicks. To use the `FeedbackItem` component in your own projects, follow these steps:
+
+1. Install `react-icons` with the command `npm install react-icons` or `yarn add react-icons`.
+
+2. Import the required components and icons.
+
+3. Render the `FeedbackItem` component with the appropriate props, such as `rating`, `text`, and `id`.
+
+Now you have a customizable and functional feedback item component with a close button event handler that can be integrated into your React applications.
+
 ## Installation
 
 To run the project on your local machine, follow these steps:
@@ -70,15 +82,45 @@ To run the project on your local machine, follow these steps:
 
 ## Usage
 
-The `FeedbackItem` component provides a reusable and interactive way to display feedback items, including the ability to handle close button clicks. To use the `FeedbackItem` component in your own projects, follow these steps:
+The code snippet below illustrates the process of acquiring the identical code from this repository onto your local machine.
 
-1. Install `react-icons` with the command `npm install react-icons` or `yarn add react-icons`.
+```bash
+# Clone the remote Git repository
+git clone https://github.com/techstackmedia/react-front-to-back.git
 
-2. Import the required components and icons.
+# Change the current directory to the cloned repository's directory
+cd react-front-to-back
 
-3. Render the `FeedbackItem` component with the appropriate props, such as `rating`, `text`, and `id`.
+# Install project dependencies using npm
+npm install
 
-Now you have a customizable and functional feedback item component with a close button event handler that can be integrated into your React applications.
+# Start the application server
+npm start
+
+# List all remote branches
+git branch -r
+
+# Switch to a specific branch (replace <branch-name> with the desired branch name)
+git checkout <branch-name> # for example: git checkout 35-refactor
+```
+
+The provided commands are used to clone a remote Git repository, navigate to the cloned repository's directory, install its dependencies, start the application server, list remote branches, and switch to a specific branch.
+
+Here's a breakdown of each command:
+
+1. `git clone https://github.com/techstackmedia/react-front-to-back.git`: This command clones the remote Git repository from the URL `https://github.com/techstackmedia/react-front-to-back` to your local machine. It creates a new directory named `react-front-to-back.git` and copies the entire repository contents into that directory.
+
+2. `cd react-front-to-back.git`: This command changes the current working directory to the `react-front-to-back.git` directory. After executing this command, you will be inside the project directory.
+
+3. `npm install`: This command installs the dependencies required by the application. It reads the `package.json` file in the project directory and installs all the packages listed in the `dependencies` and `devDependencies` sections.
+
+4. `npm start`: This command starts the application server. The specific behavior of this command depends on how it is configured in the `package.json` file. Typically, it will run the application server and make it accessible at a specific port, allowing you to interact with the application in your web browser.
+
+5. `git branch -r`: This command lists all the remote branches in the Git repository. Remote branches are branches that exist on the remote repository (in this case, on GitHub) and not on your local machine.
+
+6. `git checkout <branch-name>`: This command is used to switch to a specific branch. Replace `<branch-name>` with the name of the branch you want to switch to. After executing this command, you will be on the specified branch, and you can start working on that branch.
+
+In summary, these commands are commonly used to clone a Git repository, set up a local development environment by installing dependencies, start the application server, and switch to a specific branch to work on a particular feature or bug fix.
 
 ## Contributing
 
