@@ -28,6 +28,14 @@ To illustrate:
       </div>
 ```
 
+**Using React Devtools:**
+
+Once the React Developer Tools extension is installed in your browser, you can open it to access the component tree and inspect individual components. When you run your React application, you will see the component tree with `App` as the parent component and `FeedbackItem` and `Header` as the children components of the `App` component. You will also see the props passed to `Header` and the state used in `FeedbackItem` in the React Devtools.
+
+**Updating State:**
+
+To update the state in the `App` component, you can utilize the `useState` hook to manage the feedback data dynamically. For example, you can add, remove, or modify feedback items by updating the `feedback` state.
+
 1. **FeedbackItem Component:**
    - The `FeedbackItem` component is a functional component that receives a destructured prop named `item`. Inside this prop, there are two properties: `rating` and `text`.
    - The component renders a card-like structure with the `rating` and `text` displayed on the screen. The `rating` is displayed inside a `div` with the class `num-display`, and the `text` is displayed inside another `div` with the class `text-display`.
@@ -81,13 +89,6 @@ To run the project on your local machine, follow these steps:
 
 ## Usage
 
-**Using React Devtools:**
-
-Once the React Developer Tools extension is installed in your browser, you can open it to access the component tree and inspect individual components. When you run your React application, you will see the component tree with `App` as the parent component and `FeedbackItem` and `Header` as the children components of the `App` component. You will also see the props passed to `Header` and the state used in `FeedbackItem` in the React Devtools.
-
-**Updating State:**
-
-To update the state in the `App` component, you can utilize the `useState` hook to manage the feedback data dynamically. For example, you can add, remove, or modify feedback items by updating the `feedback` state.
 
 ## Contributing
 
