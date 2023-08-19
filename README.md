@@ -105,16 +105,7 @@ export default NotFound;
 
 In summary, the main file responsible for handling the routing logic is `AppRouter.jsx`, where the routes for the different pages of the application (Home, About, Blog, 500, and NotFound) are defined using `react-router-dom`. Other components use the `Link` and `NavLink` components to create navigation links to different pages within the application.
 
-## Installation
-
-To run the project on your local machine, follow these steps:
-
-1. Clone the repository: `git clone https://github.com/techstackmedia/react-front-to-back`
-2. Navigate to the project directory: `cd react-front-to-back`
-3. Install dependencies: `npm install` or `yarn install`
-4. Start the development server: `npm start` or `yarn start`
-
-## Usage
+Here is a quick and more detailed summary:
 
 `react-router-dom` is a library used for handling routing in React applications. It allows you to create a single-page application (SPA) by enabling navigation and rendering different components based on the URL without reloading the entire page. Below is a brief summary of how `react-router-dom` is used in each of the files mentioned:
 
@@ -151,6 +142,57 @@ To run the project on your local machine, follow these steps:
 - The `NotFoundError` component uses the `Link` component from `react-router-dom` to create a link back to the home page. This component is displayed when a route is not found (404), allowing users to navigate back to the home page in case they enter an invalid URL.
 
 In summary, `react-router-dom` is used in various components to create navigation links, handle redirections, and provide a smooth single-page application experience in the React application. It plays a vital role in managing the application's routing and allows users to navigate between different pages without reloading the entire page.
+
+## Installation
+
+To run the project on your local machine, follow these steps:
+
+1. Clone the repository: `git clone https://github.com/techstackmedia/react-front-to-back`
+2. Navigate to the project directory: `cd react-front-to-back`
+3. Install dependencies: `npm install` or `yarn install`
+4. Start the development server: `npm start` or `yarn start`
+
+## Usage
+
+The code snippet below illustrates the process of acquiring the identical code from this repository onto your local machine.
+
+```bash
+# Clone the remote Git repository
+git clone https://github.com/techstackmedia/react-front-to-back.git
+
+# Change the current directory to the cloned repository's directory
+cd react-front-to-back
+
+# Install project dependencies using npm
+npm install
+
+# Start the application server
+npm start
+
+# List all remote branches
+git branch -r
+
+# Switch to a specific branch (replace <branch-name> with the desired branch name)
+git checkout <branch-name> # for example: git checkout 35-refactor
+```
+
+The provided commands are used to clone a remote Git repository, navigate to the cloned repository's directory, install its dependencies, start the application server, list remote branches, and switch to a specific branch.
+
+Here's a breakdown of each command:
+
+1. `git clone https://github.com/techstackmedia/react-front-to-back.git`: This command clones the remote Git repository from the URL `https://github.com/techstackmedia/react-front-to-back` to your local machine. It creates a new directory named `react-front-to-back.git` and copies the entire repository contents into that directory.
+
+2. `cd react-front-to-back.git`: This command changes the current working directory to the `react-front-to-back.git` directory. After executing this command, you will be inside the project directory.
+
+3. `npm install`: This command installs the dependencies required by the application. It reads the `package.json` file in the project directory and installs all the packages listed in the `dependencies` and `devDependencies` sections.
+
+4. `npm start`: This command starts the application server. The specific behavior of this command depends on how it is configured in the `package.json` file. Typically, it will run the application server and make it accessible at a specific port, allowing you to interact with the application in your web browser.
+
+5. `git branch -r`: This command lists all the remote branches in the Git repository. Remote branches are branches that exist on the remote repository (in this case, on GitHub) and not on your local machine.
+
+6. `git checkout <branch-name>`: This command is used to switch to a specific branch. Replace `<branch-name>` with the name of the branch you want to switch to. After executing this command, you will be on the specified branch, and you can start working on that branch.
+
+In summary, these commands are commonly used to clone a Git repository, set up a local development environment by installing dependencies, start the application server, and switch to a specific branch to work on a particular feature or bug fix.
 
 ## Contributing
 
