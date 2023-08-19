@@ -35,7 +35,7 @@ textDecoration:
     : 'none',
 ```
 
-2. Refactoring in FeedbackForm Component:
+**2.** Refactoring in FeedbackForm Component:
    In the original version of the FeedbackForm component, there was an unnecessary check in the `handleFormSubmit` function. The check `feedbackEdit.edit === true` can be simplified to `feedbackEdit.edit`, as it is a boolean value and already evaluates to true or false. This makes the code more concise and easier to read.
 
 Original:
