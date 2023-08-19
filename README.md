@@ -56,7 +56,7 @@ export default useFeedback;
 
 This hook allows us to use the `FeedbackContext` values directly in any component without explicitly importing the context and accessing the state and functions. It helps to keep the components clean and separates the concern of using context logic.
 
-2. `FeedbackList` Component:
+**2.** `FeedbackList` Component:
 The `FeedbackList` component is a functional component that renders the list of feedback items. It uses the `useFeedback` hook to access the `feedback` and `isLoading` state from the context.
 
 ```jsx
