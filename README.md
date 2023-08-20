@@ -55,6 +55,8 @@ The usage of the `framer-motion` library in both `App.js` and `FeedbackList.jsx`
 
 Overall, `framer-motion` is used to create visually appealing and interactive animations in both files, enhancing the user experience by providing smooth transitions and visual cues during certain actions like adding feedback items or confirming deletions.
 
+> **Note:** Should you come across the error "Module not found: Error: Can't resolve 'framer-motion' in 'your/path/here'", address this by running the command `npm install` (and consider restarting the development server if needed). This action will guarantee the installation of the required dependencies, successfully resolving the issue.
+
 ## Installation
 
 To run the project on your local machine, follow these steps:
