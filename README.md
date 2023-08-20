@@ -12,12 +12,12 @@
 
 The provided code defines a React functional component called `FeedbackItem`. This component is responsible for displaying a feedback item, which includes a `rating`, `text`, and a close button represented by the `FaTimes` icon from the `react-icons/fa` library. The `FeedbackItem` component is wrapped inside a custom `Card` component (which is not shown in the provided code) for styling purposes.
 
-**Logic and Functionality:**
+### Logic and Functionality
 
 - The `FeedbackItem` component receives the `rating`, `text`, and `id` as props destructured from the `item` prop.
 - Inside the component, there's a commented out `handleClick` function and an alternative `handleClick` implementation. Both are used to log the `id` when the close button is clicked.
 
-**Alternative Solutions (Commented):**
+### Alternative Solutions (Commented)
 
 1. The commented out version of the close button event handler:
 
@@ -29,7 +29,7 @@ The provided code defines a React functional component called `FeedbackItem`. Th
 
 In this alternative, the event handler is defined directly in the `onClick` attribute of the button element using an arrow function. When the button is clicked, it logs the `id` of the feedback item.
 
-2. The commented out version of `handleClick` used as the event handler:
+**2.** The commented out version of `handleClick` used as the event handler:
 
 ```jsx
 {
@@ -63,7 +63,7 @@ Below is a quick summary:
 
 The `FeedbackItem` component provides a reusable and interactive way to display feedback items, including the ability to handle close button clicks. To use the `FeedbackItem` component in your own projects, follow these steps:
 
-1. Install `react-icons` with the command `npm install react-icons` or `yarn add react-icons`.
+1. Install [react-icons](https://react-icons.github.io/react-icons/) with the command `npm install react-icons` or `yarn add react-icons`.
 
 2. Import the required components and icons.
 
