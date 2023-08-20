@@ -18,7 +18,7 @@ In this file, `framer-motion` is used to animate the individual `FeedbackItem` c
 
 For each `FeedbackItem` component, a wrapping `motion.div` is used to apply animations to the individual items. The `motion.div` component is provided with `initial`, `animate`, and `exit` props to define how the item should behave during its initial mount, while it is present, and when it is removed from the list, respectively. In this case, `opacity` is animated from 0 to 1 during the initial mount, and from 1 to 0 during the exit.
 
-2. `App.jsx`:
+**2.** `App.jsx`:
 
 In this file, `framer-motion` is used to animate the custom delete confirmation modal that appears when a user wants to delete a feedback item. The modal is conditionally rendered based on the `showDeleteModal` state.
 
