@@ -28,7 +28,7 @@ FeedbackList.prototype = {
     PropTypes.shape({
       id: PropTypes.number,
       text: PropTypes.string,
-      rating: PropTypes.string,
+      rating: PropTypes.number,
     })
   ),
 };
