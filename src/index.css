@@ -367,7 +367,7 @@ input:focus {
   .card,
   .feedback-stats,
   .feedback-stats ~ p {
-    width: 400px;
+    width: 100%;
   }
 }
 
@@ -386,13 +386,5 @@ input:focus {
 
   .input-group input {
     width: 80%;
-  }
-}
-
-@media (max-width: 460px) {
-  .card,
-  .feedback-stats,
-  .feedback-stats ~ p {
-    width: 100%;
   }
 }
