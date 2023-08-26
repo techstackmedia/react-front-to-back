@@ -16,12 +16,12 @@ const FeedbackStats = ({ feedback }) => {
   
   export default FeedbackStats;
 
-  FeedbackStats.prototype = {
+  FeedbackStats.propTypes = {
     feedback: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.number,
+        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         text: PropTypes.string,
-        rating: PropTypes.string,
+        rating: PropTypes.number,
       })
     ),
   };
