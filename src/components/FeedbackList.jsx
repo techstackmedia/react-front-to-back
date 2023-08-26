@@ -23,12 +23,12 @@ const FeedbackList = ({ feedback, handleDeleteCard }) => {
 
 export default FeedbackList;
 
-FeedbackList.prototype = {
+FeedbackList.propTypes = {
   feedback: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
       text: PropTypes.string,
-      rating: PropTypes.string,
+      rating: PropTypes.number,
     })
   ),
 };
