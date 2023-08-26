@@ -79,6 +79,7 @@ header {
   font-size: 19px;
   border: 1px #eee solid;
   transition: 0.3s;
+  margin-block: 5px;
 }
 
 .rating li label {
