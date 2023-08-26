@@ -5,8 +5,7 @@ import Rating from '../Rating';
 import useFeedback from '../../hooks/useFeedback';
 
 const FeedbackForm = () => {
-  const { addFeedback, updateFeedback, feedbackEdit, isFalse } =
-    useFeedback();
+  const { addFeedback, updateFeedback, feedbackEdit, isFalse } = useFeedback();
   const [text, setText] = useState('');
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [message, setMessage] = useState(null);
@@ -71,7 +70,11 @@ const FeedbackForm = () => {
             value={text}
             style={{ color: isFalse ? '#fff' : undefined }}
           />
-          <Button type='submit' isDisabled={btnDisabled}>
+          <Button
+            type='submit'
+            isDisabled={btnDisabled}
+            sx={{ backgroundColor: text.length > 9 ? '#202142' : undefined }}
+          >
             Send
           </Button>
         </div>
