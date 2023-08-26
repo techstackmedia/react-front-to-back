@@ -130,7 +130,12 @@ input:focus {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+}
+
+.card,
+.feedback-stats {
+  width: 628px;
+  margin-inline: auto;
 }
 
 .num-display {
@@ -349,14 +354,16 @@ input:focus {
 }
 
 @media (max-width: 720px) {
-  .card, .feedback-stats {
+  .card,
+  .feedback-stats {
     width: 550px;
     margin-inline: auto;
   }
 }
 
 @media (max-width: 630px) {
-  .card, .feedback-stats {
+  .card,
+  .feedback-stats {
     width: 400px;
   }
 }
@@ -380,7 +387,8 @@ input:focus {
 }
 
 @media (max-width: 460px) {
-  .card, .feedback-stats {
+  .card,
+  .feedback-stats {
     width: 100%;
   }
 }
