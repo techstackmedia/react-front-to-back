@@ -19,9 +19,9 @@ export default FeedbackStats;
 FeedbackStats.prototype = {
   feedback: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number,
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
       text: PropTypes.string,
-      rating: PropTypes.string,
+      rating: PropTypes.number,
     })
   ),
 };
