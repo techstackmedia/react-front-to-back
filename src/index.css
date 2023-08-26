@@ -23,6 +23,11 @@ ul {
   padding: 0 20px;
 }
 
+.container h2 a {
+  text-decoration: none;
+  color: #ff6a95;
+}
+
 header {
   height: 70px;
   width: 100%;
@@ -39,7 +44,7 @@ header {
   padding: 40px 50px;
   margin: 20px 0;
   position: relative;
-  width: 100%;
+  width: 628px;
 }
 
 .card.reverse {
@@ -125,7 +130,12 @@ input:focus {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+}
+
+.card,
+.feedback-stats {
+  width: 628px;
+  margin-inline: auto;
 }
 
 .num-display {
@@ -135,7 +145,7 @@ input:focus {
 }
 
 .close,
-.edit, 
+.edit,
 .link {
   position: absolute;
   top: 10px;
@@ -154,7 +164,7 @@ input:focus {
 
 .link {
   right: 60px;
-  top: 5px
+  top: 5px;
 }
 
 .btn {
@@ -220,7 +230,7 @@ input:focus {
   overflow: hidden;
   padding: 5px;
   border: 1px solid #000;
-  transition: 0.3s ease
+  transition: 0.3s ease;
 }
 
 .about-link img:hover {
@@ -343,6 +353,21 @@ input:focus {
   color: rgb(238, 63, 63);
 }
 
+@media (max-width: 720px) {
+  .card,
+  .feedback-stats {
+    width: 550px;
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 630px) {
+  .card,
+  .feedback-stats {
+    width: 400px;
+  }
+}
+
 @media (max-width: 600px) {
   .rating li {
     margin: 10px 3px;
@@ -358,5 +383,12 @@ input:focus {
 
   .input-group input {
     width: 80%;
+  }
+}
+
+@media (max-width: 460px) {
+  .card,
+  .feedback-stats {
+    width: 100%;
   }
 }
