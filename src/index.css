@@ -44,7 +44,7 @@ header {
   padding: 40px 50px;
   margin: 20px 0;
   position: relative;
-  width: 100%;
+  width: 628px;
 }
 
 .card.reverse {
@@ -130,7 +130,12 @@ input:focus {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+}
+
+.card,
+.feedback-stats {
+  width: 628px;
+  margin-inline: auto;
 }
 
 .num-display {
@@ -348,6 +353,21 @@ input:focus {
   color: rgb(238, 63, 63);
 }
 
+@media (max-width: 720px) {
+  .card,
+  .feedback-stats {
+    width: 550px;
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 630px) {
+  .card,
+  .feedback-stats {
+    width: 400px;
+  }
+}
+
 @media (max-width: 600px) {
   .rating li {
     margin: 10px 3px;
@@ -363,5 +383,12 @@ input:focus {
 
   .input-group input {
     width: 80%;
+  }
+}
+
+@media (max-width: 460px) {
+  .card,
+  .feedback-stats {
+    width: 100%;
   }
 }
