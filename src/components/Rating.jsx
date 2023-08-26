@@ -11,8 +11,8 @@ const Rating = ({ selectedRating, feedbackEdit }) => {
   };
 
   useEffect(() => {
-    setSelected(feedbackEdit.item.rating)
-  }, [feedbackEdit])
+    setSelected(feedbackEdit.item.rating);
+  }, [feedbackEdit]);
 
   const selectList = numbers.map((item) => {
     return (
