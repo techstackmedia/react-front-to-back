@@ -133,7 +133,8 @@ input:focus {
 }
 
 .card,
-.feedback-stats {
+.feedback-stats,
+.feedback-stats ~ p {
   width: 628px;
   margin-inline: auto;
 }
@@ -355,7 +356,8 @@ input:focus {
 
 @media (max-width: 720px) {
   .card,
-  .feedback-stats {
+  .feedback-stats,
+  .feedback-stats ~ p {
     width: 550px;
     margin-inline: auto;
   }
@@ -363,7 +365,8 @@ input:focus {
 
 @media (max-width: 630px) {
   .card,
-  .feedback-stats {
+  .feedback-stats,
+  .feedback-stats ~ p {
     width: 400px;
   }
 }
@@ -388,7 +391,8 @@ input:focus {
 
 @media (max-width: 460px) {
   .card,
-  .feedback-stats {
+  .feedback-stats,
+  .feedback-stats ~ p {
     width: 100%;
   }
 }
