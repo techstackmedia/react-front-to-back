@@ -71,7 +71,7 @@ const FeedbackForm = () => {
             value={text}
             style={{ color: isFalse ? '#fff' : undefined }}
           />
-          <Button type='submit' isDisabled={btnDisabled} sx={{backgroundColor: text.length > 9 ? '#ff6a95' : undefined}}>
+          <Button type='submit' isDisabled={btnDisabled} sx={{backgroundColor: text.length > 9 ? '#202142' : undefined}}>
             Send
           </Button>
         </div>
