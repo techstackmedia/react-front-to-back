@@ -61,8 +61,10 @@ header {
 .rating {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   margin: 30px 0 40px;
+  flex-wrap: wrap;
+  gap: 2px;
 }
 
 .rating li,
@@ -133,7 +135,8 @@ input:focus {
 }
 
 .card,
-.feedback-stats {
+.feedback-stats,
+.feedback-stats ~ p {
   width: 628px;
   margin-inline: auto;
 }
@@ -355,7 +358,8 @@ input:focus {
 
 @media (max-width: 720px) {
   .card,
-  .feedback-stats {
+  .feedback-stats,
+  .feedback-stats ~ p {
     width: 550px;
     margin-inline: auto;
   }
@@ -363,8 +367,9 @@ input:focus {
 
 @media (max-width: 630px) {
   .card,
-  .feedback-stats {
-    width: 400px;
+  .feedback-stats,
+  .feedback-stats ~ p {
+    width: 100%;
   }
 }
 
@@ -383,12 +388,5 @@ input:focus {
 
   .input-group input {
     width: 80%;
-  }
-}
-
-@media (max-width: 460px) {
-  .card,
-  .feedback-stats {
-    width: 100%;
   }
 }
