@@ -4,12 +4,12 @@ import Card from './shared/Card';
 
 const FeedbackItem = ({ item, handleDeleteFeedback, handleEditFeedback }) => {
   const handleDeleteButton = () => {
-    handleDeleteFeedback(item.id)
-  }
+    handleDeleteFeedback(item.id);
+  };
 
   const handleEditButton = () => {
-    handleEditFeedback(item)
-  }
+    handleEditFeedback(item);
+  };
 
   return (
     <Card>

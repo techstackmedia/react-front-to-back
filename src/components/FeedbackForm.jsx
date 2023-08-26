@@ -37,7 +37,7 @@ const FeedbackForm = ({ handleAddItem, feedbackEdit }) => {
 
       handleAddItem(newFeedbackItem);
 
-      setText('')
+      setText('');
     }
   };
 
@@ -46,13 +46,16 @@ const FeedbackForm = ({ handleAddItem, feedbackEdit }) => {
       setBtnDisabled(false);
       setText(feedbackEdit.item.text);
     }
-  }, [feedbackEdit])
+  }, [feedbackEdit]);
 
   return (
     <Card>
       <h2>How would you rate your service with us?</h2>
       <form onSubmit={handleFormSubmit}>
-        <Rating selectedRating={(rating) => setRating(rating)} feedbackEdit={feedbackEdit} />
+        <Rating
+          selectedRating={(rating) => setRating(rating)}
+          feedbackEdit={feedbackEdit}
+        />
         <div className='input-group'>
           <input
             placeholder='Write a review'
