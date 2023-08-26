@@ -2,7 +2,11 @@ import PropTypes from 'prop-types';
 import FeedbackItem from './FeedbackItem';
 import { AnimatePresence, motion } from 'framer-motion';
 
-const FeedbackList = ({ feedback, handleDeleteFeedback, handleEditFeedback }) => {
+const FeedbackList = ({
+  feedback,
+  handleDeleteFeedback,
+  handleEditFeedback,
+}) => {
   if (!feedback || feedback.length === 0) {
     return <p>No Feedback Yet</p>;
   }
