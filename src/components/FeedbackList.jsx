@@ -18,7 +18,7 @@ const FeedbackList = ({ feedback }) => {
 
 export default FeedbackList;
 
-FeedbackList.prototype = {
+FeedbackList.propTypes = {
   feedback: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
     text: PropTypes.string,
