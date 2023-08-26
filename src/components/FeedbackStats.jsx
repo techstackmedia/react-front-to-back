@@ -21,7 +21,7 @@ const FeedbackStats = ({ feedback }) => {
       PropTypes.shape({
         id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         text: PropTypes.string,
-        rating: PropTypes.string,
+        rating: PropTypes.number,
       })
     ),
   };
