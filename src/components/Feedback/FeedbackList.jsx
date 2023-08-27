@@ -7,7 +7,7 @@ import Pulse from '../Pulse';
 import { feedbackReducer } from '../../context/feedbackReducer';
 
 const FeedbackList = () => {
-  const { feedback, isLoading } = useContext(FeedbackContext);
+  const { feedback, isLoading, error } = useContext(FeedbackContext);
 
   // eslint-disable-next-line no-unused-vars
   const initialState = {};
@@ -20,7 +20,10 @@ const FeedbackList = () => {
   }
 
   return isLoading ? (
-    <Pulse />
+    <>
+      <Pulse />
+      {error && <p className='error'>{error}</p>}
+    </>
   ) : (
     <div className='feedback-list'>
       {feedback.map((feedbackItem) => {
