@@ -5,6 +5,7 @@ const FeedbackContext = createContext();
 const FeedbackProvider = ({ children }) => {
   useEffect(() => {
     getFeedback();
+    setShowDeleteModal(false)
   }, []);
 
   const [feedback, setFeedback] = useState([]);
