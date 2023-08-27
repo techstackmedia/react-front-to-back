@@ -1,13 +1,14 @@
-import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Card from '../components/shared/Card';
 import Footer from '../components/Footer';
 import AboutIcon from '../components/AboutIcon';
 import { useContext } from 'react';
 import FeedbackContext from '../context/FeedbackContext';
+import Button from '../components/shared/Button';
 
 const About = () => {
   const { isFalse } = useContext(FeedbackContext);
+
   return (
     <>
       <Header />
@@ -19,9 +20,13 @@ const About = () => {
               This is a React app to leave feedback for a product or service
             </p>
             <p>Version 1.0.0</p>
-            <Link to='/' style={{ color: isFalse ? '#fff' : undefined }}>
+            <Button
+              version='secondary'
+              to='/'
+              style={{ color: isFalse ? '#fff' : undefined }}
+            >
               Back to Home
-            </Link>
+            </Button>
           </div>
         </Card>
       </div>
