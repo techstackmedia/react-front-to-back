@@ -5,18 +5,18 @@ const Footer = () => {
   const { pathname } = useLocation();
   const footer = ['home', 'about'];
   const ft = footer.map((item) => {
+    console.log(item);
     return (
       <div key={item}>
         <NavLink
           style={{
             textDecoration:
-              pathname === '/' && item === 'home'
-                ? 'underline'
-                : pathname === '/about' && item === 'about'
+              (pathname === '/' && item === 'home') ||
+              (pathname === '/about' && item === 'about')
                 ? 'underline'
                 : 'none',
           }}
-          to={`/${item}` === '/home' ? '/' : item}
+          to={item === 'home' ? '/' : `/${item}`}
         >
           {item.toUpperCase()[0]}
           {item.slice(1)}
