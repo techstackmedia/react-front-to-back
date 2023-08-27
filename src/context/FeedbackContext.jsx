@@ -5,7 +5,7 @@ const FeedbackContext = createContext();
 const FeedbackProvider = ({ children }) => {
   useEffect(() => {
     getFeedback();
-    setShowDeleteModal(false)
+    setShowDeleteModal(false);
   }, []);
 
   const [feedback, setFeedback] = useState([]);
@@ -58,7 +58,6 @@ const FeedbackProvider = ({ children }) => {
       edit: true,
     });
   };
-  
 
   const deleteFeedback = (id) => {
     setShowDeleteModal(true);
@@ -74,20 +73,20 @@ const FeedbackProvider = ({ children }) => {
         },
         body: JSON.stringify(itemUpdate),
       });
-  
+
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-  
+
       // Get the updated feedback data from the response
       const updatedFeedbackData = await response.json();
-  
+
       setFeedback((prevFeedback) =>
         prevFeedback.map((item) => {
           return item._id === id ? { ...item, ...updatedFeedbackData } : item;
         })
       );
-  
+
       // Reset the feedbackEdit state after updating the feedback
       setFeedbackEdit((prevFeedbackEdit) => ({
         ...prevFeedbackEdit,
@@ -98,7 +97,7 @@ const FeedbackProvider = ({ children }) => {
       console.error('Error updating feedback:', error);
     }
   };
-  
+
   const handleDeleteConfirmed = async () => {
     await fetch(`/feedback/${itemToDelete}`, {
       method: 'DELETE',
