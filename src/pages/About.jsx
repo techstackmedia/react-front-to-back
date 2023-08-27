@@ -14,7 +14,7 @@ const About = () => {
   const handleClick = () => {
     return navigate('/');
   };
-  
+
   return (
     <>
       <Header />
