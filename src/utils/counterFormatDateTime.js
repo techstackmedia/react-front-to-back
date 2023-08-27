@@ -24,4 +24,16 @@ const formatDateTime = (dateObj, zeroPad, formatHours, getAMPM) => {
   return `📅 ${month} ${day}, ${year} ⏲️ ${hour}:${minute}:${seconds} ${AMPM}`;
 };
 
-export default formatDateTime;
+const counterZeroPad = (value) => {
+  return value < 10 ? `0${value}` : value;
+};
+
+const counterGetAMPM = (hours) => {
+  return hours >= 12 ? 'PM' : 'AM';
+};
+
+const counterFormatHours = (hours) => {
+  return hours % 12 || 12;
+};
+
+export { formatDateTime, counterZeroPad, counterGetAMPM, counterFormatHours };
