@@ -69,7 +69,6 @@ const FeedbackProvider = ({ children }) => {
       setFeedback(data);
       setIsLoading(false);
     } catch (error) {
-      console.error('Error fetching data:', error);
       setIsLoading(false);
       setError('Error fetching data: check your internet connection');
     }
