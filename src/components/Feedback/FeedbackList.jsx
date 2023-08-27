@@ -4,7 +4,7 @@ import Pulse from '../Pulse';
 import FeedbackContext from '../../context/FeedbackContext';
 
 const FeedbackList = () => {
-  const { feedback, isLoading } = useContext(FeedbackContext);
+  const { feedback, isLoading, error } = useContext(FeedbackContext);
   const [is24HrFormat, setIs24HrFormat] = useState(true);
 
   useEffect(() => {
@@ -27,7 +27,10 @@ const FeedbackList = () => {
   }
 
   return isLoading ? (
-    <Pulse />
+    <>
+      <Pulse />
+      {error && <p className='error'>{error}</p>}
+    </>
   ) : (
     <div className='feedback-list'>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
