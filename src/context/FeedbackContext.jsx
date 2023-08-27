@@ -9,6 +9,7 @@ const FeedbackProvider = ({ children }) => {
 
   const [feedback, setFeedback] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState('');
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
   const [feedbackEdit, setFeedbackEdit] = useState({
@@ -31,8 +32,7 @@ const FeedbackProvider = ({ children }) => {
       setFeedback(data);
       setIsLoading(false);
     } catch (error) {
-      console.error('Error fetching data:', error);
-      setIsLoading(true);
+      setError('Error fetching data: check your internet network');
     }
   };
 
@@ -154,6 +154,7 @@ const FeedbackProvider = ({ children }) => {
         editFeedback,
         deleteFeedback,
         updateFeedback,
+        error,
         alertConfirmationModal,
         isLoading,
       }}
