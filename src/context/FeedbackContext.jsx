@@ -58,7 +58,6 @@ const FeedbackProvider = ({ children }) => {
       edit: true,
     });
   };
-  
 
   const deleteFeedback = (id) => {
     setShowDeleteModal(true);
@@ -74,19 +73,19 @@ const FeedbackProvider = ({ children }) => {
         },
         body: JSON.stringify(itemUpdate),
       });
-  
+
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-  
+
       const updatedFeedbackData = await response.json();
-  
+
       setFeedback((prevFeedback) =>
         prevFeedback.map((item) => {
           return item._id === id ? { ...item, ...updatedFeedbackData } : item;
         })
       );
-  
+
       setFeedbackEdit((prevFeedbackEdit) => ({
         ...prevFeedbackEdit,
         item: {},
@@ -96,7 +95,7 @@ const FeedbackProvider = ({ children }) => {
       console.error('Error updating feedback:', error);
     }
   };
-  
+
   const handleDeleteConfirmed = async () => {
     await fetch(`/feedback/${itemToDelete}`, {
       method: 'DELETE',
