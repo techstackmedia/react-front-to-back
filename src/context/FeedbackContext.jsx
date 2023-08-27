@@ -16,6 +16,7 @@ const FeedbackProvider = ({ children }) => {
 
   const [feedback, setFeedback] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState('')
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
   const [isFalse, setIsFalse] = useState(false);
@@ -55,7 +56,7 @@ const FeedbackProvider = ({ children }) => {
       setIsLoading(false);
     } catch (error) {
       console.error('Error fetching data:', error);
-      setIsLoading(true);
+      setError('Error fetching data: check your internet connection');
     }
   };
 
@@ -181,6 +182,7 @@ const FeedbackProvider = ({ children }) => {
         isLoading,
         isFalse,
         handleClickToggler,
+        error,
       }}
     >
       {children}
