@@ -1,16 +1,20 @@
+import { useContext } from 'react';
 import FeedbackItem from './FeedbackItem';
+import FeedbackContext from '../../context/FeedbackContext';
 import Pulse from '../Pulse';
-import useFeedback from  '../../hooks/useFeedback'
 
 const FeedbackList = () => {
-  const { feedback, isLoading } = useFeedback();
+  const { feedback, isLoading, error } = useContext(FeedbackContext);
 
   if (!isLoading && (!feedback || feedback.length === 0)) {
     return <p>No Feedback Yet</p>;
   }
 
   return isLoading ? (
-    <Pulse />
+    <>
+      <Pulse />
+      {error && <p className='error'>{error}</p>}
+    </>
   ) : (
     <div className='feedback-list'>
       {feedback.map((feedbackItem) => {
