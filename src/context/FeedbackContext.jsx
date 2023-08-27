@@ -11,6 +11,7 @@ const FeedbackProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
+  const [error, setError] = useState('');
   const [feedbackEdit, setFeedbackEdit] = useState({
     item: {},
     edit: false,
@@ -48,8 +49,8 @@ const FeedbackProvider = ({ children }) => {
       setFeedback(data);
       setIsLoading(false);
     } catch (error) {
+      setError('Error fetching data: check your internet connection');
       console.error('Error fetching data:', error);
-      setIsLoading(true);
     }
   };
 
@@ -63,7 +64,7 @@ const FeedbackProvider = ({ children }) => {
     });
 
     const data = await response.json();
-    // data.id = -(new Date().getTime()); // You can use any unique negative value for ID
+    // data.id = -(new Date().getTime()); // You can use any unique negative value for ID. Might not work for JSON Server
 
     const updatedFeedbackArray = [data, ...feedback];
     setFeedback(updatedFeedbackArray);
@@ -160,6 +161,7 @@ const FeedbackProvider = ({ children }) => {
         updateFeedback,
         alertConfirmationModal,
         isLoading,
+        error,
       }}
     >
       {children}
