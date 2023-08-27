@@ -353,6 +353,10 @@ input:focus {
 }
 
 .error {
+  color: rgb(238, 63, 63);
+}
+
+.errorIndicator {
   color: red;
   background-color: yellow;
   padding: 10px 0;
