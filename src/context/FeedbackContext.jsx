@@ -9,7 +9,7 @@ const FeedbackProvider = ({ children }) => {
 
   const [feedback, setFeedback] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(true);
   const [itemToDelete, setItemToDelete] = useState(null);
   const [feedbackEdit, setFeedbackEdit] = useState({
     item: {},
