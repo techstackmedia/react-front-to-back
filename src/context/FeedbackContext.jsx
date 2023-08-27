@@ -8,7 +8,7 @@ const FeedbackProvider = ({ children }) => {
   }, []);
 
   const [feedback, setFeedback] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
   const [feedbackEdit, setFeedbackEdit] = useState({
@@ -32,7 +32,7 @@ const FeedbackProvider = ({ children }) => {
       setIsLoading(false);
     } catch (error) {
       console.error('Error fetching data:', error);
-      setIsLoading(false);
+      setIsLoading(true);
     }
   };
 
