@@ -5,7 +5,6 @@ const FeedbackContext = createContext();
 const FeedbackProvider = ({ children }) => {
   useEffect(() => {
     getFeedback();
-    setShowDeleteModal(false);
   }, []);
 
   const [feedback, setFeedback] = useState([]);
@@ -121,7 +120,7 @@ const FeedbackProvider = ({ children }) => {
     }
   };
 
-  const alertConfirmationModal = showDeleteModal && (
+  const alertConfirmationModal = showDeleteModal ? (
     <div className='custom-modal' onClick={closeModal}>
       <div className='modal-content'>
         <h2>Confirmation</h2>
@@ -144,7 +143,7 @@ const FeedbackProvider = ({ children }) => {
         </div>
       </div>
     </div>
-  );
+  ) : null;
 
   return (
     <FeedbackContext.Provider
