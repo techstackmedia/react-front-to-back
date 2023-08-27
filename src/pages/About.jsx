@@ -1,22 +1,15 @@
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Card from '../components/shared/Card';
 import Footer from '../components/Footer';
 import AboutIcon from '../components/AboutIcon';
-import Button from '../components/shared/Button';
-import { useNavigate } from 'react-router';
 
 const About = () => {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    return navigate('/');
-  };
-  
   return (
     <>
       <Header />
       <div className='container'>
-        <div>
+        <>
           <Card>
             <div className='about'>
               <h1>About This Project</h1>
@@ -24,15 +17,12 @@ const About = () => {
                 This is a React app to leave feedback for a product or service
               </p>
               <p>Version 1.0.0</p>
-              <Button
-                version='secondary'
-                onClick={handleClick}
-              >
+              <Link to='/' style={{ textDecoration: 'none' }}>
                 Back to Home
-              </Button>
+              </Link>
             </div>
           </Card>
-        </div>
+        </>
       </div>
       <Footer />
       <AboutIcon />

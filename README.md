@@ -20,7 +20,7 @@ To understand the use of `react-router-dom` in each of the files and the overall
 
 **2. About.jsx:**
 
-- The `react-router-dom` library is used to create a link to the home page. The `About` component renders a header, a card with some information, and a link to the home page using the `Link` component from `react-router-dom`.
+- The `react-router-dom` library is used to create a link to the home page. The `About` component renders a header, a card with some information, and a link to the home page using the `Link` component from `react-router-dom`. In the next branch or chapter, the custom button will be used.
 
 **3. Home/index.jsx:**
 
