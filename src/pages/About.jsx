@@ -2,13 +2,10 @@ import Header from '../components/Header';
 import Card from '../components/shared/Card';
 import Footer from '../components/Footer';
 import AboutIcon from '../components/AboutIcon';
-import { useContext } from 'react';
-import FeedbackContext from '../context/FeedbackContext';
 import Button from '../components/shared/Button';
 import { useNavigate } from 'react-router';
 
 const About = () => {
-  const { isFalse } = useContext(FeedbackContext);
   const navigate = useNavigate();
 
   const handleClick = () => {
