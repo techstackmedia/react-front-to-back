@@ -19,6 +19,7 @@ const FeedbackProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
+  const [error, setError] = useState('');
   const [isFalse, setIsFalse] = useState(false);
 
   const currentDate = useCurrentDate();
@@ -89,7 +90,7 @@ const FeedbackProvider = ({ children }) => {
       setIsLoading(false);
     } catch (error) {
       console.error('Error fetching data:', error);
-      setIsLoading(false);
+      setError('Error fetching data: check your internet connection');
     }
   };
 
@@ -216,6 +217,7 @@ const FeedbackProvider = ({ children }) => {
         isFalse,
         handleClickToggler,
         currentDate: formattedDate,
+        error,
       }}
     >
       {children}
