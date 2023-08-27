@@ -1,10 +1,17 @@
-import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Card from '../components/shared/Card';
 import Footer from '../components/Footer';
 import AboutIcon from '../components/AboutIcon';
+import Button from '../components/shared/Button';
+import { useNavigate } from 'react-router';
 
 const About = () => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    return navigate('/');
+  };
+  
   return (
     <>
       <Header />
@@ -17,7 +24,12 @@ const About = () => {
                 This is a React app to leave feedback for a product or service
               </p>
               <p>Version 1.0.0</p>
-              <Link to='/'>Back to Home</Link>
+              <Button
+                version='secondary'
+                onClick={handleClick}
+              >
+                Back to Home
+              </Button>
             </div>
           </Card>
         </div>
