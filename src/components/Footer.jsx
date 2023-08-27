@@ -10,13 +10,12 @@ const Footer = () => {
         <NavLink
           style={{
             textDecoration:
-              pathname === '/' && item === 'home'
-                ? 'underline'
-                : pathname === '/about' && item === 'about'
+              (pathname === '/' && item === 'home') ||
+              (pathname === '/about' && item === 'about')
                 ? 'underline'
                 : 'none',
           }}
-          to={`/${item}` === '/home' ? '/' : item}
+          to={item === 'home' ? '/' : `/${item}`}
         >
           {item.toUpperCase()[0]}
           {item.slice(1)}
