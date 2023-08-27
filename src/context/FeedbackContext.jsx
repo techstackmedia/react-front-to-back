@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import useCurrentDate from '../components/hooks/useCurrentDate';
 
 const FeedbackContext = createContext();
@@ -89,7 +89,7 @@ const FeedbackProvider = ({ children }) => {
       setIsLoading(false);
     } catch (error) {
       console.error('Error fetching data:', error);
-      setIsLoading(false);
+      setIsLoading(true);
     }
   };
 
