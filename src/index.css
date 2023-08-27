@@ -79,7 +79,6 @@ header {
   font-size: 19px;
   border: 1px #eee solid;
   transition: 0.3s;
-  margin-block: 5px;
 }
 
 .rating li label {
@@ -354,7 +353,15 @@ input:focus {
 }
 
 .error {
-  color: rgb(238, 63, 63);
+  color: red;
+  background-color: yellow;
+  padding: 10px 0;
+  text-align: center;
+  border: 2px solid #fff;
+  border-radius: 4px;
+  outline: 2px solid yellow;
+  position: relative;
+  bottom: 22px;
 }
 
 @media (max-width: 720px) {
