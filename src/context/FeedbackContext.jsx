@@ -70,7 +70,7 @@ const FeedbackProvider = ({ children }) => {
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
-      setError('Error fetching data: check your internet connection');
+      setError(`Error fetching data: ${error.message}`);
     }
   };
 
