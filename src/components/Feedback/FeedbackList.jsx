@@ -4,14 +4,17 @@ import FeedbackContext from '../../context/FeedbackContext';
 import Pulse from '../Pulse';
 
 const FeedbackList = () => {
-  const { feedback, isLoading } = useContext(FeedbackContext);
+  const { feedback, isLoading, error } = useContext(FeedbackContext);
 
   if (!isLoading && (!feedback || feedback.length === 0)) {
     return <p>No Feedback Yet</p>;
   }
 
   return isLoading ? (
-    <Pulse />
+    <>
+      <Pulse />
+      {error && <p className='error'>{error}</p>}
+    </>
   ) : (
     <div className='feedback-list'>
       {feedback.map((feedbackItem) => {
