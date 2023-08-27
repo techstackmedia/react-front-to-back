@@ -1,11 +1,13 @@
 import { NavLink, useLocation } from 'react-router-dom';
 import Card from './shared/Card';
+import { useContext } from 'react';
+import FeedbackContext from '../context/FeedbackContext';
 
 const Footer = () => {
+  const { isFalse } = useContext(FeedbackContext);
   const { pathname } = useLocation();
   const footer = ['home', 'about'];
   const ft = footer.map((item) => {
-    console.log(item);
     return (
       <div key={item}>
         <NavLink
@@ -15,6 +17,7 @@ const Footer = () => {
               (pathname === '/about' && item === 'about')
                 ? 'underline'
                 : 'none',
+            color: isFalse ? '#fff' : undefined,
           }}
           to={item === 'home' ? '/' : `/${item}`}
         >
@@ -27,7 +30,7 @@ const Footer = () => {
 
   return (
     <div className='container'>
-      <Card>
+      <Card reverse={isFalse}>
         <div className='footer'>{ft}</div>
       </Card>
     </div>

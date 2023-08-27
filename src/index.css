@@ -249,6 +249,10 @@ input:focus {
   margin: 10px 0;
 }
 
+.textDarkMode {
+  color: #f0f0f0;
+}
+
 /* CSS Styles for the custom modal */
 .custom-modal {
   position: fixed;
