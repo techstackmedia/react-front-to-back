@@ -1,6 +1,11 @@
 import { createContext, useEffect, useState } from 'react';
 import useCurrentDate from '../hooks/useCurrentDate';
-import formatDateTime from '../utils/counterFormatDateTime';
+import {
+  formatDateTime,
+  counterZeroPad,
+  counterGetAMPM,
+  counterFormatHours,
+} from '../utils/counterFormatDateTime';
 
 const FeedbackContext = createContext();
 
@@ -25,23 +30,11 @@ const FeedbackProvider = ({ children }) => {
 
   const currentDate = useCurrentDate();
 
-  const zeroPad = (value) => {
-    return value < 10 ? `0${value}` : value;
-  };
-
-  const getAMPM = (hours) => {
-    return hours >= 12 ? 'PM' : 'AM';
-  };
-
-  const formatHours = (hours) => {
-    return hours % 12 || 12;
-  };
-
   const formattedDate = formatDateTime(
     currentDate,
-    zeroPad,
-    formatHours,
-    getAMPM
+    counterZeroPad,
+    counterFormatHours,
+    counterGetAMPM
   );
 
   const handleClickToggler = () => {
