@@ -19,7 +19,7 @@ const FeedbackProvider = ({ children }) => {
 
   // useEffect(() => {
   //   const getFeedback = () => {
-  //     fetch('http://localhost:5000/feedback', {
+  //     fetch('http://localhost:4000/feedback', {
   //       method: "GET",
   //     })
   //     .then((response) => response.json())
@@ -34,7 +34,7 @@ const FeedbackProvider = ({ children }) => {
   const getFeedback = async () => {
     try {
       const response = await fetch(
-        'http://localhost:5000/feedback?_sort=id&_order=desc',
+        'http://localhost:4000/feedback?_sort=id&_order=desc',
         {
           method: 'GET',
         }
@@ -55,7 +55,7 @@ const FeedbackProvider = ({ children }) => {
   };
 
   const addFeedback = async (newFeedbackItem) => {
-    const response = await fetch(`http://localhost:5000/feedback`, {
+    const response = await fetch(`http://localhost:4000/feedback`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ const FeedbackProvider = ({ children }) => {
   };
 
   const updateFeedback = async (id, itemUpdate) => {
-    const response = await fetch(`http://localhost:5000/feedback/${id}`, {
+    const response = await fetch(`http://localhost:4000/feedback/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -101,7 +101,7 @@ const FeedbackProvider = ({ children }) => {
   };
 
   const handleDeleteConfirmed = async () => {
-    await fetch(`http://localhost:5000/feedback/${itemToDelete}`, {
+    await fetch(`http://localhost:4000/feedback/${itemToDelete}`, {
       method: 'DELETE',
     });
 
