@@ -22,7 +22,7 @@ const FeedbackList = () => {
   return isLoading ? (
     <>
       <Pulse />
-      {error && <p className='error'>{error}</p>}
+      {error && <p className='errorIndicator'>{error}</p>}
     </>
   ) : (
     <div className='feedback-list'>
