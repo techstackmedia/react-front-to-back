@@ -61,8 +61,10 @@ header {
 .rating {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   margin: 30px 0 40px;
+  flex-wrap: wrap;
+  gap: 2px;
 }
 
 .rating li,
@@ -351,7 +353,15 @@ input:focus {
 }
 
 .error {
-  color: rgb(238, 63, 63);
+  color: red;
+  background-color: yellow;
+  padding: 10px 0;
+  text-align: center;
+  border: 2px solid #fff;
+  border-radius: 4px;
+  outline: 2px solid yellow;
+  position: relative;
+  bottom: 22px;
 }
 
 @media (max-width: 720px) {
@@ -367,7 +377,7 @@ input:focus {
   .card,
   .feedback-stats,
   .feedback-stats ~ p {
-    width: 400px;
+    width: 100%;
   }
 }
 
@@ -386,13 +396,5 @@ input:focus {
 
   .input-group input {
     width: 80%;
-  }
-}
-
-@media (max-width: 460px) {
-  .card,
-  .feedback-stats,
-  .feedback-stats ~ p {
-    width: 100%;
   }
 }
