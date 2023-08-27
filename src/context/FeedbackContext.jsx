@@ -13,7 +13,6 @@ const FeedbackProvider = ({ children }) => {
       setIsFalse(JSON.parse(storedValue));
     }
   }, []);
-  
 
   const [feedback, setFeedback] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -26,7 +25,7 @@ const FeedbackProvider = ({ children }) => {
   //   } else {
   //     setIsFalse(true);
   //   }
-  
+
   //   localStorage.setItem('switch', isFalse ? 'false' : 'true');
   // };
 
@@ -34,13 +33,11 @@ const FeedbackProvider = ({ children }) => {
     setIsFalse((prevState) => !prevState);
     localStorage.setItem('switch', JSON.stringify(!isFalse));
   };
-  
-  
+
   const [feedbackEdit, setFeedbackEdit] = useState({
     item: {},
     edit: false,
   });
-  
 
   const getFeedback = async () => {
     try {
@@ -58,7 +55,7 @@ const FeedbackProvider = ({ children }) => {
       setIsLoading(false);
     } catch (error) {
       console.error('Error fetching data:', error);
-      setIsLoading(false);
+      setIsLoading(true);
     }
   };
 
