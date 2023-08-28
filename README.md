@@ -63,8 +63,6 @@ The `FeedbackForm` component is used for adding and editing feedback items. It u
 
 The `db.json` file acts as the backend server's data store. It contains an array of feedback objects. The JSON server reads and updates this file to provide a RESTful API for the React application.
 
-In summary, the React application interacts with the JSON server (backend) through various API calls (GET, POST, PATCH, DELETE) to manage feedback data. The `FeedbackProvider` component holds the state and functions for data management, and the other components use the `FeedbackContext` to access this shared state and perform CRUD operations.
-
 The issue with the order of the items being added to the list might be related to the way JSON-server handles the creation of new items and assigns their IDs. JSON-server automatically assigns an ID to the newly created item, and by default, it increments the ID based on the existing maximum ID in the database.
 
 Since you are using JSON-server, it's essential to check the behavior of JSON-server when creating new items. By default, JSON-server assigns a new item the next available ID, which would be the highest ID in the existing list plus one. This might result in the newly added item appearing at the bottom of the list, even though the code seems to add it to the top.
@@ -101,6 +99,8 @@ const getFeedback = async () => {
 With this approach, the new item will always be assigned a unique negative ID, ensuring it appears at the top of the list when displayed in the UI.
 
 Keep in mind that this solution will work specifically with JSON-server and assumes that the ID field is unique and sortable (e.g., numbers or timestamps). If your API or backend has different constraints, you may need to adjust the approach accordingly.
+
+In summary, the React application interacts with the JSON server (backend) through various API calls (GET, POST, PATCH, DELETE) to manage feedback data. The `FeedbackProvider` component holds the state and functions for data management, and the other components use the `FeedbackContext` to access this shared state and perform CRUD operations.
 
 Below is a quick summary:
 
