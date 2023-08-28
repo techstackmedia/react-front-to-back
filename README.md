@@ -6,6 +6,7 @@
 - [Issue](#issue)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Issue](#issue)
 - [Contributing](#contributing)
 - [License](#license)
 
