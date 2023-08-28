@@ -6,6 +6,7 @@
 - [Issue](#issue)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Issue](#issue)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -38,6 +39,8 @@ The `FeedbackContext` is a React context that provides a state and functions rel
 
 The `useEffect` hook in the `FeedbackProvider` component is used to fetch data from the backend server (JSON server) when the component mounts. It fetches the feedback data from the endpoint `'http://localhost:5000/feedback?_sort=id&_order=desc'` and stores it in the `feedback` state using `setFeedback(data)`.
 
+A conditional block checks if `redirectTo500` is `true`. If so, the code utilizes the `Navigate` component to redirect the user to the `/500` route. This approach effectively handles `redirection` based on the value of `redirectTo500`.
+
 When new feedback is submitted using the `FeedbackForm` component, the `addFeedback` function is called. It sends a POST request to the backend with the new feedback data, and upon receiving the response, it adds the new feedback to the local `feedback` state using `setFeedback(updatedFeedbackArray)`.
 
 Similarly, when feedback is edited using the `updateFeedback` function, it sends a PATCH request to the backend with the updated feedback data. Once the response is received, it updates the corresponding feedback item in the local `feedback` state using `setFeedback((prevFeedback) => prevFeedback.map(...))`.
@@ -61,8 +64,6 @@ The `FeedbackForm` component is used for adding and editing feedback items. It u
 The `db.json` file acts as the backend server's data store. It contains an array of feedback objects. The JSON server reads and updates this file to provide a RESTful API for the React application.
 
 In summary, the React application interacts with the JSON server (backend) through various API calls (GET, POST, PATCH, DELETE) to manage feedback data. The `FeedbackProvider` component holds the state and functions for data management, and the other components use the `FeedbackContext` to access this shared state and perform CRUD operations.
-
-## Issue
 
 The issue with the order of the items being added to the list might be related to the way JSON-server handles the creation of new items and assigns their IDs. JSON-server automatically assigns an ID to the newly created item, and by default, it increments the ID based on the existing maximum ID in the database.
 
@@ -156,7 +157,9 @@ Here's a breakdown of each command:
 
 In summary, these commands are commonly used to clone a Git repository, set up a local development environment by installing dependencies, start the application server, and switch to a specific branch to work on a particular feature or bug fix.
 
-> **Note:** Should you come across the error "Module not found: Error: Can't resolve 'framer-motion' in 'your/path/here'", address this by running the command `npm install` (and consider restarting the development server if needed). This action will guarantee the installation of the required dependencies, successfully resolving the issue.
+## Issue
+
+In case you come across the error "Module not found: Error: Can't resolve 'package-name' in 'your/path/here'", address this by running the command `npm install` (and consider restarting the development server if needed). This action will guarantee the installation of the required dependencies, successfully resolving the issue.
 
 ## Contributing
 
