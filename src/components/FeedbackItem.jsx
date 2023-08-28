@@ -10,12 +10,12 @@ const FeedbackItem = ({ item: { rating, text, id } }) => {
   // pass the id
   const handleClick = (id) => {
     // catch the id
-    console.log(id)
-  }
+    console.log(id);
+  };
 
   const onClick = () => {
-    handleClick(id)
-  }
+    handleClick(id);
+  };
 
   return (
     <Card>
