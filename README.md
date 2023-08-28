@@ -147,6 +147,10 @@ Here's a breakdown of each command:
 
 In summary, these commands are commonly used to clone a Git repository, set up a local development environment by installing dependencies, start the application server, and switch to a specific branch to work on a particular feature or bug fix.
 
+## Issue
+
+In case you come across the error "Module not found: Error: Can't resolve 'package name' in 'your/path/here'", address this by running the command `npm install` (and consider restarting the development server if needed). This action will guarantee the installation of the required dependencies, successfully resolving the issue.
+
 ## Contributing
 
 If you'd like to contribute to this project, follow these steps:
