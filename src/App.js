@@ -1,11 +1,11 @@
-import { useState } from 'react'
-import FeedbackList from './components/FeedbackList'
-import Header from './components/Header'
-import FeedbackData from './data/FeedbackData'
-import FeedbackItem from './components/FeedbackItem'
+import { useState } from 'react';
+import FeedbackList from './components/FeedbackList';
+import Header from './components/Header';
+import FeedbackData from './data/FeedbackData';
+import FeedbackItem from './components/FeedbackItem';
 
 const App = () => {
-  const [feedback, setFeedback] = useState(FeedbackData)
+  const [feedback, setFeedback] = useState(FeedbackData);
 
   return (
     <>
@@ -15,7 +15,7 @@ const App = () => {
         <FeedbackItem />
       </div>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
