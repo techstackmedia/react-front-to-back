@@ -14,9 +14,14 @@ const FeedbackForm = () => {
         <h2>How would you rate your service with us?</h2>
         {/* @todo - rating select component */}
         <div className='input-group'>
-          <input placeholder='Write a review' type='text' onChange={handleTextChange} value={text} />
+          <input
+            placeholder='Write a review'
+            type='text'
+            onChange={handleTextChange}
+            value={text}
+          />
           <Button type='submit' /* version='secondary' */>Send</Button>
-        </div> 
+        </div>
       </form>
     </Card>
   );
