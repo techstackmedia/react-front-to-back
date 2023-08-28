@@ -7,15 +7,11 @@ const FeedbackForm = () => {
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [message, setMessage] = useState(null);
   const handleTextChange = (e) => {
-    const newText = text.trim();
 
-    /* ...will explain why we need to use the variable newText to store the value e.target.value.trim() instead of text.trim() in the next chapter or branch. */
-    // const newText = e.target.value
-
-    if (newText === '') {
+    if (text === '') {
       setBtnDisabled(true);
       setMessage(null);
-    } else if (newText.length < 10) {
+    } else if (text.length <= 9) {
       setBtnDisabled(true);
       setMessage('Text must be at least 10 characters');
     } else {
@@ -24,7 +20,6 @@ const FeedbackForm = () => {
     }
 
     setText(e.target.value);
-    // setText(newText)
   };
 
   return (
