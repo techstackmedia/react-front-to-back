@@ -13,7 +13,7 @@ const FeedbackProvider = ({ children }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
   const [error, setError] = useState('');
-  const [redirectTo500, setRedirectTo500] = useState(false);
+  const [redirectTo500, setRedirectTo500] = useState(null);
   const [feedbackEdit, setFeedbackEdit] = useState({
     item: {},
     edit: false,
@@ -50,7 +50,7 @@ const FeedbackProvider = ({ children }) => {
 
       const data = await response.json();
 
-      setRedirectTo500(response.redirected);
+      setRedirectTo500(response.status);
       setFeedback(data);
       setIsLoading(false);
     } catch (error) {
@@ -59,7 +59,7 @@ const FeedbackProvider = ({ children }) => {
     }
   };
 
-  if (redirectTo500 === true) {
+  if (redirectTo500 === 500) {
     return Navigate('/500');
   }
 
