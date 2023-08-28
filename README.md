@@ -113,10 +113,6 @@ OR using a ternary operator:
 
 By following these steps, you will be able to leverage the `handleTextChange` function to control the state of your form's input field, enable/disable the "Send" button, and display an error message when necessary, ensuring a smooth and interactive user experience.
 
-## Issue
-
-There is just one issue with the form validation: when the button turns dark blue color (text.trim().length >= 10) and you then remove all the text (text.trim().length === 0), the button remains dark blue color instead of turning gray.
-
 ## Installation
 
 To run the project on your local machine, follow these steps:
@@ -167,6 +163,10 @@ Here's a breakdown of each command:
 6. `git checkout <branch-name>`: This command is used to switch to a specific branch. Replace `<branch-name>` with the name of the branch you want to switch to. After executing this command, you will be on the specified branch, and you can start working on that branch.
 
 In summary, these commands are commonly used to clone a Git repository, set up a local development environment by installing dependencies, start the application server, and switch to a specific branch to work on a particular feature or bug fix.
+
+## Issue
+
+In case you come across the error "Module not found: Error: Can't resolve 'package name' in 'your/path/here'", address this by running the command `npm install` (and consider restarting the development server if needed). This action will guarantee the installation of the required dependencies, successfully resolving the issue.
 
 ## Contributing
 
