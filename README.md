@@ -1,4 +1,4 @@
-# Refactoring - Feedback App
+# Identifying Links in text
 
 ## Table of Contents
 
@@ -10,54 +10,143 @@
 
 ## Description
 
-If you checked the console in the previous branch, you would notice the warning:
-
-> Warning
->
-> "You rendered descendant `<Routes>` (or called `useRoutes()`) at `/details/64cf0663cab171cf5ab1449f` (under `<Route path="/details/:id">`) but the parent route path has no trailing "*". This means if you navigate deeper, the parent won't match anymore and therefore the child routes will never render."
-
-The warning message is related to the use of nested `<Routes>` within the `FeedbackDetails` component. The warning is indicating that you have rendered a `<Routes>` element inside a parent `<Route path="/details/:id">`, but the parent route path does not have a trailing "*". This means that if you navigate deeper into the nested routes, the parent won't match anymore, and the child routes will not render.
-
-In the `<FeedbackDetails>` component is rendered under the parent route `<Route path="/details/:id">`. However, you also have a nested `<Routes>` element within `<FeedbackDetails>` that handles the path `/show` and renders the `<Footer>` component.
-
-To fix the warning, you should modify the parent route's path to include a trailing "*". The modified route should look like this:
+In the code snippet below, the `parts` array is created by splitting the `text` based on URLs using the `linkRegex`. Then, for each part, the component checks if it matches the URL pattern. If it's a URL, it wraps it in a `a` tag with the desired styles. If it's not a URL, it renders the part as plain text.
 
 ```jsx
-<Route path='/details/:id/*' element={<Detail />} />
-```
+import { useContext, useState } from 'react';
+import FeedbackContext from '../../context/FeedbackContext';
+import Card from '../shared/Card';
+import closeIcon from '../../images/closeIcon.svg';
+import editIcon from '../../images/editIcon.svg';
+import { Link } from 'react-router-dom';
+import externalLinkIcon from '../../images/externalLinkIcon.svg';
+import parse from 'html-react-parser';
 
-This change ensures that the parent route matches any URL that starts with `/details/:id/`, allowing the child routes to continue rendering as you navigate deeper into the nested routes.
+const FeedbackItem = ({ item, is24HrFormat }) => {
+  const { deleteFeedback, editFeedback, isFalse } = useContext(FeedbackContext);
+  const inputDate = item.date;
 
-Here's the updated code:
+  const dateObject = new Date(inputDate);
 
-```jsx
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Home from './pages/Home';
-import About from './pages/About';
-import Blog from './pages/Blog';
-import ServerError from './components/Error/Server';
-import NotFoundError from './components/Error/NotFound';
-import Detail from './pages/Detail';
+  const monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
 
-function App() {
+  const monthName = monthNames[dateObject.getMonth()];
+  const day = dateObject.getDate();
+  const year = dateObject.getFullYear();
+  const calendar = `${monthName} ${day}, ${year}`;
+
+  const [is24HourFormat, setIs24HourFormat] = useState(true);
+
+  const formatTime = (date) => {
+    const hours = date.getHours();
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const seconds = date.getSeconds().toString().padStart(2, '0');
+
+    if (is24HourFormat && is24HrFormat) {
+      return `${hours.toString().padStart(2, '0')}:${minutes}:${seconds}`;
+    } else {
+      const amOrPm = hours >= 12 ? 'PM' : 'AM';
+      const twelveHourFormat = (hours % 12 || 12).toString().padStart(2, '0');
+      return `${twelveHourFormat}:${minutes}:${seconds} ${amOrPm}`;
+    }
+  };
+
+  const handleTimeToggle = () => {
+    setIs24HourFormat((prevFormat) => !prevFormat);
+  };
+
+  const handleDeleteButton = () => {
+    deleteFeedback(item._id);
+  };
+
+  const handleEditButton = () => {
+    editFeedback(item);
+  };
+
+  const linkRegex = /(https?:\/\/[^\s]+|www\.[^\s]+)/g; // Regular expression to match URLs
+  const parts = item.text.split(linkRegex);
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/about' element={<About />} />
-        <Route path='/blog' element={<Blog />} />
-        <Route path='/500' element={<ServerError />} />
-        <Route path='*' element={<NotFoundError />} />
-        <Route path='/details/:id/*' element={<Detail />} />
-      </Routes>
-    </BrowserRouter>
+    <Card reverse={isFalse}>
+      <Link className='link' to={`/details/${item._id}`}>
+        <img src={externalLinkIcon} alt='external link icon' />
+      </Link>
+      <div className='num-display'>{item.rating}</div>
+      <button onClick={handleDeleteButton} className='close'>
+        <img src={closeIcon} alt='close icon' width={13.328} height={13.328} />
+      </button>
+      <button onClick={handleEditButton} className='edit'>
+        <img src={editIcon} alt='edit icon' width={13.328} height={13.328} />
+      </button>
+      <div className='text-display'>
+        {parts.map((part, index) => {
+          if (linkRegex.test(part)) {
+            if (part.startsWith('www.')) {
+              // Prepend "https://" to the part if it starts with "www."
+              const fullURL = `https://${part}`;
+              return (
+                <a
+                  key={index}
+                  href={fullURL}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  style={{ color: 'blue', textDecoration: 'underline' }}
+                >
+                  {fullURL}
+                </a>
+              );
+            } else {
+              // If the part is a link with http/https prefix, use it as is
+              return (
+                <a
+                  key={index}
+                  href={part}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  style={{ color: 'blue', textDecoration: 'underline' }}
+                >
+                  {part}
+                </a>
+              );
+            }
+          }
+          // Otherwise, render the part as plain text
+          return part;
+        })}
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          position: 'relative',
+          top: 35,
+        }}
+      >
+        <h5>{calendar}</h5>
+        <h5 style={{ cursor: 'pointer' }} onClick={handleTimeToggle}>
+          {formatTime(dateObject)}
+        </h5>
+      </div>
+    </Card>
   );
-}
+};
 
-export default App;
+export default FeedbackItem;
 ```
-
-With this change, the warning should be resolved, and the nested routes under `<FeedbackDetails>` will render correctly as you navigate deeper into the app.
 
 ## Installation
 

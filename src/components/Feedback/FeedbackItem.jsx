@@ -4,7 +4,8 @@ import Card from '../shared/Card';
 import closeIcon from '../../images/closeIcon.svg';
 import editIcon from '../../images/editIcon.svg';
 import { Link } from 'react-router-dom';
-import externalLinkIcon from '../../images/externalLinkIcon.svg'
+import externalLinkIcon from '../../images/externalLinkIcon.svg';
+import parse from 'html-react-parser';
 
 const FeedbackItem = ({ item, is24HrFormat }) => {
   const { deleteFeedback, editFeedback, isFalse } = useContext(FeedbackContext);
@@ -59,6 +60,9 @@ const FeedbackItem = ({ item, is24HrFormat }) => {
   const handleEditButton = () => {
     editFeedback(item);
   };
+  // React Dev Tools: https://www.codecademy.com/article/react-developer-tools
+  const linkRegex = /(https?:\/\/[^\s]+|www\.[^\s]+)/g; // Regular expression to match URLs
+  const parts = item.text.split(linkRegex);
 
   return (
     <Card reverse={isFalse}>
@@ -72,7 +76,43 @@ const FeedbackItem = ({ item, is24HrFormat }) => {
       <button onClick={handleEditButton} className='edit'>
         <img src={editIcon} alt='edit icon' width={13.328} height={13.328} />
       </button>
-      <div className='text-display'>{item.text}</div>
+      <div className='text-display'>
+        {parts.map((part, index) => {
+          if (linkRegex.test(part)) {
+            if (part.startsWith('www.')) {
+              // Prepend "https://" to the part if it starts with "www."
+              const fullURL = `https://${part}`;
+              return (
+                <a
+                  key={index}
+                  href={fullURL}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  style={{ color: 'blue', textDecoration: 'underline' }}
+                >
+                  {fullURL}
+                </a>
+              );
+            } else {
+              // If the part is a link with http/https prefix, use it as is
+              return (
+                <a
+                  key={index}
+                  href={part}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  style={{ color: 'blue', textDecoration: 'underline' }}
+                >
+                  {part}
+                </a>
+              );
+            }
+          }
+          // Otherwise, render the part as plain text
+          return part;
+        })}
+      </div>
+
       <div
         style={{
           display: 'flex',
