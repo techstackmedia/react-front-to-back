@@ -10,8 +10,8 @@ const FeedbackItem = ({ item: { rating, text, id }, handleDelete }) => {
 
   // clickButtonHandler
   const handleClickButton = () => {
-    handleDelete(id)
-  }
+    handleDelete(id);
+  };
 
   return (
     <Card>
