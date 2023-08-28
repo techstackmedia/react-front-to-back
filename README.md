@@ -5,6 +5,7 @@
 - [Description](#description)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Issue](#issue)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -74,6 +75,10 @@ To run the project on your local machine, follow these steps:
 ## Usage
 
 In this section, we will explore how to use JSX to efficiently display images, text, and utilize attributes in JSX elements. Additionally, we will delve into the process of transpiling JSX code into plain JavaScript that can be easily understood by the browser.
+
+## Issue
+
+In case you come across the error "Module not found: Error: Can't resolve 'package name' in 'your/path/here'", address this by running the command `npm install` (and consider restarting the development server if needed). This action will guarantee the installation of the required dependencies, successfully resolving the issue.
 
 ## Contributing
 
