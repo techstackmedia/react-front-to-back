@@ -18,7 +18,7 @@ const FeedbackItem = () => {
       return prevState + 1;
     });
   };
-  
+
   return (
     <div className='card'>
       {/* <div className="num-display">10</div>
