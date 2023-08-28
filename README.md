@@ -5,6 +5,7 @@
 - [Description](#description)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Issue](#issue)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -53,7 +54,7 @@ The usage of the `framer-motion` library in both `App.js` and `FeedbackList.jsx`
 - Each `FeedbackItem` component is wrapped in a `motion.div` component, which applies animations to the individual items. The `motion.div` component is provided with `initial`, `animate`, and `exit` props to define how the item behaves during its initial mount, presence, and when it is removed from the list.
 - In this case, the `opacity` property is animated from 0 to 1 during the initial mount, and from 1 to 0 during the exit, creating a fade-in and fade-out effect.
 
-2. `App.jsx`:
+**2.** `App.jsx`:
 
 - `framer-motion` is used to animate the custom delete confirmation modal that appears when a user wants to delete a feedback item.
 - The modal is conditionally rendered based on the `showDeleteModal` state.
@@ -63,6 +64,10 @@ The usage of the `framer-motion` library in both `App.js` and `FeedbackList.jsx`
 - For the modal's disappearance, it scales from `scale: 1` to `scale: 0.5`, and its opacity changes from `opacity: 1` to `opacity: 0`, creating a scaling-down effect with fading out.
 
 Overall, `framer-motion` is used to create visually appealing and interactive animations in both files, enhancing the user experience by providing smooth transitions and visual cues during certain actions like adding feedback items or confirming deletions.
+
+## Issue
+
+In case you come across the error "Module not found: Error: Can't resolve 'package name' in 'your/path/here'", address this by running the command `npm install` (and consider restarting the development server if needed). This action will guarantee the installation of the required dependencies, successfully resolving the issue.
 
 ## Contributing
 
