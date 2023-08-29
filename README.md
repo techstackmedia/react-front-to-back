@@ -43,7 +43,7 @@ Below is a quick summary:
 
 The key difference in the two versions is how the `id` property is represented and used. In the JSON Server version, `id` is a simple numeric value, while in the MongoDB Atlas version, `_id` is a more complex ObjectId.
 
-To make the MongoDB Atlas version work correctly, you made the following changes:
+To make the MongoDB Atlas version work correctly, made the following changes:
 
 - Modified the `FeedbackItem` component to use `feedbackItem._id` as the key.
 - In the `updateFeedback` function in `FeedbackContext`, use `item._id` instead of `item.id` to match the feedback item with the correct `_id` from the backend.
@@ -72,9 +72,7 @@ const handleDeleteConfirmed = async () => {
 
 These changes were necessary because the MongoDB `_id` is a more complex data type, and it needs to be handled appropriately when deleting the feedback items from the state.
 
-Please refer to the repository's README.md for further details and troubleshooting tips.
-
-### When using a Backend with MongoDB Atlas
+### Usage
 
 The code snippet below illustrates the process of acquiring the identical code from this repository onto your local machine.
 
@@ -124,8 +122,6 @@ To run the project on your local machine, follow these steps:
 2. Navigate to the project directory: `cd react-front-to-back`
 3. Install dependencies: `npm install` or `yarn install`
 4. Start the development server: `npm start` or `yarn start`
-
-## Usage
 
 To access the backend code that uses Express.js and Mongoose to connect to MongoDB Atlas, please visit the repository at [feedback-application-server](https://github.com/techstackmedia/feedback-application-server). You can find detailed instructions in the README.md file on how to set up and run the backend server.
 
