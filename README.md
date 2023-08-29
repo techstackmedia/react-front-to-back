@@ -5,6 +5,7 @@
 - [Description](#description)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Issue](#issue)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -184,7 +185,9 @@ By following this practice, you can avoid potential issues and ensure a successf
 
 Please refer to the repository's README.md for further details and troubleshooting tips.
 
-Happy coding!
+## Issue
+
+In case you come across the error "Module not found: Error: Can't resolve 'package-name' in 'your/path/here'", address this by running the command `npm install` (and consider restarting the development server if needed). This action will guarantee the installation of the required dependencies, successfully resolving the issue.
 
 ## Contributing
 
