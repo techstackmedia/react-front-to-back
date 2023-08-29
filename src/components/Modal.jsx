@@ -1,8 +1,9 @@
-const Modal = ({
-  closeModal,
-  handleDeleteConfirmed,
-  handleDeleteCancelled,
-}) => {
+import { useContext } from "react";
+import FeedbackContext from "../context/FeedbackContext";
+
+const Modal = () => {
+  const {closeModal, handleDeleteCancelled, handleDeleteConfirmed} = useContext(FeedbackContext)
+  
   return (
     <div className='custom-modal' onClick={closeModal}>
       <div className='modal-content'>

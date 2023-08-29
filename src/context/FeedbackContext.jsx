@@ -151,13 +151,7 @@ const FeedbackProvider = ({ children }) => {
     }
   };
 
-  const alertConfirmationModal = showDeleteModal && (
-    <Modal
-      closeModal={closeModal}
-      handleDeleteConfirmed={handleDeleteConfirmed}
-      handleDeleteCancelled={handleDeleteCancelled}
-    />
-  );
+  const alertConfirmationModal = showDeleteModal && <Modal />;
 
   return (
     <FeedbackContext.Provider
@@ -176,6 +170,9 @@ const FeedbackProvider = ({ children }) => {
         handleClickToggler,
         currentDate: formattedDate,
         error,
+        closeModal,
+        handleDeleteCancelled,
+        handleDeleteConfirmed,
       }}
     >
       {children}
