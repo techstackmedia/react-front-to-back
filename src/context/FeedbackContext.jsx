@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from 'react';
+import { Navigate } from 'react-router';
 
 const FeedbackContext = createContext();
 
@@ -12,6 +13,7 @@ const FeedbackProvider = ({ children }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
   const [error, setError] = useState('');
+  const [redirectTo500, setRedirectTo500] = useState(null)
   const [feedbackEdit, setFeedbackEdit] = useState({
     item: {},
     edit: false,
@@ -29,6 +31,7 @@ const FeedbackProvider = ({ children }) => {
 
       const data = await response.json();
 
+      setRedirectTo500(response.status)
       setFeedback(data);
       setIsLoading(false);
     } catch (error) {
@@ -36,6 +39,10 @@ const FeedbackProvider = ({ children }) => {
       setError('Error fetching data: check your internet connection')
     }
   };
+
+  if (redirectTo500 === '500') {
+    return <Navigate to='/500' />
+  }
 
   const addFeedback = async (newFeedbackItem) => {
     const response = await fetch(`/feedback`, {
