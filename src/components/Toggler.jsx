@@ -1,8 +1,8 @@
 import { useContext } from 'react';
-import FeedbackContext from '../../context/FeedbackContext';
+import FeedbackContext from '../context/FeedbackContext';
 // import { FaToggleOn, FaToggleOff } from 'react-icons/fa';
-import toggleOn from '../../images/toggleOn.svg';
-import toggleOff from '../../images/toggleOff.svg';
+import toggleOn from '../images/toggleOn.svg';
+import toggleOff from '../images/toggleOff.svg';
 
 const Toggler = () => {
   const { handleClickToggler, isFalse } = useContext(FeedbackContext);
