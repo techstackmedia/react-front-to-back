@@ -196,6 +196,9 @@ const FeedbackProvider = ({ children }) => {
         handleClickToggler,
         currentDate: formattedDate,
         error,
+        closeModal,
+        handleDeleteCancelled,
+        handleDeleteConfirmed,
       }}
     >
       {children}
