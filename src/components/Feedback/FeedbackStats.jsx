@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import FeedbackContext from '../../context/FeedbackContext';
 
 const FeedbackStats = () => {
-  const { feedback, currentDate } = useContext(FeedbackContext);
+  const { feedback } = useContext(FeedbackContext);
   const average =
     feedback.length === 0
       ? 0
