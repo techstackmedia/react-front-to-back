@@ -159,6 +159,7 @@ const FeedbackProvider = ({ children }) => {
         updateFeedback,
         alertConfirmationModal,
         isLoading,
+        error,
       }}
     >
       {children}
