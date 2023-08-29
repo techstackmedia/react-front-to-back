@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 import FeedbackContext from '../../context/FeedbackContext';
-import Timer from '../Timer';
 
 const FeedbackStats = () => {
   const { feedback } = useContext(FeedbackContext);
@@ -16,7 +15,6 @@ const FeedbackStats = () => {
         <h4>{feedback.length} Reviews</h4>
         <h4>Average Rating: {formattedAverage}</h4>
       </div>
-      <Timer />
     </>
   );
 };
