@@ -37,7 +37,7 @@ The `FeedbackContext` is a React context that provides a state and functions rel
 
 3. Fetching Data and Updating `db.json`:
 
-The `useEffect` hook in the `FeedbackProvider` component is used to fetch data from the backend server (JSON server) when the component mounts. It fetches the feedback data from the endpoint `'http://localhost:5000/feedback?_sort=id&_order=desc'` and stores it in the `feedback` state using `setFeedback(data)`.
+The `useEffect` hook in the `FeedbackProvider` component is used to fetch data from the backend server (JSON server) when the component mounts. It fetches the feedback data from the endpoint `'http://localhost:4000/feedback?_sort=id&_order=desc'` and stores it in the `feedback` state using `setFeedback(data)`.
 
 A conditional block checks if `redirectTo500` is `true`. If so, the code utilizes the `Navigate` component to redirect the user to the `/500` route. This approach effectively handles `redirection` based on the value of `redirectTo500`.
 
@@ -69,13 +69,13 @@ Since you are using JSON-server, it's essential to check the behavior of JSON-se
 
 If you want to maintain a specific order when adding items to the list, you need to ensure that the server is providing the data in the desired order. In this case, you can modify your JSON-server data file to arrange the items in the order you want them to appear.
 
-For the Feedback App, use `http://localhost:5000/feedback?_sort=id&_order=desc` to sort the id in descending order in the useEffect function, `getFeedback`
+For the Feedback App, use `http://localhost:4000/feedback?_sort=id&_order=desc` to sort the id in descending order in the useEffect function, `getFeedback`
 
 ```jsx
 const getFeedback = async () => {
   try {
     const response = await fetch(
-      'http://localhost:5000/feedback?_sort=id&_order=desc',
+      'http://localhost:4000/feedback?_sort=id&_order=desc',
       {
         method: 'GET',
       }
