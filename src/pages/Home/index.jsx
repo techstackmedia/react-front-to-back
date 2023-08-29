@@ -6,6 +6,7 @@ import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import AboutIcon from '../../components/AboutIcon';
 import FeedbackContext from '../../context/FeedbackContext';
+import Timer from '../../components/Timer';
 
 const Home = () => {
   const { alertConfirmationModal } = useContext(FeedbackContext);
@@ -19,6 +20,7 @@ const Home = () => {
         <div>
           <FeedbackForm />
           <FeedbackStats />
+          <Timer />
           <FeedbackList />
         </div>
       </div>
