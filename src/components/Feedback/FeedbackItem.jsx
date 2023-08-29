@@ -5,7 +5,6 @@ import closeIcon from '../../images/closeIcon.svg';
 import editIcon from '../../images/editIcon.svg';
 import { Link } from 'react-router-dom';
 import externalLinkIcon from '../../images/externalLinkIcon.svg';
-import parse from 'html-react-parser';
 
 const FeedbackItem = ({ item, is24HrFormat }) => {
   const { deleteFeedback, editFeedback, isFalse } = useContext(FeedbackContext);
