@@ -138,6 +138,9 @@ const FeedbackProvider = ({ children }) => {
         alertConfirmationModal,
         isLoading,
         error,
+        closeModal,
+        handleDeleteCancelled,
+        handleDeleteConfirmed,
       }}
     >
       {children}
