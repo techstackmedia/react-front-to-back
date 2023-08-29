@@ -7,6 +7,7 @@ import {
   counterFormatHours,
 } from '../utils/counterFormatDateTime';
 import Modal from '../components/Modal';
+import { Navigate } from 'react-router';
 
 const FeedbackContext = createContext();
 
@@ -27,6 +28,7 @@ const FeedbackProvider = ({ children }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
   const [isFalse, setIsFalse] = useState(false);
+  const [redirectTo500, setRedirectTo500] = useState(null)
   const [error, setError] = useState('');
 
   const currentDate = useCurrentDate();
@@ -60,6 +62,7 @@ const FeedbackProvider = ({ children }) => {
 
       const data = await response.json();
 
+      setRedirectTo500(response.status);
       setFeedback(data);
       setIsLoading(false);
     } catch (error) {
@@ -67,6 +70,10 @@ const FeedbackProvider = ({ children }) => {
       setError(`Error fetching data: ${error.message}`);
     }
   };
+
+  if (redirectTo500 === true) {
+    return <Navigate to='/500' />
+  }
 
   const addFeedback = async (newFeedbackItem) => {
     const response = await fetch(`/feedback`, {
