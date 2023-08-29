@@ -4,6 +4,7 @@ import FeedbackContext from '../context/FeedbackContext';
 const Modal = () => {
   const { closeModal, handleDeleteConfirmed, handleDeleteCancelled } =
     useContext(FeedbackContext);
+    
   return (
     <div className='custom-modal' onClick={closeModal}>
       <div className='modal-content'>
