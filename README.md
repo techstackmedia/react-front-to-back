@@ -21,8 +21,8 @@ In the Feedback App, the `proxy` field in the `package.json` is used to define a
 
 3. Purpose of Proxy:
    When developing a frontend application that communicates with a backend server, it is common for the backend server to run on a different port (e.g., 5000) than the frontend development server (e.g., 3000). This can lead to CORS (Cross-Origin Resource Sharing) issues when trying to make API requests from the frontend to the backend during development.
-
-By setting the `proxy` field in the `package.json`, you instruct the development server to forward specific API requests to the specified proxy URL instead of directly making them from the frontend. This helps bypass the CORS restrictions during development and allows seamless communication between the frontend and backend.
+  
+   By setting the `proxy` field in the `package.json`, you instruct the development server to forward specific API requests to the specified proxy URL instead of directly making them from the frontend. This helps bypass the CORS restrictions during development and allows seamless communication between the frontend and backend.
 
 4. Proxy Configuration:
    In the given `package.json`, the proxy is set to `"http://localhost:5000"`. This means that any API requests made to the relative path `/feedback` will be automatically forwarded to `http://localhost:5000/feedback` during development.
