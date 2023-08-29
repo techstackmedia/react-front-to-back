@@ -5,6 +5,7 @@
 - [Description](#description)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Issue](#issue)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -141,6 +142,10 @@ Here's a breakdown of each command:
 6. `git checkout <branch-name>`: This command is used to switch to a specific branch. Replace `<branch-name>` with the name of the branch you want to switch to. After executing this command, you will be on the specified branch, and you can start working on that branch.
 
 In summary, these commands are commonly used to clone a Git repository, set up a local development environment by installing dependencies, start the application server, and switch to a specific branch to work on a particular feature or bug fix.
+
+## Issue
+
+In case you come across the error "Module not found: Error: Can't resolve 'package-name' in 'your/path/here'", address this by running the command `npm install` (and consider restarting the development server if needed). This action will guarantee the installation of the required dependencies, successfully resolving the issue.
 
 ## Contributing
 
