@@ -32,13 +32,13 @@ const App = () => {
     }
   };
 
-  const alertConfirmationModal = showDeleteModal ? (
+  const alertConfirmationModal = showDeleteModal && (
     <Modal
-      closeModal={closeModal}
       handleDeleteConfirmed={handleDeleteConfirmed}
       handleDeleteCancelled={handleDeleteCancelled}
+      closeModal={closeModal}
     />
-  ) : null;
+  );
 
   return (
     <>
