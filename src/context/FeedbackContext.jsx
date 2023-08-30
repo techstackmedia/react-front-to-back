@@ -8,6 +8,7 @@ import {
 } from '../utils/counterFormatDateTime';
 import Modal from '../components/Modal';
 import { Navigate } from 'react-router';
+import axios from 'axios'
 
 const FeedbackContext = createContext();
 
@@ -23,13 +24,22 @@ const FeedbackProvider = ({ children }) => {
     }
   }, []);
 
+  useEffect(() => {
+    fetchProfileImage(); // Fetch profile image URL on component mount
+  }, []);
+
   const [feedback, setFeedback] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
   const [isFalse, setIsFalse] = useState(false);
-  const [redirectTo500, setRedirectTo500] = useState(null)
+  const [redirectTo500, setRedirectTo500] = useState(null);
   const [error, setError] = useState('');
+  const [showDropDown, setShowDropDown] = useState(false);
+  const [profileImage, setProfileImage] = useState('');
+  const [crop, setCrop] = useState({ aspect: 1, unit: '%', width: 50 });
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [imageRef, setImageRef] = useState(null);
 
   const currentDate = useCurrentDate();
 
@@ -39,6 +49,12 @@ const FeedbackProvider = ({ children }) => {
     counterFormatHours,
     counterGetAMPM
   );
+
+  const handleClickDropdown = () => {
+    setShowDropDown((prevState) => {
+      return !prevState;
+    });
+  };
 
   const handleClickToggler = () => {
     setIsFalse((prevState) => !prevState);
@@ -71,8 +87,17 @@ const FeedbackProvider = ({ children }) => {
     }
   };
 
+  const fetchProfileImage = async () => {
+    try {
+      const response = await axios.get('/feedback/get-profile-image'); // Update the endpoint to your actual endpoint
+      setProfileImage(response.data.profileImage);
+    } catch (error) {
+      console.error('Error fetching profile image:', error);
+    }
+  };
+
   if (redirectTo500 === true) {
-    return <Navigate to='/500' />
+    return <Navigate to='/500' />;
   }
 
   const addFeedback = async (newFeedbackItem) => {
@@ -179,6 +204,8 @@ const FeedbackProvider = ({ children }) => {
         closeModal,
         handleDeleteConfirmed,
         handleDeleteCancelled,
+        handleClickDropdown,
+        showDropDown,
       }}
     >
       {children}
