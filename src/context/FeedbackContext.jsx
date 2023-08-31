@@ -23,10 +23,6 @@ const FeedbackProvider = ({ children }) => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   fetchProfileImage(); // Fetch profile image URL on component mount
-  // }, []);
-
   const [feedback, setFeedback] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -35,7 +31,6 @@ const FeedbackProvider = ({ children }) => {
   const [redirectTo500, setRedirectTo500] = useState(null);
   const [error, setError] = useState('');
   const [showDropDown, setShowDropDown] = useState(false);
-  //const [profileImage, setProfileImage] = useState('');
 
   const currentDate = useCurrentDate();
 
@@ -82,15 +77,6 @@ const FeedbackProvider = ({ children }) => {
       setError(`Error fetching data: ${error.message}`);
     }
   };
-
-  // const fetchProfileImage = async () => {
-  //   try {
-  //     const response = await axios.get('/feedback/get-profile-image'); // Update the endpoint to your actual endpoint
-  //     setProfileImage(response.data.profileImage);
-  //   } catch (error) {
-  //     console.error('Error fetching profile image:', error);
-  //   }
-  // };
 
   if (redirectTo500 === true) {
     return <Navigate to='/500' />;
