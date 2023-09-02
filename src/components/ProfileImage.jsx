@@ -6,9 +6,9 @@ import sadEmoji from '../images/sad.gif';
 const ProfileImage = () => {
   const { handleClickDropdown, showDropDown } = useContext(FeedbackContext);
   const fileInputRef = useRef(null);
-  // https://img.icons8.com/color/48/person-male.png
   const defaultImage =
-    'https://res.cloudinary.com/bizstak/image/upload/v1693404269/tnkudco8ke5u4wds4wsc.jpg';
+    `${'https://img.icons8.com/color/48/person-male.png'}` ||
+    `${'https://res.cloudinary.com/bizstak/image/upload/v1693645063/obh6461c5yojeoetqigm.jpg'}`;
   const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
   const [error, setError] = useState('');
   const [animationClass, setAnimationClass] = useState('');
