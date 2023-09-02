@@ -38,16 +38,12 @@ const ProfileImage = () => {
           body: formData,
         });
 
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-
         const data = await response.json();
         setUploadedImageUrl(data.profileImage);
         localStorage.setItem('image', data.profileImage); // Set local storage only on successful upload
         setError('');
       } catch (error) {
-        setError('Error uploading image: ' + error.message);
+        setError('Error uploading image');
       }
     } else {
       setError('Invalid image file');
@@ -61,18 +57,22 @@ const ProfileImage = () => {
     <div onClick={handleClickDropdown}>
       {uploadedImageUrl || error ? (
         <div className={`upload-confirmation ${animationClass}`}>
-          <div className='confirmation-icon'>&#10003;</div>
+          {error ? (
+            <div style={{ color: 'red', fontSize: 38 }}>&times;</div>
+          ) : (
+            <div className='confirmation-icon'>&#10003;</div>
+          )}
           <h2>
             <img
-              src={uploadedImageUrl ? uploadedImageUrl : sadEmoji}
+              src={error ? sadEmoji : uploadedImageUrl}
               alt='profile'
               width={100}
               height={100}
-              style={{ border: '1px solid #000' }}
+              style={{ border: '1px solid #000', borderRadius: '50%' }}
             />
           </h2>
           {error ? (
-            <p>{error}. Reset to previous image</p>
+            <p>{error}. Reverted to previous image</p>
           ) : (
             <p>Image Upload was successfully.</p>
           )}
