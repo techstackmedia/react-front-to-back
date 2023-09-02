@@ -9,7 +9,7 @@ const Toggler = () => {
   return (
     <div
       onClick={handleClickToggler}
-      style={{ position: 'relative', right: 15, cursor: 'pointer' }}
+      style={{ position: 'relative', right: 15, cursor: 'pointer', marginTop: 4 }}
     >
       {!isFalse ? (
         <img src={toggleOn} alt='Toggle On' />
