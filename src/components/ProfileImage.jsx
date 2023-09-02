@@ -6,9 +6,7 @@ import sadEmoji from '../images/sad.gif';
 const ProfileImage = () => {
   const { handleClickDropdown, showDropDown } = useContext(FeedbackContext);
   const fileInputRef = useRef(null);
-  const defaultImage =
-    `${'https://img.icons8.com/color/48/person-male.png'}` ||
-    `${'https://res.cloudinary.com/bizstak/image/upload/v1693645063/obh6461c5yojeoetqigm.jpg'}`;
+  const defaultImage = 'https://img.icons8.com/color/48/person-male.png';
   const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
   const [error, setError] = useState('');
   const [animationClass, setAnimationClass] = useState('');
