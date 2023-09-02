@@ -8,7 +8,6 @@ import {
 } from '../utils/counterFormatDateTime';
 import Modal from '../components/Modal';
 import { Navigate } from 'react-router';
-import axios from 'axios';
 
 const FeedbackContext = createContext();
 
@@ -60,10 +59,18 @@ const FeedbackProvider = ({ children }) => {
 
   const getFeedback = async () => {
     try {
-      const response = await axios.get('/feedback');
+      const response = await fetch('/feedback', {
+        method: 'GET',
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
 
       setRedirectTo500(response.status);
-      setFeedback(response.data);
+      setFeedback(data);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
@@ -74,20 +81,19 @@ const FeedbackProvider = ({ children }) => {
   if (redirectTo500 === true) {
     return <Navigate to='/500' />;
   }
-  const addFeedback = async (newFeedbackItem) => {
-    try {
-      const response = await axios.post('/feedback', newFeedbackItem, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
 
-      const data = response.data;
-      const updatedFeedbackArray = [data, ...feedback];
-      setFeedback(updatedFeedbackArray);
-    } catch (error) {
-      console.error('Error adding feedback:', error.message);
-    }
+  const addFeedback = async (newFeedbackItem) => {
+    const response = await fetch(`/feedback`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newFeedbackItem),
+    });
+
+    const data = await response.json();
+    const updatedFeedbackArray = [data, ...feedback];
+    setFeedback(updatedFeedbackArray);
   };
 
   const editFeedback = (item) => {
@@ -105,13 +111,19 @@ const FeedbackProvider = ({ children }) => {
 
   const updateFeedback = async (id, itemUpdate) => {
     try {
-      const response = await axios.patch(`/feedback/${id}`, itemUpdate, {
+      const response = await fetch(`/feedback/${id}`, {
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify(itemUpdate),
       });
 
-      const updatedFeedbackData = response.data;
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const updatedFeedbackData = await response.json();
 
       setFeedback((prevFeedback) =>
         prevFeedback.map((item) => {
@@ -125,23 +137,21 @@ const FeedbackProvider = ({ children }) => {
         edit: false,
       }));
     } catch (error) {
-      console.error('Error updating feedback:', error.message);
+      console.error('Error updating feedback:', error);
     }
   };
 
   const handleDeleteConfirmed = async () => {
-    try {
-      await axios.delete(`/feedback/${itemToDelete}`);
+    await fetch(`/feedback/${itemToDelete}`, {
+      method: 'DELETE',
+    });
 
-      setShowDeleteModal(false);
-      setFeedback((prevFeedback) => {
-        return prevFeedback.filter((item) => {
-          return item._id !== itemToDelete;
-        });
+    setShowDeleteModal(false);
+    setFeedback((prevFeedback) => {
+      return prevFeedback.filter((item) => {
+        return item._id !== itemToDelete;
       });
-    } catch (error) {
-      console.error('Error deleting feedback:', error.message);
-    }
+    });
   };
 
   const handleDeleteCancelled = () => {
