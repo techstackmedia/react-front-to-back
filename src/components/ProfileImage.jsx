@@ -1,15 +1,25 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import FeedbackContext from '../context/FeedbackContext';
 import 'react-image-crop/dist/ReactCrop.css';
-import axios from 'axios';
+// import axios from 'axios';
 
 const ProfileImage = () => {
-  const { handleClickDropdown } = useContext(FeedbackContext);
-  const { showDropDown } = useContext(FeedbackContext);
+  const { handleClickDropdown, showDropDown } = useContext(FeedbackContext);
   const fileInputRef = useRef(null);
   const defaultImage =
     'https://res.cloudinary.com/bizstak/image/upload/v1693404269/tnkudco8ke5u4wds4wsc.jpg';
   const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
+  const [error, setError] = useState('');
+  const [animationClass, setAnimationClass] = useState('');
+
+  useEffect(() => {
+    setAnimationClass('animate');
+    const animationTimeout = setTimeout(() => {
+      setAnimationClass('');
+    }, 3000);
+
+    return () => clearTimeout(animationTimeout);
+  }, [uploadedImageUrl]);
 
   const handleUploadButtonClick = () => {
     fileInputRef.current.click(); // Trigger the hidden file input's click event
@@ -22,17 +32,24 @@ const ProfileImage = () => {
       formData.append('profileImage', file);
 
       try {
-        const response = await axios.post(
-          '/feedback/upload-profile-image',
-          formData
-        );
-        setUploadedImageUrl(response.data.profileImage);
-        localStorage.setItem('image', response.data.profileImage); // Set local storage only on successful upload
+        const response = await fetch('/feedback/upload-profile-image', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        setUploadedImageUrl(data.profileImage);
+        localStorage.setItem('image', data.profileImage); // Set local storage only on successful upload
+        setError('');
       } catch (error) {
-        console.error('Error uploading image:', error);
+        setError('Error uploading image:', error.message);
       }
     } else {
-      console.error('Invalid image file');
+      setError('Invalid image file');
     }
   };
 
@@ -41,6 +58,21 @@ const ProfileImage = () => {
 
   return (
     <div onClick={handleClickDropdown}>
+      {uploadedImageUrl ? (
+        <div className={`upload-confirmation ${animationClass}`}>
+          <div className='confirmation-icon'>&#10003;</div>
+          <h2>
+            <img
+              src={uploadedImageUrl}
+              alt='profile'
+              width={100}
+              height={100}
+              style={{ border: '1px solid #000' }}
+            />
+          </h2>
+          <p>Image Upload was successfully.</p>
+        </div>
+      ) : null}
       <img
         style={{
           borderRadius: '50%',

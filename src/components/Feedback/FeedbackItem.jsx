@@ -59,8 +59,8 @@ const FeedbackItem = ({ item, is24HrFormat }) => {
   const handleEditButton = () => {
     editFeedback(item);
   };
-  // React Dev Tools: https://www.codecademy.com/article/react-developer-tools
-  const linkRegex = /(https?:\/\/[^\s]+|www\.[^\s]+)/g; // Regular expression to match URLs
+
+  const linkRegex = /(https?:\/\/[^\s]+|www\.[^\s]+)/g;
   const parts = item.text.split(linkRegex);
 
   return (
@@ -79,7 +79,6 @@ const FeedbackItem = ({ item, is24HrFormat }) => {
         {parts.map((part, index) => {
           if (linkRegex.test(part)) {
             if (part.startsWith('www.')) {
-              // Prepend "https://" to the part if it starts with "www."
               const fullURL = `https://${part}`;
               return (
                 <a
@@ -93,7 +92,6 @@ const FeedbackItem = ({ item, is24HrFormat }) => {
                 </a>
               );
             } else {
-              // If the part is a link with http/https prefix, use it as is
               return (
                 <a
                   key={index}
@@ -107,7 +105,6 @@ const FeedbackItem = ({ item, is24HrFormat }) => {
               );
             }
           }
-          // Otherwise, render the part as plain text
           return part;
         })}
       </div>

@@ -11,143 +11,78 @@
 
 ## Description
 
-In the code snippet below, the `parts` array is created by splitting the `text` based on URLs using the `linkRegex`. Then, for each part, the component checks if it matches the URL pattern. If it's a URL, it wraps it in a `a` tag with the desired styles. If it's not a URL, it renders the part as plain text.
+### ProfileImage Component Explanation
 
-```jsx
-import { useContext, useState } from 'react';
-import FeedbackContext from '../../context/FeedbackContext';
-import Card from '../shared/Card';
-import closeIcon from '../../images/closeIcon.svg';
-import editIcon from '../../images/editIcon.svg';
-import { Link } from 'react-router-dom';
-import externalLinkIcon from '../../images/externalLinkIcon.svg';
-import parse from 'html-react-parser';
+We've defined a React component named `ProfileImage`, which serves the purpose of displaying a user's profile image and enabling them to upload a new image. This component relies on context data from `FeedbackContext` and uses Axios for handling file uploads. Let's break down the code step by step:
 
-const FeedbackItem = ({ item, is24HrFormat }) => {
-  const { deleteFeedback, editFeedback, isFalse } = useContext(FeedbackContext);
-  const inputDate = item.date;
+**1. Imports:**
 
-  const dateObject = new Date(inputDate);
+The component imports the necessary dependencies and libraries:
 
-  const monthNames = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
+- `React`: The core library for building React components.
+- `useContext`: A React hook used to access context data.
+- `useRef`: A React hook for creating a reference to a DOM element.
+- `useState`: A React hook for managing component state.
+- `FeedbackContext`: A custom context that provides `handleClickDropdown` and `showDropDown` from its value.
+- `'react-image-crop/dist/ReactCrop.css'`: A CSS file for styling purposes.
 
-  const monthName = monthNames[dateObject.getMonth()];
-  const day = dateObject.getDate();
-  const year = dateObject.getFullYear();
-  const calendar = `${monthName} ${day}, ${year}`;
+**2. Component Definition:**
 
-  const [is24HourFormat, setIs24HourFormat] = useState(true);
+The `ProfileImage` component is defined as a functional component.
 
-  const formatTime = (date) => {
-    const hours = date.getHours();
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    const seconds = date.getSeconds().toString().padStart(2, '0');
+**3. Context Data:**
 
-    if (is24HourFormat && is24HrFormat) {
-      return `${hours.toString().padStart(2, '0')}:${minutes}:${seconds}`;
-    } else {
-      const amOrPm = hours >= 12 ? 'PM' : 'AM';
-      const twelveHourFormat = (hours % 12 || 12).toString().padStart(2, '0');
-      return `${twelveHourFormat}:${minutes}:${seconds} ${amOrPm}`;
-    }
-  };
+The `useContext` hook is used to access context data, specifically extracting `handleClickDropdown` and `showDropDown` from the context.
 
-  const handleTimeToggle = () => {
-    setIs24HourFormat((prevFormat) => !prevFormat);
-  };
+**4. Refs:**
 
-  const handleDeleteButton = () => {
-    deleteFeedback(item._id);
-  };
+A `fileInputRef` is created using `useRef(null)`. This reference will be used to access and programmatically trigger the hidden file input element.
 
-  const handleEditButton = () => {
-    editFeedback(item);
-  };
+**5. Default Image URL:**
 
-  const linkRegex = /(https?:\/\/[^\s]+|www\.[^\s]+)/g; // Regular expression to match URLs
-  const parts = item.text.split(linkRegex);
+`defaultImage` stores the URL of a default profile image. This URL will be used if there is no custom image uploaded by the user.
 
-  return (
-    <Card reverse={isFalse}>
-      <Link className='link' to={`/details/${item._id}`}>
-        <img src={externalLinkIcon} alt='external link icon' />
-      </Link>
-      <div className='num-display'>{item.rating}</div>
-      <button onClick={handleDeleteButton} className='close'>
-        <img src={closeIcon} alt='close icon' width={13.328} height={13.328} />
-      </button>
-      <button onClick={handleEditButton} className='edit'>
-        <img src={editIcon} alt='edit icon' width={13.328} height={13.328} />
-      </button>
-      <div className='text-display'>
-        {parts.map((part, index) => {
-          if (linkRegex.test(part)) {
-            if (part.startsWith('www.')) {
-              // Prepend "https://" to the part if it starts with "www."
-              const fullURL = `https://${part}`;
-              return (
-                <a
-                  key={index}
-                  href={fullURL}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  style={{ color: 'blue', textDecoration: 'underline' }}
-                >
-                  {fullURL}
-                </a>
-              );
-            } else {
-              // If the part is a link with http/https prefix, use it as is
-              return (
-                <a
-                  key={index}
-                  href={part}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  style={{ color: 'blue', textDecoration: 'underline' }}
-                >
-                  {part}
-                </a>
-              );
-            }
-          }
-          // Otherwise, render the part as plain text
-          return part;
-        })}
-      </div>
+**6. State:**
 
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          position: 'relative',
-          top: 35,
-        }}
-      >
-        <h5>{calendar}</h5>
-        <h5 style={{ cursor: 'pointer' }} onClick={handleTimeToggle}>
-          {formatTime(dateObject)}
-        </h5>
-      </div>
-    </Card>
-  );
-};
+- `uploadedImageUrl` is a state variable created using `useState(null)`. It will store the URL of the uploaded profile image.
+- `error` is a state variable for storing error messages, and it's initialized as an empty string.
+- `animationClass` is a state variable for controlling animation classes and is initially set to an empty string.
 
-export default FeedbackItem;
-```
+**7. `handleUploadButtonClick` Function:**
+
+This function is called when the "Upload Image" button is clicked. It programmatically triggers a click event on the hidden file input element, allowing the user to select a file for upload.
+
+**8. `handleFileChange` Function:**
+
+This function is called when a user selects a file for upload using the file input element. It performs the following actions:
+
+- Checks if the selected file is an image based on its MIME type.
+- If the selected file is a valid image, it creates a `FormData` object, appends the selected file to it, and sends a POST request to the server using Axios for image upload.
+- If the upload is successful, it updates the `uploadedImageUrl` state with the URL of the uploaded image and clears any previous error messages.
+- If an error occurs during the upload, it sets the `error` state with an error message.
+
+**9. Profile Image URL:**
+
+- `storedImage` retrieves the URL of the user's previously uploaded image from local storage if available.
+- `profileImage` is set to either the `storedImage` URL (if available) or the `defaultImage` URL. This URL is used as the source for displaying the user's profile image.
+
+**10. Rendering:**
+
+Inside the component's render function:
+
+- A `div` element is rendered. When clicked, it triggers the `handleClickDropdown` function from the context, which presumably toggles a dropdown.
+
+- An `img` element displays the user's profile image. It has a circular border, specific dimensions, and uses the URL stored in the `profileImage` state.
+
+- An `input` element of type `file` is rendered, but it's hidden from view (with `style={{ display: 'none' }}`). This input element is associated with the `fileInputRef` created earlier and has an `onChange` event handler, `handleFileChange`, to handle file selection.
+
+- A "Upload Image" button is conditionally displayed based on the value of `showDropDown`. If `showDropDown` is `true`, the button is displayed. When clicked, it triggers the `handleUploadButtonClick` function, which indirectly opens the file selection dialog.
+
+**11. Export:**
+
+The `ProfileImage` component is exported as the default export of the module, making it available for use in other parts of the application.
+
+In summary, this component allows users to upload and display a profile image. It integrates with the context to handle dropdown interactions and updates the image when a new one is uploaded.
 
 ## Installation
 
