@@ -1,8 +1,9 @@
-# Identifying Links in text
+# Feedback List Pagination
 
 ## Table of Contents
 
 - [Description](#description)
+- [Considerations for Choosing Pagination Approach](#considerations-for-choosing-pagination-approach)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Issue](#issue)
