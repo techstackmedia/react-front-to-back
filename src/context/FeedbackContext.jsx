@@ -83,17 +83,25 @@ const FeedbackProvider = ({ children }) => {
   }
 
   const addFeedback = async (newFeedbackItem) => {
-    const response = await fetch(`/feedback`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newFeedbackItem),
-    });
+    try {
+      const response = await fetch(`/feedback`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newFeedbackItem),
+      });
 
-    const data = await response.json();
-    const updatedFeedbackArray = [data, ...feedback];
-    setFeedback(updatedFeedbackArray);
+      if (!response.ok) {
+        throw new Error('Failed to add feedback');
+      }
+
+      const data = await response.json();
+      const updatedFeedbackArray = [data, ...feedback];
+      setFeedback(updatedFeedbackArray);
+    } catch (error) {
+      console.error('Error adding feedback:', error.message);
+    }
   };
 
   const editFeedback = (item) => {
