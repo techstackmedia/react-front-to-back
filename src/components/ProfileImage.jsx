@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import FeedbackContext from '../context/FeedbackContext';
 import 'react-image-crop/dist/ReactCrop.css';
 import sadEmoji from '../images/sad.gif';
+import axios from 'axios';
 
 const ProfileImage = () => {
   const { handleClickDropdown, showDropDown } = useContext(FeedbackContext);
@@ -31,12 +32,12 @@ const ProfileImage = () => {
       formData.append('profileImage', file);
 
       try {
-        const response = await fetch('/feedback/upload-profile-image', {
-          method: 'POST',
-          body: formData,
-        });
+        const response = await axios.post(
+          '/feedback/upload-profile-image',
+          formData
+        );
 
-        const data = await response.json();
+        const data = response.data;
         setUploadedImageUrl(data.profileImage);
         localStorage.setItem('image', data.profileImage); // Set local storage only on successful upload
         setError('');
