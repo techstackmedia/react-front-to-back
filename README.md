@@ -11,78 +11,181 @@
 
 ## Description
 
-### ProfileImage Component Explanation
+### Implementing Pagination Logic in the Feedback List Component
 
-We've defined a React component named `ProfileImage`, which serves the purpose of displaying a user's profile image and enabling them to upload a new image. This component relies on context data from `FeedbackContext` and uses Axios for handling file uploads. Let's break down the code step by step:
+Below is a concise explanation of the pagination logic step by step:
 
-**1. Imports:**
+1. **Import Statements**:
+   - Import necessary dependencies and components.
 
-The component imports the necessary dependencies and libraries:
+```jsx
+import React, { useState, useEffect, useContext } from 'react';
+import FeedbackItem from './FeedbackItem';
+import Pulse from '../Pulse';
+import FeedbackContext from '../../context/FeedbackContext';
+```
 
-- `React`: The core library for building React components.
-- `useContext`: A React hook used to access context data.
-- `useRef`: A React hook for creating a reference to a DOM element.
-- `useState`: A React hook for managing component state.
-- `FeedbackContext`: A custom context that provides `handleClickDropdown` and `showDropDown` from its value.
-- `'react-image-crop/dist/ReactCrop.css'`: A CSS file for styling purposes.
+2. **Functional Component Declaration**:
+   - Define the `FeedbackList` functional component.
 
-**2. Component Definition:**
+```jsx
+const FeedbackList = () => {
+  // ... component code ...
+};
+```
 
-The `ProfileImage` component is defined as a functional component.
+3. **State Initialization**:
+   - Initialize state variables using the `useState` hook.
+   - `feedback` holds the feedback data fetched from the context.
+   - `is24HrFormat` is a boolean state to track the time format (24-hour or 12-hour).
+   - `currentPage` holds the current page number, initialized to 1.
+   - `itemsPerPage` defines the number of items to display per page, initialized to 10.
 
-**3. Context Data:**
+```jsx
+const { feedback, isLoading, error } = useContext(FeedbackContext);
+const [is24HrFormat, setIs24HrFormat] = useState(true);
+const [currentPage, setCurrentPage] = useState(1);
+const [itemsPerPage] = useState(10);
+```
 
-The `useContext` hook is used to access context data, specifically extracting `handleClickDropdown` and `showDropDown` from the context.
+4. **Calculate Index of First and Last Item to Display**:
+   - Calculate the indices of the first and last items to be displayed on the current page.
+   - `indexOfFirstItem` and `indexOfLastItem` are used to slice the `feedback` array to get the items for the current page.
 
-**4. Refs:**
+```jsx
+const indexOfLastItem = currentPage * itemsPerPage;
+const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+const displayedFeedback = feedback.slice(indexOfFirstItem, indexOfLastItem);
+```
 
-A `fileInputRef` is created using `useRef(null)`. This reference will be used to access and programmatically trigger the hidden file input element.
+5. **Calculate Total Number of Pages**:
+   - Calculate the total number of pages based on the total number of feedback items and the items per page.
 
-**5. Default Image URL:**
+```jsx
+const totalPages = Math.ceil(feedback.length / itemsPerPage);
+```
 
-`defaultImage` stores the URL of a default profile image. This URL will be used if there is no custom image uploaded by the user.
+6. **Handle Page Change**:
+   - Define a function `handlePageChange` that takes a `newPage` parameter and updates the `currentPage` state with the new page number.
 
-**6. State:**
+```jsx
+const handlePageChange = (newPage) => {
+  setCurrentPage(newPage);
+};
+```
 
-- `uploadedImageUrl` is a state variable created using `useState(null)`. It will store the URL of the uploaded profile image.
-- `error` is a state variable for storing error messages, and it's initialized as an empty string.
-- `animationClass` is a state variable for controlling animation classes and is initially set to an empty string.
+7. **Use Effect for Time Format**:
+   - Use the `useEffect` hook to load the time format preference from local storage when the component mounts.
+   - If the preference exists in local storage, update the `is24HrFormat` state accordingly.
 
-**7. `handleUploadButtonClick` Function:**
+```jsx
+useEffect(() => {
+  const storedFormat = localStorage.getItem('timeFormat');
+  if (storedFormat) {
+    setIs24HrFormat(storedFormat === '24-hour');
+  }
+}, []);
+```
 
-This function is called when the "Upload Image" button is clicked. It programmatically triggers a click event on the hidden file input element, allowing the user to select a file for upload.
+8. **Conditional Rendering for Empty Feedback**:
+   - If there is no feedback data (`feedback` is empty or falsy) and the loading has finished (`isLoading` is `false`), render a message indicating there is no feedback yet.
 
-**8. `handleFileChange` Function:**
+```jsx
+if (!isLoading && (!feedback || feedback.length === 0)) {
+  return <p>No Feedback Yet</p>;
+}
+```
 
-This function is called when a user selects a file for upload using the file input element. It performs the following actions:
+9. **Conditional Rendering for Loading and Error**:
+   - If the data is still loading (`isLoading` is `true`), render a loading animation (Pulse component).
+   - If there is an error (`error` is truthy), display an error message.
 
-- Checks if the selected file is an image based on its MIME type.
-- If the selected file is a valid image, it creates a `FormData` object, appends the selected file to it, and sends a POST request to the server using Axios for image upload.
-- If the upload is successful, it updates the `uploadedImageUrl` state with the URL of the uploaded image and clears any previous error messages.
-- If an error occurs during the upload, it sets the `error` state with an error message.
+```jsx
+  return isLoading ? (
+    <>
+      <Pulse />
+      {error && <p className='errorIndicator'>{error}</p>}
+    </>
+  ) : (
+    // ... rest of the component code ...
+  );
+```
 
-**9. Profile Image URL:**
+10. **Render Pagination Controls**:
+    - Render the pagination controls with "Previous" and "Next" buttons.
+    - Disable the "Previous" button on the first page (`currentPage === 1`) and the "Next" button on the last page (`currentPage === totalPages`).
+    - Display the current page number and total pages in a span.
 
-- `storedImage` retrieves the URL of the user's previously uploaded image from local storage if available.
-- `profileImage` is set to either the `storedImage` URL (if available) or the `defaultImage` URL. This URL is used as the source for displaying the user's profile image.
+```jsx
+  return (
+    <div className='feedback-list'>
+      {/* ... (existing code) */}
 
-**10. Rendering:**
+      <div className='pagination-controls'>
+        <button
+          style={{ color: currentPage === 1 ? '#000' : undefined }}
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+        <span style={{ color: '#fff' }}>
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          style={{ color: currentPage === totalPages ? '#000' : undefined }}
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  );
+};
+```
 
-Inside the component's render function:
+This code snippets provides a complete example of a paginated feedback list component with the logic for changing pages, displaying the appropriate feedback items, and handling time format and loading/error states.
 
-- A `div` element is rendered. When clicked, it triggers the `handleClickDropdown` function from the context, which presumably toggles a dropdown.
+> **Note:** The code provided in this example demonstrates front-end pagination. While this approach offers benefits such as improved responsiveness and reduced server load, it's worth noting that pagination can also be implemented on the back end for certain use cases. If you are interested in exploring backend API pagination, you can refer to the dedicated branch on the GitHub repository, [05-pagination](https://github.com/techstackmedia/feedback-application-server/tree/05-pagination). Please ensure that you update the front-end code accordingly to maintain synchronization and prevent potential errors.
 
-- An `img` element displays the user's profile image. It has a circular border, specific dimensions, and uses the URL stored in the `profileImage` state.
+## Considerations for Choosing Pagination Approach
 
-- An `input` element of type `file` is rendered, but it's hidden from view (with `style={{ display: 'none' }}`). This input element is associated with the `fileInputRef` created earlier and has an `onChange` event handler, `handleFileChange`, to handle file selection.
+Whether to implement pagination on the front-end or the back-end depends on various factors and use cases. Both approaches have their advantages and considerations, and the choice often depends on your specific requirements and constraints. Here are some considerations for each approach:
 
-- A "Upload Image" button is conditionally displayed based on the value of `showDropDown`. If `showDropDown` is `true`, the button is displayed. When clicked, it triggers the `handleUploadButtonClick` function, which indirectly opens the file selection dialog.
+**Front-End Pagination:**
 
-**11. Export:**
+1. **Responsiveness:** Front-end pagination allows for a more responsive user experience. Users can navigate between pages quickly without waiting for server requests.
 
-The `ProfileImage` component is exported as the default export of the module, making it available for use in other parts of the application.
+2. **Reduced Server Load:** With front-end pagination, the server only sends a subset of data (e.g., a page of items) at a time, reducing the server load and bandwidth usage.
 
-In summary, this component allows users to upload and display a profile image. It integrates with the context to handle dropdown interactions and updates the image when a new one is uploaded.
+3. **Client-Side Caching:** Front-end pagination can leverage client-side caching, making it faster to switch between pages without re-fetching data.
+
+4. **Complex UI Interactions:** If your pagination involves complex interactions, like client-side filtering or sorting, it's often easier to implement these on the front-end.
+
+**Considerations for Front-End Pagination:**
+
+1. **Data Size:** If you're dealing with a very large dataset, fetching all data to the client and paginating it there can lead to excessive memory usage on the client-side.
+
+2. **Security:** Be cautious when paginating sensitive data. Ensure that you're not sending more data to the client than necessary, even if it's hidden from view.
+
+**Back-End Pagination:**
+
+1. **Security:** Back-end pagination ensures that only the required data is sent to the client, which can enhance security and privacy, especially for sensitive data.
+
+2. **Optimized Queries:** Backend pagination allows for optimized database queries. The server can fetch only the necessary records, making queries more efficient.
+
+3. **Consistency:** Back-end pagination provides a consistent view of data across all clients. The same page of data will be shown to all users, reducing the chances of data inconsistencies.
+
+**Considerations for Back-End Pagination:**
+
+1. **Server Load:** If your application has a high volume of traffic and requests, fetching data for each page can put a significant load on the server.
+
+2. **Latency:** Back-end pagination may introduce some latency as users have to wait for server responses when navigating between pages.
+
+3. **Scalability:** It might be more challenging to scale the back end to handle a large number of concurrent users requesting different pages.
+
+In conclusion, the choice between front-end and back-end pagination depends on your specific use case, data size, and performance requirements. It's also common to use a combination of both approaches, where the back end provides paginated data, and the front end enhances the user experience by providing dynamic interactions and client-side caching.
 
 ## Installation
 
