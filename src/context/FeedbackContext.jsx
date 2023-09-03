@@ -8,7 +8,6 @@ import {
 } from '../utils/counterFormatDateTime';
 import Modal from '../components/Modal';
 import { Navigate } from 'react-router';
-
 const FeedbackContext = createContext();
 
 const FeedbackProvider = ({ children }) => {
@@ -31,8 +30,43 @@ const FeedbackProvider = ({ children }) => {
   const [redirectTo500, setRedirectTo500] = useState(null);
   const [error, setError] = useState('');
   const [showDropDown, setShowDropDown] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [errorTimeout, setErrorTimeout] = useState(null);
+  const [success, setSuccess] = useState('');
+  const [formDataSignUp, setFormDataSignUp] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+  });
+
+  const [formDataLogin, setFormDataLogin] = useState({
+    email: '',
+    password: '',
+  });
 
   const currentDate = useCurrentDate();
+
+  const clearError = () => {
+    setError('');
+  };
+
+  const setErrorWithTimeout = (errorMessage, duration) => {
+    // Clear existing error timeout, if any
+    if (errorTimeout) {
+      clearTimeout(errorTimeout);
+    }
+
+    setError(errorMessage);
+
+    // Set a new timeout to clear the error message
+    const timeoutId = setTimeout(() => {
+      clearError();
+    }, duration);
+
+    // Store the timeout ID
+    setErrorTimeout(timeoutId);
+  };
 
   const formattedDate = formatDateTime(
     currentDate,
@@ -74,7 +108,7 @@ const FeedbackProvider = ({ children }) => {
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
-      setError(`Error fetching data: ${error.message}`);
+      setErrorTimeout(`Error fetching data: ${error.message}`);
     }
   };
 
@@ -154,6 +188,75 @@ const FeedbackProvider = ({ children }) => {
     });
   };
 
+  // Sign-up Component
+  const handleSignUp = async (formData) => {
+    try {
+      const response = await fetch('/users/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        // Store the access token in local storage
+        localStorage.setItem('accessToken', data.accessToken);
+        // window.location.href = '/'
+        setLoggedIn(true); 
+        setSuccess(data.message);
+      } else {
+        const errorData = await response.json();
+        // Handle sign-up failure and show error messages to the user
+        setErrorWithTimeout(errorData.error, 3000);
+      }
+    } catch (error) {
+      // Handle network or other errors
+      console.error('Network error:', error.message);
+      setErrorWithTimeout('Network error. Please try again.', 3000);
+    }
+  };
+
+  // Login Component
+  const handleLogin = async (formData) => {
+    const storedToken = localStorage.getItem('accessToken');
+
+    if (!storedToken) {
+      // Handle the case where the token is not available (user is not authenticated)
+      setErrorTimeout('You need to sign in first.');
+      return;
+    }
+
+    try {
+      const response = await fetch('/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${storedToken}`,
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        // Store the new access token in local storage
+        localStorage.setItem('accessToken', data.accessToken);
+        // window.location.href = '/'
+        setLoggedIn(true); 
+        setSuccess(data.message);
+      } else {
+        const errorData = await response.json();
+        // Handle login failure and show error messages to the user
+        setErrorWithTimeout(errorData.error, 3000);
+      }
+    } catch (error) {
+      // Handle network or other errors
+      console.error('Network error:', error.message);
+      setErrorWithTimeout('Network error. Please try again.', 3000);
+    }
+  };
+
   const handleDeleteCancelled = () => {
     setShowDeleteModal(false);
   };
@@ -188,6 +291,14 @@ const FeedbackProvider = ({ children }) => {
         handleDeleteCancelled,
         handleClickDropdown,
         showDropDown,
+        handleSignUp,
+        handleLogin,
+        setFormDataSignUp,
+        setFormDataLogin,
+        formDataSignUp,
+        formDataLogin,
+        loggedIn,
+        success,
       }}
     >
       {children}

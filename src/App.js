@@ -5,6 +5,8 @@ import Blog from './pages/Blog';
 import ServerError from './components/Error/Server';
 import NotFoundError from './components/Error/NotFound';
 import Detail from './pages/Detail';
+import Signin from './pages/Signin';
+import Register from './pages/Register';
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
         <Route path='/500' element={<ServerError />} />
         <Route path='*' element={<NotFoundError />} />
         <Route path='/details/:id/*' element={<Detail />} />
+        <Route path='/signin' element={<Signin />} />
+        <Route path='/register' element={<Register />} />
       </Routes>
     </BrowserRouter>
   );

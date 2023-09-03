@@ -459,6 +459,71 @@ input:focus {
   background-color: #0056b3;
 }
 
+/* AuthStyles.css */
+
+/* Styles for the registration and login containers */
+.auth {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 100px);
+}
+.container-auth {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Styles for headings */
+.container-auth h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Styles for form inputs */
+.container-auth form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Style the submit button */
+.container-auth form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Style the error message */
+.container-auth .error {
+  color: #ff0000;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.error-message {
+  padding: 10px 20px;
+  color: #fff;
+  position: absolute;
+  top: 94%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: red;
+  display: flex;
+  justify-content: center;
+  border-radius: 4px;
+}
 
 
 @media (max-width: 720px) {

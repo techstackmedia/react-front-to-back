@@ -31,7 +31,7 @@ const ProfileImage = () => {
       formData.append('profileImage', file);
 
       try {
-        const response = await fetch('/feedback/upload-profile-image', {
+        const response = await fetch('feedback/upload-profile-image', {
           method: 'POST',
           body: formData,
         });
