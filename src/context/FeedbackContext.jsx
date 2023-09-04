@@ -56,8 +56,8 @@ const FeedbackProvider = ({ children }) => {
     otp: '',
   });
 
-  const [otp, setOtp] = useState(''); 
-  const [isTwoFactorEnabled, setIsTwoFactorEnabled] = useState(false); 
+  const [otp, setOtp] = useState('');
+  const [isTwoFactorEnabled, setIsTwoFactorEnabled] = useState(false);
 
   const currentDate = useCurrentDate();
 
@@ -330,7 +330,7 @@ const FeedbackProvider = ({ children }) => {
     } catch (error) {
       // console.error('Error generating QR code:', error);
       setErrorWithTimeout('Error generating QR code. Please try again.', 3000);
-      return ''; 
+      return '';
     }
   };
 
@@ -376,15 +376,14 @@ const FeedbackProvider = ({ children }) => {
         formDataLogin,
         loggedIn,
         success,
-        otp, 
-        isTwoFactorEnabled, 
-        setOtp, 
-        setIsTwoFactorEnabled, 
+        otp,
+        isTwoFactorEnabled,
+        setOtp,
+        setIsTwoFactorEnabled,
         generateQRCode,
         showModal,
         setShowModal,
         setSuccess,
-        setErrorWithTimeout,
       }}
     >
       {children}

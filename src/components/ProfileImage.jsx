@@ -4,7 +4,7 @@ import 'react-image-crop/dist/ReactCrop.css';
 import sadEmoji from '../images/sad.gif';
 
 const ProfileImage = () => {
-  const { handleClickDropdown, showDropDown, setErrorWithTimeout } =
+  const { handleClickDropdown, showDropDown } =
     useContext(FeedbackContext);
   const fileInputRef = useRef(null);
   const defaultImage = 'https://img.icons8.com/color/48/person-male.png';
@@ -51,25 +51,16 @@ const ProfileImage = () => {
 
   useEffect(() => {
     const getUploadedImages = async () => {
-      try {
-        const uploadedImagesResponse = await fetch(`/users/images`, {
-          method: 'GET',
-        });
+      const uploadedImagesResponse = await fetch(`/users/images`, {
+        method: 'GET',
+      });
 
-        if (!uploadedImagesResponse.ok) {
-          // Handle the case where the request is not successful (e.g., 404 or 500)
-          throw new Error('Failed to fetch images');
-        }
-
-        const uploadedImagesData = await uploadedImagesResponse.json();
-        setImages(uploadedImagesData);
-      } catch (error) {
-        setErrorWithTimeout(`Error: ${error.message}`, 3000);
-      }
+      const uploadedImagesData = await uploadedImagesResponse.json();
+      setImages(uploadedImagesData);
     };
 
     getUploadedImages();
-  }, [setErrorWithTimeout]);
+  }, []);
 
   const profileImage = images[0] || defaultImage;
 
