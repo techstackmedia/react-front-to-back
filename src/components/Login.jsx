@@ -4,14 +4,13 @@ import { nanoid } from 'nanoid';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import QRCode from 'react-qr-code';
 import TokenExpiredModal from './TokenExpiredModal';
-import exclamation from '../images/exclamation.png';
+import Toast from './Toast';
 
 const Login = () => {
   const {
     handleLogin,
     formDataLogin,
     setFormDataLogin,
-    error,
     loggedIn,
     otp,
     isTwoFactorEnabled,
@@ -19,7 +18,7 @@ const Login = () => {
     setIsTwoFactorEnabled,
     generateQRCode,
     showModal,
-    setShowModal, // Add setShowModal function
+    setShowModal, 
   } = useContext(FeedbackContext);
   const { pathname } = useLocation();
   const token = nanoid();
@@ -31,7 +30,7 @@ const Login = () => {
       localStorage.removeItem('refreshToken');
       localStorage.setItem('accessTokenExpiration', '0');
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [qrCodeDataURL, setQRCodeDataURL] = useState('');
@@ -50,14 +49,13 @@ const Login = () => {
   };
 
   useEffect(() => {
-    // Use a setTimeout to automatically close the modal after 3 seconds
     if (showModal) {
       const modalTimer = setTimeout(() => {
         setShowModal(false);
       }, 3000);
 
       return () => {
-        clearTimeout(modalTimer); // Clear the timer if the component unmounts
+        clearTimeout(modalTimer); 
       };
     }
   }, []);
@@ -141,19 +139,7 @@ const Login = () => {
             </div>
           </div>
         </form>
-        {error ? (
-          <div className='error-message'>
-            <p style={{ display: 'flex' }}>
-              <img
-                src={exclamation}
-                alt='exclamation icon'
-                width={24}
-                height={24}
-              />{' '}
-              {error}
-            </p>
-          </div>
-        ) : null}
+        <Toast />
         {showModal && <TokenExpiredModal showModal={showModal} />}
       </div>
     </div>

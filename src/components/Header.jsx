@@ -25,7 +25,7 @@ const Header = ({ text, bgColor, textColor }) => {
   return (
     <header style={headerStyles}>
       <div className='container'>
-        <h2 style={{ position: 'relative', left: '50' }}>
+        <h2 style={{ position: 'relative', left: 50 }}>
           <Link to='/'>{text}</Link>
         </h2>
       </div>
@@ -43,7 +43,7 @@ const Header = ({ text, bgColor, textColor }) => {
         <div
           style={{
             right:
-              pathname === '/signin' || pathname === 'register'
+              pathname === '/signin' || pathname === '/register'
                 ? -50 
                 : undefined,
               position: 'relative'

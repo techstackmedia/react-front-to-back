@@ -2,8 +2,6 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import FeedbackContext from '../context/FeedbackContext';
 import 'react-image-crop/dist/ReactCrop.css';
 import sadEmoji from '../images/sad.gif';
-import { useNavigate } from 'react-router-dom';
-import Button from '../components/shared/Button';
 
 const ProfileImage = () => {
   const { handleClickDropdown, showDropDown } = useContext(FeedbackContext);

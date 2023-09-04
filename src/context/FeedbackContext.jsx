@@ -43,7 +43,7 @@ const FeedbackProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [errorTimeout, setErrorTimeout] = useState(null);
   const [success, setSuccess] = useState('');
-  const [showModal, setShowModal] = useState(true); // State for showing/hiding the modal
+  const [showModal, setShowModal] = useState(true);
   const [formDataSignUp, setFormDataSignUp] = useState({
     firstName: '',
     lastName: '',
@@ -221,8 +221,8 @@ const FeedbackProvider = ({ children }) => {
       if (response.ok) {
         const responseData = await response.json();
         localStorage.setItem('accessToken', responseData.accessToken);
-        localStorage.setItem('refreshToken', responseData.refreshToken)
-        localStorage.setItem('loggedIn', 'true')
+        localStorage.setItem('refreshToken', responseData.refreshToken);
+        localStorage.setItem('loggedIn', 'true');
         setLoggedIn(true);
         setSuccess(responseData.message);
       } else {
@@ -385,6 +385,7 @@ const FeedbackProvider = ({ children }) => {
         generateQRCode,
         showModal,
         setShowModal,
+        setSuccess,
       }}
     >
       {children}

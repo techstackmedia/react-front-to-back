@@ -7,6 +7,7 @@ import Header from '../../components/Header';
 import AboutIcon from '../../components/AboutIcon';
 import FeedbackContext from '../../context/FeedbackContext';
 import Timer from '../../components/Timer';
+import Toast from '../../components/Toast';
 
 const Home = () => {
   const { alertConfirmationModal } = useContext(FeedbackContext);
@@ -26,6 +27,7 @@ const Home = () => {
       </div>
       <Footer />
       <AboutIcon />
+      <Toast />
     </>
   );
 }
