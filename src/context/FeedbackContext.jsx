@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import useCurrentDate from '../hooks/useCurrentDate';
 import {
   formatDateTime,
@@ -8,6 +8,7 @@ import {
 } from '../utils/counterFormatDateTime';
 import Modal from '../components/Modal';
 import { Navigate } from 'react-router';
+
 const FeedbackContext = createContext();
 
 const FeedbackProvider = ({ children }) => {
@@ -22,6 +23,15 @@ const FeedbackProvider = ({ children }) => {
     }
   }, []);
 
+  useEffect(() => {
+    // Check if accessTokenExpiration is 0 in localStorage
+    const accessTokenExpiration = localStorage.getItem('accessTokenExpiration');
+    if (accessTokenExpiration && parseInt(accessTokenExpiration, 10) === 0) {
+      // Remove loggedIn from localStorage
+      localStorage.removeItem('loggedIn');
+    }
+  }, []);
+
   const [feedback, setFeedback] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -33,17 +43,23 @@ const FeedbackProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [errorTimeout, setErrorTimeout] = useState(null);
   const [success, setSuccess] = useState('');
+  const [showModal, setShowModal] = useState(true); // State for showing/hiding the modal
   const [formDataSignUp, setFormDataSignUp] = useState({
     firstName: '',
     lastName: '',
     email: '',
     password: '',
+    otp: '',
   });
 
   const [formDataLogin, setFormDataLogin] = useState({
     email: '',
     password: '',
+    otp: '',
   });
+
+  const [otp, setOtp] = useState(''); // State for OTP input
+  const [isTwoFactorEnabled, setIsTwoFactorEnabled] = useState(false); // State for 2FA enabling
 
   const currentDate = useCurrentDate();
 
@@ -52,19 +68,16 @@ const FeedbackProvider = ({ children }) => {
   };
 
   const setErrorWithTimeout = (errorMessage, duration) => {
-    // Clear existing error timeout, if any
     if (errorTimeout) {
       clearTimeout(errorTimeout);
     }
 
     setError(errorMessage);
 
-    // Set a new timeout to clear the error message
     const timeoutId = setTimeout(() => {
       clearError();
     }, duration);
 
-    // Store the timeout ID
     setErrorTimeout(timeoutId);
   };
 
@@ -171,7 +184,8 @@ const FeedbackProvider = ({ children }) => {
         edit: false,
       }));
     } catch (error) {
-      console.error('Error updating feedback:', error);
+      // console.error('Error updating feedback:', error);
+      setErrorTimeout('Error updating feedback.');
     }
   };
 
@@ -188,72 +202,137 @@ const FeedbackProvider = ({ children }) => {
     });
   };
 
-  // Sign-up Component
   const handleSignUp = async (formData) => {
     try {
+      const data = {
+        ...formData,
+        otp,
+        twoFactorEnabled: isTwoFactorEnabled,
+      };
+
       const response = await fetch('/users/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(data),
       });
 
       if (response.ok) {
-        const data = await response.json();
-        // Store the access token in local storage
-        localStorage.setItem('accessToken', data.accessToken);
-        // window.location.href = '/'
-        setLoggedIn(true); 
-        setSuccess(data.message);
+        const responseData = await response.json();
+        localStorage.setItem('accessToken', responseData.accessToken);
+        localStorage.setItem('refreshToken', responseData.refreshToken)
+        localStorage.setItem('loggedIn', 'true')
+        setLoggedIn(true);
+        setSuccess(responseData.message);
       } else {
         const errorData = await response.json();
-        // Handle sign-up failure and show error messages to the user
         setErrorWithTimeout(errorData.error, 3000);
       }
     } catch (error) {
-      // Handle network or other errors
-      console.error('Network error:', error.message);
+      // console.error('Network error:', error.message);
       setErrorWithTimeout('Network error. Please try again.', 3000);
     }
   };
 
-  // Login Component
   const handleLogin = async (formData) => {
     const storedToken = localStorage.getItem('accessToken');
+    const expirationTime = localStorage.getItem('accessTokenExpiration');
 
     if (!storedToken) {
-      // Handle the case where the token is not available (user is not authenticated)
       setErrorTimeout('You need to sign in first.');
       return;
     }
 
+    const currentTime = new Date().getTime() / 1000;
+
+    if (expirationTime && parseInt(expirationTime, 10) === 0) {
+      setShowModal(false);
+    } else if (expirationTime && currentTime >= expirationTime - 60) {
+      await handleTokenRefresh();
+    }
+
     try {
+      const data = {
+        ...formData,
+        otp,
+      };
+
       const response = await fetch('/users/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${storedToken}`,
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(data),
       });
 
       if (response.ok) {
-        const data = await response.json();
-        // Store the new access token in local storage
-        localStorage.setItem('accessToken', data.accessToken);
-        // window.location.href = '/'
-        setLoggedIn(true); 
-        setSuccess(data.message);
+        const responseData = await response.json();
+        localStorage.setItem('accessToken', responseData.accessToken);
+        localStorage.setItem(
+          'accessTokenExpiration',
+          responseData.accessTokenExpiration
+        );
+        localStorage.setItem('refreshToken', responseData.refreshToken);
+        setLoggedIn(true);
+        setSuccess(responseData.message);
       } else {
         const errorData = await response.json();
-        // Handle login failure and show error messages to the user
         setErrorWithTimeout(errorData.error, 3000);
       }
     } catch (error) {
-      // Handle network or other errors
-      console.error('Network error:', error.message);
+      // console.error('Network error:', error.message);
       setErrorWithTimeout('Network error. Please try again.', 3000);
+    }
+  };
+
+  const handleTokenRefresh = async () => {
+    const storedRefreshToken = localStorage.getItem('refreshToken');
+
+    try {
+      const response = await fetch('/users/refresh-token', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ refreshToken: storedRefreshToken }),
+      });
+
+      if (response.ok) {
+        const responseData = await response.json();
+        localStorage.setItem('accessToken', responseData.accessToken);
+      } else {
+        // console.error('Refresh token failed');
+        setErrorWithTimeout('Refresh token failed.', 3000);
+      }
+    } catch (error) {
+      // console.error('Network error while refreshing token:', error.message);
+      setErrorWithTimeout('Network error while refreshing token.', 3000);
+    }
+  };
+
+  const generateQRCode = async () => {
+    try {
+      const storedToken = localStorage.getItem('accessToken');
+      const response = await fetch('/users/generate-qr-code', {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${storedToken}`, // Include the user's authentication token here
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(
+          `Network response was not ok (Status: ${response.status})`
+        );
+      }
+      const data = await response.json();
+      return data.qrCodeDataURL;
+    } catch (error) {
+      // console.error('Error generating QR code:', error);
+      setErrorWithTimeout('Error generating QR code. Please try again.', 3000);
+      return ''; // Handle the error appropriately in your application
     }
   };
 
@@ -299,6 +378,13 @@ const FeedbackProvider = ({ children }) => {
         formDataLogin,
         loggedIn,
         success,
+        otp, // Added OTP state
+        isTwoFactorEnabled, // Added 2FA state
+        setOtp, // Function to set OTP
+        setIsTwoFactorEnabled, // Function to set 2FA
+        generateQRCode,
+        showModal,
+        setShowModal,
       }}
     >
       {children}

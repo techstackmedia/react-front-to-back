@@ -1,21 +1,28 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Toggler from './Toggler';
 import ProfileImage from './ProfileImage';
-import DropDown from './DropDown';
+import Button from './shared/Button';
+import { useContext } from 'react';
+import FeedbackContext from '../context/FeedbackContext';
 
 const Header = ({ text, bgColor, textColor }) => {
+  const { setShowModal } = useContext(FeedbackContext);
   const headerStyles = {
     backgroundColor: bgColor,
     color: textColor,
-    // display: 'flex',
-    // height: 80,
-    // alignItems: 'center',
+  };
+
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  const handleClickLogout = () => {
+    navigate('/signin');
+    setShowModal(false);
   };
 
   return (
     <header style={headerStyles}>
       <div className='container'>
-        <DropDown />
         <h2>
           <Link to='/'>{text}</Link>
         </h2>
@@ -30,6 +37,22 @@ const Header = ({ text, bgColor, textColor }) => {
       >
         <ProfileImage />
         <Toggler text={text} />
+        {pathname === '/signin' ? null : (
+          <Button
+            version='secondary'
+            sx={{
+              position: 'absolute',
+              top: 16,
+              right: 118,
+              width: 55,
+              zIndex: 1,
+              height: 34,
+            }}
+            onClick={handleClickLogout}
+          >
+            {pathname === '/register' ? 'Login' : 'Logout'}
+          </Button>
+        )}
       </div>
     </header>
   );

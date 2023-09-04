@@ -8,11 +8,9 @@ const FeedbackList = () => {
   const [is24HrFormat, setIs24HrFormat] = useState(true);
   const [currentPage, setCurrentPage] = useState(1); // Current page number
   const [itemsPerPage] = useState(10); // Number of items to display per page
-
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const displayedFeedback = feedback.slice(indexOfFirstItem, indexOfLastItem);
-
   const totalPages = Math.ceil(feedback.length / itemsPerPage);
 
   const handlePageChange = (newPage) => {

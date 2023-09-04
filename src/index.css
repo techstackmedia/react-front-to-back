@@ -476,6 +476,12 @@ input:focus {
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-height: 438.984px;
+  overflow-y: auto;
+}
+
+.container-auth::-webkit-scrollbar {
+  display: none;
 }
 
 /* Styles for headings */
@@ -525,6 +531,63 @@ input:focus {
   border-radius: 4px;
 }
 
+.enable-label-2fa {
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  font-size: 14px;
+  flex-wrap: wrap;
+}
+
+/* .card {
+  overflow-x: auto;
+}
+
+::-webkit-scrollbar {
+  display: none;
+} */
+
+/* TokenExpiredModal.css */
+.token-expired-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.token-expired-modal > .modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.token-expired-modal > h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.token-expired-modal > button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.token-expired-modal > button:hover {
+  background-color: #0056b3;
+}
 
 @media (max-width: 720px) {
   .card,
@@ -558,5 +621,20 @@ input:focus {
 
   .input-group input {
     width: 80%;
+  }
+}
+
+@media (max-width: 380px) {
+  .removeText {
+    display: none;
+  }
+}
+
+@media (max-width: 303px) {
+  .enable2fa {
+    display: none;
+  }
+  .enable2fa > input {
+    position: static;
   }
 }

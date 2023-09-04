@@ -1,12 +1,12 @@
 import AboutIcon from '../components/AboutIcon';
-import { Registration } from '../components/Authentication';
 import Header from '../components/Header';
+import Signup from '../components/Signup';
 
 const Register = () => {
   return (
     <>
       <Header />
-      <Registration />
+      <Signup />
       <AboutIcon />
     </>
   );

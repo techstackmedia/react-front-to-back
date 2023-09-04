@@ -1,6 +1,6 @@
 import AboutIcon from '../components/AboutIcon';
-import { Login } from '../components/Authentication';
 import Header from '../components/Header';
+import Login from '../components/Login';
 
 const Signin = () => {
   return (

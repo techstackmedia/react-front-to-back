@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import FeedbackContext from '../context/FeedbackContext';
 import 'react-image-crop/dist/ReactCrop.css';
 import sadEmoji from '../images/sad.gif';
+import { useNavigate } from 'react-router-dom';
+import Button from '../components/shared/Button';
 
 const ProfileImage = () => {
   const { handleClickDropdown, showDropDown } = useContext(FeedbackContext);
@@ -108,6 +110,7 @@ const ProfileImage = () => {
           right: 60,
           top: 60,
           outline: '3px solid #fff',
+          zIndex: 2
           // boxShadow: '0 3px 15px 1px #333',
         }}
         onClick={handleUploadButtonClick}
