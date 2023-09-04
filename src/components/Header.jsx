@@ -25,7 +25,17 @@ const Header = ({ text, bgColor, textColor }) => {
   return (
     <header style={headerStyles}>
       <div className='container'>
-        <h2 style={{ position: 'relative', left: 50 }}>
+        <div style={{ position: 'absolute', left: 15, top: 16 }}>
+          <Link to='/'>
+            <img
+              src='https://techstackmedia.com/images/ts-icon.svg'
+              alt='techstackmedia logo'
+              width={38}
+              height={38}
+            />
+          </Link>
+        </div>
+        <h2 className='feedback-ui' style={{ position: 'relative', left: 50 }}>
           <Link to='/'>{text}</Link>
         </h2>
       </div>
@@ -44,9 +54,9 @@ const Header = ({ text, bgColor, textColor }) => {
           style={{
             right:
               pathname === '/signin' || pathname === '/register'
-                ? -50 
+                ? -50
                 : undefined,
-              position: 'relative'
+            position: 'relative',
           }}
         >
           <Toggler text={text} />

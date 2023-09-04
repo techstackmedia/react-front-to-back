@@ -16,7 +16,7 @@ const Home = () => {
     <>
       {alertConfirmationModal}
 
-      <Header text='Feedback UI' color='#ff6a95' bgColor='rgba(0, 0, 0, 0.4)' />
+      <Header text='Feedback' color='#ff6a95' bgColor='rgba(0, 0, 0, 0.4)' />
       <div className='container'>
         <div>
           <FeedbackForm />

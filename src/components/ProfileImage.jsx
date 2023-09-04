@@ -21,7 +21,7 @@ const ProfileImage = () => {
   }, [uploadedImageUrl, error]);
 
   const handleUploadButtonClick = () => {
-    fileInputRef.current.click(); // Trigger the hidden file input's click event
+    fileInputRef.current.click();
   };
 
   const handleFileChange = async (event) => {
@@ -38,7 +38,7 @@ const ProfileImage = () => {
 
         const data = await response.json();
         setUploadedImageUrl(data.profileImage);
-        localStorage.setItem('image', data.profileImage); // Set local storage only on successful upload
+        localStorage.setItem('image', data.profileImage); 
         setError('');
       } catch (error) {
         setError('Error uploading image');

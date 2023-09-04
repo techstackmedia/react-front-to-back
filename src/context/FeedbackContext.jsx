@@ -24,10 +24,8 @@ const FeedbackProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    // Check if accessTokenExpiration is 0 in localStorage
     const accessTokenExpiration = localStorage.getItem('accessTokenExpiration');
     if (accessTokenExpiration && parseInt(accessTokenExpiration, 10) === 0) {
-      // Remove loggedIn from localStorage
       localStorage.removeItem('loggedIn');
     }
   }, []);
@@ -58,8 +56,8 @@ const FeedbackProvider = ({ children }) => {
     otp: '',
   });
 
-  const [otp, setOtp] = useState(''); // State for OTP input
-  const [isTwoFactorEnabled, setIsTwoFactorEnabled] = useState(false); // State for 2FA enabling
+  const [otp, setOtp] = useState(''); 
+  const [isTwoFactorEnabled, setIsTwoFactorEnabled] = useState(false); 
 
   const currentDate = useCurrentDate();
 
@@ -318,7 +316,7 @@ const FeedbackProvider = ({ children }) => {
       const response = await fetch('/users/generate-qr-code', {
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${storedToken}`, // Include the user's authentication token here
+          Authorization: `Bearer ${storedToken}`,
         },
       });
 
@@ -332,7 +330,7 @@ const FeedbackProvider = ({ children }) => {
     } catch (error) {
       // console.error('Error generating QR code:', error);
       setErrorWithTimeout('Error generating QR code. Please try again.', 3000);
-      return ''; // Handle the error appropriately in your application
+      return ''; 
     }
   };
 
@@ -378,10 +376,10 @@ const FeedbackProvider = ({ children }) => {
         formDataLogin,
         loggedIn,
         success,
-        otp, // Added OTP state
-        isTwoFactorEnabled, // Added 2FA state
-        setOtp, // Function to set OTP
-        setIsTwoFactorEnabled, // Function to set 2FA
+        otp, 
+        isTwoFactorEnabled, 
+        setOtp, 
+        setIsTwoFactorEnabled, 
         generateQRCode,
         showModal,
         setShowModal,

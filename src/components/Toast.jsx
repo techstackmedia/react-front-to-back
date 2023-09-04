@@ -3,8 +3,7 @@ import FeedbackContext from '../context/FeedbackContext';
 import exclamation from '../images/exclamation.png';
 
 const Toast = () => {
-  const { error, success, setSuccess } =
-    useContext(FeedbackContext);
+  const { error, success, setSuccess } = useContext(FeedbackContext);
   useEffect(() => {
     // Use a setTimeout to automatically clear the success message after 3 seconds
     if (success) {
@@ -16,7 +15,7 @@ const Toast = () => {
         clearTimeout(successTimer); // Clear the timer if the component unmounts
       };
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [success]);
 
   const clearSuccess = () => {
@@ -30,9 +29,14 @@ const Toast = () => {
       </p>
     </div>
   ) : success ? (
-    <div className='success-message' style={{top: 100}}>
+    <div className='success-message' style={{ top: 100 }}>
       <p style={{ display: 'flex', gap: 5 }}>
-        <img src={'https://img.icons8.com/fluency/48/ok--v1.png'} alt='success icon' width={24} height={24} />{' '}
+        <img
+          src='https://img.icons8.com/fluency/48/ok--v1.png'
+          alt='success icon'
+          width={24}
+          height={24}
+        />{' '}
         {success}
       </p>
     </div>

@@ -127,6 +127,14 @@ input:focus {
   outline: none;
 }
 
+.text-display {
+  overflow-x: auto;
+}
+
+.text-display::-webkit-scrollbar {
+  display: none;
+}
+
 .feedback-stats {
   color: #fff;
   display: flex;
@@ -529,6 +537,9 @@ input:focus {
   display: flex;
   justify-content: center;
   border-radius: 4px;
+  min-height: 25.594;
+  gap: 4;
+  align-items: center;
 }
 
 .error-message {
@@ -611,6 +622,9 @@ input:focus {
   .feedback-stats,
   .feedback-stats ~ p {
     width: 100%;
+  }
+  .feedback-ui {
+    display: none;
   }
 }
 
