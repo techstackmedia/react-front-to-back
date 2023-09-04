@@ -4,12 +4,14 @@ import 'react-image-crop/dist/ReactCrop.css';
 import sadEmoji from '../images/sad.gif';
 
 const ProfileImage = () => {
-  const { handleClickDropdown, showDropDown } = useContext(FeedbackContext);
+  const { handleClickDropdown, showDropDown, setErrorWithTimeout } =
+    useContext(FeedbackContext);
   const fileInputRef = useRef(null);
   const defaultImage = 'https://img.icons8.com/color/48/person-male.png';
   const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
   const [error, setError] = useState('');
   const [animationClass, setAnimationClass] = useState('');
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
     setAnimationClass('animate');
@@ -38,7 +40,6 @@ const ProfileImage = () => {
 
         const data = await response.json();
         setUploadedImageUrl(data.profileImage);
-        localStorage.setItem('image', data.profileImage); 
         setError('');
       } catch (error) {
         setError('Error uploading image');
@@ -48,8 +49,29 @@ const ProfileImage = () => {
     }
   };
 
-  const storedImage = localStorage.getItem('image');
-  const profileImage = storedImage || defaultImage;
+  useEffect(() => {
+    const getUploadedImages = async () => {
+      try {
+        const uploadedImagesResponse = await fetch(`/users/images`, {
+          method: 'GET',
+        });
+
+        if (!uploadedImagesResponse.ok) {
+          // Handle the case where the request is not successful (e.g., 404 or 500)
+          throw new Error('Failed to fetch images');
+        }
+
+        const uploadedImagesData = await uploadedImagesResponse.json();
+        setImages(uploadedImagesData);
+      } catch (error) {
+        setErrorWithTimeout(`Error: ${error.message}`, 3000);
+      }
+    };
+
+    getUploadedImages();
+  }, [setErrorWithTimeout]);
+
+  const profileImage = images[0] || defaultImage;
 
   return (
     <div onClick={handleClickDropdown}>
@@ -108,7 +130,7 @@ const ProfileImage = () => {
           right: 60,
           top: 60,
           outline: '3px solid #fff',
-          zIndex: 2
+          zIndex: 2,
           // boxShadow: '0 3px 15px 1px #333',
         }}
         onClick={handleUploadButtonClick}

@@ -384,6 +384,7 @@ const FeedbackProvider = ({ children }) => {
         showModal,
         setShowModal,
         setSuccess,
+        setErrorWithTimeout,
       }}
     >
       {children}
