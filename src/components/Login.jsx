@@ -31,6 +31,7 @@ const Login = () => {
       localStorage.removeItem('refreshToken');
       localStorage.setItem('accessTokenExpiration', '0');
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [qrCodeDataURL, setQRCodeDataURL] = useState('');

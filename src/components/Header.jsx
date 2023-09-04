@@ -16,7 +16,9 @@ const Header = ({ text, bgColor, textColor }) => {
   const { pathname } = useLocation();
 
   const handleClickLogout = () => {
-    navigate('/signin');
+    pathname !== '/signin' || pathname !== '/register'
+      ? (window.location.href = '/signin')
+      : navigate('/signin');
     setShowModal(false);
   };
 
@@ -35,8 +37,20 @@ const Header = ({ text, bgColor, textColor }) => {
           cursor: 'pointer',
         }}
       >
-        <ProfileImage />
-        <Toggler text={text} />
+        {pathname === '/signin' || pathname === '/register' ? null : (
+          <ProfileImage />
+        )}
+        <div
+          style={{
+            right:
+              pathname === '/signin' || pathname === 'register'
+                ? -50 
+                : undefined,
+              position: 'relative'
+          }}
+        >
+          <Toggler text={text} />
+        </div>
         {pathname === '/signin' ? null : (
           <Button
             version='secondary'
