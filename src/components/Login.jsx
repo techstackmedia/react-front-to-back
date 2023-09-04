@@ -123,7 +123,8 @@ const Login = () => {
                 top: 22,
               }}
             />
-            <div className='linke-register'
+            <div
+              className='linke-register'
               style={{
                 position: 'relative',
                 top: 8,
@@ -133,7 +134,9 @@ const Login = () => {
                 textAlign: 'center',
               }}
             >
-              <Link to='/register'>Register</Link>
+              <Link style={{ textDecoration: 'none' }} to='/register'>
+                Register
+              </Link>
             </div>
           </div>
         </form>
