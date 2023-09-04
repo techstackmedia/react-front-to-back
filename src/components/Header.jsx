@@ -25,7 +25,10 @@ const Header = ({ text, bgColor, textColor }) => {
   return (
     <header style={headerStyles}>
       <div className='container'>
-        <div style={{ position: 'absolute', left: 15, top: 16 }}>
+        <div
+          style={{ position: 'absolute', left: 15, top: 16 }}
+          title='Techstack Media'
+        >
           <Link to='/'>
             <img
               src='https://techstackmedia.com/images/ts-icon.svg'
