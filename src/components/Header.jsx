@@ -23,7 +23,7 @@ const Header = ({ text, bgColor, textColor }) => {
   return (
     <header style={headerStyles}>
       <div className='container'>
-        <h2>
+        <h2 style={{ position: 'relative', left: '50' }}>
           <Link to='/'>{text}</Link>
         </h2>
       </div>
