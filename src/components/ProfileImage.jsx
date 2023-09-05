@@ -40,6 +40,7 @@ const ProfileImage = () => {
 
         const data = await response.json();
         setUploadedImageUrl(data.profileImage);
+        localStorage.setItem('image', data.profileImage);
         setError('');
       } catch (error) {
         setError('Error uploading image');
@@ -60,9 +61,9 @@ const ProfileImage = () => {
     };
 
     getUploadedImages();
-  }, [images]);
+  }, [setImages]);
 
-  const profileImage = images[0] || defaultImage;
+  const profileImage = localStorage.getItem('image') ?? (images[0] || defaultImage);
 
   return (
     <div onClick={handleClickDropdown}>
