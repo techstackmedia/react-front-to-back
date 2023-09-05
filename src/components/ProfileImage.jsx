@@ -60,7 +60,7 @@ const ProfileImage = () => {
     };
 
     getUploadedImages();
-  }, []);
+  }, [images]);
 
   const profileImage = images[0] || defaultImage;
 
