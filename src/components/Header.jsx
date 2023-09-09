@@ -31,7 +31,7 @@ const Header = ({ text, bgColor, textColor }) => {
         >
           <Link to='/'>
             <img
-              src='https://techstackmedia.com/images/ts-icon.svg'
+              src='https://res.cloudinary.com/bizstak/image/upload/v1693867442/wnqeslpaa0xepjsqq7zv.png'
               alt='techstackmedia logo'
               width={38}
               height={38}
