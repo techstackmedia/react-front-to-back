@@ -56,7 +56,7 @@ To run the project on your local machine, follow these steps:
 3. Install dependencies: `npm install` or `yarn install`
 4. Start the development server: `npm start` or `yarn start`
 
-The backend code located at `https://github.com/techstackmedia/feedback-application-server` will be required later, starting from section `33-setting-a-proxy-for-feedback-app` and onward. Repeat the same process from step 1 (cloning the repository) to step 4 (starting the development server with `npm run dev`) as outlined above.
+The backend code located at [`https://github.com/techstackmedia/feedback-application-server`](https://github.com/techstackmedia/feedback-application-server) will be required later, starting from section `33-setting-a-proxy-for-feedback-app` and onward. Repeat the same process from step 1 (cloning the repository) to step 4 (starting the development server with `npm run dev`) as outlined above.
 
 ## Usage
 
