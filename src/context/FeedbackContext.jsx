@@ -200,16 +200,12 @@ const FeedbackProvider = ({ children }) => {
 
   const handleSignUp = async (formData) => {
     try {
-      const data = {
-        ...formData,
-      };
-
       const response = await fetch('/users/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
@@ -247,17 +243,13 @@ const FeedbackProvider = ({ children }) => {
     }
 
     try {
-      const data = {
-        ...formData,
-      };
-
       const response = await fetch('/users/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${storedToken}`,
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
