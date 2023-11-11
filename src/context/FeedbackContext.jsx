@@ -56,8 +56,6 @@ const FeedbackProvider = ({ children }) => {
     otp: '',
   });
 
-  const [otp, setOtp] = useState('');
-  const [isTwoFactorEnabled, setIsTwoFactorEnabled] = useState(false);
 
   const currentDate = useCurrentDate();
 
@@ -204,8 +202,6 @@ const FeedbackProvider = ({ children }) => {
     try {
       const data = {
         ...formData,
-        otp,
-        twoFactorEnabled: isTwoFactorEnabled,
       };
 
       const response = await fetch('/users/signup', {
@@ -253,7 +249,6 @@ const FeedbackProvider = ({ children }) => {
     try {
       const data = {
         ...formData,
-        otp,
       };
 
       const response = await fetch('/users/login', {
@@ -310,30 +305,6 @@ const FeedbackProvider = ({ children }) => {
     }
   };
 
-  const generateQRCode = async () => {
-    try {
-      const storedToken = localStorage.getItem('accessToken');
-      const response = await fetch('/users/generate-qr-code', {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${storedToken}`,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(
-          `Network response was not ok (Status: ${response.status})`
-        );
-      }
-      const data = await response.json();
-      return data.qrCodeDataURL;
-    } catch (error) {
-      // console.error('Error generating QR code:', error);
-      setErrorWithTimeout('Error generating QR code. Please try again.', 3000);
-      return '';
-    }
-  };
-
   const handleDeleteCancelled = () => {
     setShowDeleteModal(false);
   };
@@ -376,11 +347,6 @@ const FeedbackProvider = ({ children }) => {
         formDataLogin,
         loggedIn,
         success,
-        otp,
-        isTwoFactorEnabled,
-        setOtp,
-        setIsTwoFactorEnabled,
-        generateQRCode,
         showModal,
         setShowModal,
         setSuccess,
